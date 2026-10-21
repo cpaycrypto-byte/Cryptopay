@@ -132,10 +132,38 @@
             </div>
 
             <form id="settingsForm">
-              <!-- Name display -->
-              <div class="mb-3 p-3 rounded-3 bg-light border">
-                <div class="text-muted small">Account Holder</div>
-                <div class="fw-bold text-dark fs-5" id="nameDisplay">Loading...</div>
+              <!-- Profile & Identity Section -->
+              <div class="mb-4 p-3 p-md-4 rounded-3 bg-light border shadow-sm">
+                <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2 pb-3 border-bottom mb-3">
+                  <div>
+                    <div class="text-muted small fw-semibold text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Account Holder</div>
+                    <div class="fw-bold text-dark fs-4 mb-0" id="nameDisplay">Loading...</div>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2.5 py-1.5 rounded-pill fw-semibold" style="font-size: 0.8rem;">
+                      <i class="bi bi-person-check-fill me-1"></i>KYC Verified
+                    </span>
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1.5 rounded-pill fw-semibold" style="font-size: 0.8rem;">
+                      <i class="bi bi-shield-check me-1"></i>Tier 3 Active
+                    </span>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="text-muted small fw-semibold text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Verified Residential Address</div>
+                    <div class="d-flex align-items-center gap-2 mt-1 p-2.5 rounded-2 bg-white border">
+                      <i class="bi bi-geo-alt-fill text-danger fs-5 flex-shrink-0"></i>
+                      <div class="fw-semibold text-dark small mb-0" id="addressDisplay">450 Lexington Avenue, Suite 1900, New York, NY 10017, USA</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact & Address Edit Section -->
+              <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
+                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-pencil-square text-primary me-2"></i>Contact &amp; Residential Information</h6>
+                <span class="text-muted small">Update profile on record</span>
               </div>
 
               <!-- Contact Info -->
@@ -150,11 +178,11 @@
                 </div>
               </div>
 
-              <!-- Residential Address -->
+              <!-- Residential Address Input -->
               <div class="mb-3">
-                <label for="address" class="form-label"><i class="bi bi-geo-alt-fill text-primary me-1"></i>Residential Address</label>
+                <label for="address" class="form-label"><i class="bi bi-geo-alt-fill text-danger me-1"></i>Residential Address</label>
                 <input type="text" class="form-control py-2" id="address" placeholder="Street Address, City, State/Province, Postal Code, Country" required>
-                <div class="form-text small text-muted">Primary residential address on file for regulatory KYC compliance and card issuance.</div>
+                <div class="form-text small text-muted">Primary residential address on file for regulatory compliance and metal debit card dispatch.</div>
               </div>
 
               <!-- Password updates -->
@@ -251,11 +279,18 @@
       document.getElementById('nameDisplay').textContent = cachedFullName;
       if (user.email) document.getElementById('email').value = user.email;
       if (user.phone) document.getElementById('phone').value = user.phone;
-      if (user.address) document.getElementById('address').value = user.address;
+
+      const fallbackAddress = '450 Lexington Avenue, Suite 1900, New York, NY 10017, USA';
+      const initialAddress = user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? fallbackAddress : '');
+      if (initialAddress) {
+        if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = initialAddress;
+        if (document.getElementById('address')) document.getElementById('address').value = initialAddress;
+      }
 
       try {
+        const token = localStorage.getItem('customerToken');
         const res = await fetch(`/api/user/${user.username}/profile`, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` }
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
         const data = await res.json();
         if (data.success && (data.user || data.profile)) {
@@ -264,10 +299,18 @@
           document.getElementById('nameDisplay').textContent = fullName;
           document.getElementById('email').value = u.email || user.email || '';
           document.getElementById('phone').value = u.phone || user.phone || '';
-          document.getElementById('address').value = u.address || user.address || '';
+          
+          const resolvedAddress = u.address || user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? fallbackAddress : '');
+          if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = resolvedAddress || 'Not Provided';
+          if (document.getElementById('address')) document.getElementById('address').value = resolvedAddress;
+          
           if (typeof u.email_notifications !== 'undefined') {
             document.getElementById('emailNotifications').checked = !!u.email_notifications;
           }
+
+          // Keep localStorage up to date
+          user.address = resolvedAddress;
+          localStorage.setItem('cryptopay_user', JSON.stringify(user));
         }
       } catch (err) {
         console.error('Error fetching profile:', err);
@@ -312,14 +355,16 @@
           });
           const d = await resp.json();
           if (d.success) {
-            out.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle me-1"></i> Settings saved successfully.</div>';
+            out.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle me-1"></i> Settings and profile updated successfully.</div>';
             document.getElementById('password').value = '';
             document.getElementById('oldPassword').value = '';
+            if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = address;
             // Sync with local storage
             user.email = email;
             user.phone = phone;
             user.address = address;
             localStorage.setItem('cryptopay_user', JSON.stringify(user));
+            localStorage.setItem('santander_user', JSON.stringify(user));
           } else {
             out.innerHTML = `<div class="alert alert-danger">${d.message || 'Update failed'}</div>`;
           }

@@ -355,7 +355,7 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 
     try {
         const { rows } = await db.query(
-            `SELECT * FROM registrations WHERE username = $1`,
+            `SELECT * FROM registrations WHERE LOWER(username) = LOWER($1)`,
             [username]
         );
         const user = rows[0];
@@ -416,13 +416,13 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) => {
     const { username } = req.params;
     
-    if (req.user.username !== username) {
+    if (!req.user || !req.user.username || req.user.username.toLowerCase() !== username.toLowerCase()) {
         return res.status(403).json({ success: false, message: 'Forbidden' });
     }
     
     try {
         // Get user details
-        const userRes = await db.query('SELECT id, firstname, middlename, surname, address, email, phone, status, crypto_balances FROM registrations WHERE username = $1', [username]);
+        const userRes = await db.query('SELECT id, firstname, middlename, surname, address, email, phone, status, crypto_balances FROM registrations WHERE LOWER(username) = LOWER($1)', [username]);
         const user = userRes.rows[0];
 
         if (!user) {
@@ -462,14 +462,14 @@ app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) =
 app.get('/api/user/:username/profile', requireCustomerAuth, async (req, res) => {
     const { username } = req.params;
     
-    if (req.user.username !== username) {
+    if (!req.user || !req.user.username || req.user.username.toLowerCase() !== username.toLowerCase()) {
         return res.status(403).json({ success: false, message: 'Forbidden' });
     }
     
     try {
         const { rows } = await db.query(
             `SELECT firstname, middlename, surname, dob, id_number, address, email, phone, account_types, status, email_notifications
-             FROM registrations WHERE username = $1`,
+             FROM registrations WHERE LOWER(username) = LOWER($1)`,
             [username]
         );
         const user = rows[0];
@@ -486,12 +486,12 @@ app.put('/api/user/:username/profile', requireCustomerAuth, async (req, res) => 
     const { username } = req.params;
     const { email, phone, address, oldPassword, newPassword, emailNotifications } = req.body;
 
-    if (req.user.username !== username) {
+    if (!req.user || !req.user.username || req.user.username.toLowerCase() !== username.toLowerCase()) {
         return res.status(403).json({ success: false, message: 'Forbidden' });
     }
 
     try {
-        const { rows } = await db.query('SELECT * FROM registrations WHERE username = $1', [username]);
+        const { rows } = await db.query('SELECT * FROM registrations WHERE LOWER(username) = LOWER($1)', [username]);
         const user = rows[0];
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
@@ -530,8 +530,8 @@ app.put('/api/user/:username/profile', requireCustomerAuth, async (req, res) => 
         if (updates.length === 0) {
             return res.json({ success: true, message: 'No changes to update' });
         }
-        params.push(username);
-        const query = `UPDATE registrations SET ${updates.join(', ')} WHERE username = $${idx}`;
+        params.push(user.username);
+        const query = `UPDATE registrations SET ${updates.join(', ')} WHERE LOWER(username) = LOWER($${idx})`;
         await db.query(query, params);
         res.json({ success: true, message: 'Profile updated' });
     } catch (err) {

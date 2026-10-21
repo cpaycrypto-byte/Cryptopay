@@ -1431,6 +1431,9 @@
               currentUser.surname = data.user.surname;
               currentUser.email = data.user.email;
               currentUser.phone = data.user.phone;
+              if (data.user.address) currentUser.address = data.user.address;
+              localStorage.setItem('cryptopay_user', JSON.stringify(currentUser));
+              localStorage.setItem('santander_user', JSON.stringify(currentUser));
             }
           }
           

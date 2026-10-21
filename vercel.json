@@ -1,9 +1,14 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/index.js"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
     },
     {
       "source": "/account-settings",
@@ -90,6 +95,10 @@
       "destination": "/make-payment.html"
     },
     {
+      "source": "/markets",
+      "destination": "/markets.html"
+    },
+    {
       "source": "/mortages",
       "destination": "/mortages.html"
     },
@@ -106,6 +115,10 @@
       "destination": "/personal.html"
     },
     {
+      "source": "/pricing",
+      "destination": "/pricing.html"
+    },
+    {
       "source": "/private",
       "destination": "/private.html"
     },
@@ -118,8 +131,16 @@
       "destination": "/savings-isas.html"
     },
     {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
       "source": "/statements",
       "destination": "/statements.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
     },
     {
       "source": "/transactions",

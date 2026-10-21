@@ -154,7 +154,7 @@
                     <div class="text-muted small fw-semibold text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Verified Residential Address</div>
                     <div class="d-flex align-items-center gap-2 mt-1 p-2.5 rounded-2 bg-white border">
                       <i class="bi bi-geo-alt-fill text-danger fs-5 flex-shrink-0"></i>
-                      <div class="fw-semibold text-dark small mb-0" id="addressDisplay">450 Lexington Avenue, Suite 1900, New York, NY 10017, USA</div>
+                      <div class="fw-semibold text-dark small mb-0" id="addressDisplay">&nbsp;</div>
                     </div>
                   </div>
                 </div>
@@ -280,11 +280,10 @@
       if (user.email) document.getElementById('email').value = user.email;
       if (user.phone) document.getElementById('phone').value = user.phone;
 
-      const fallbackAddress = '450 Lexington Avenue, Suite 1900, New York, NY 10017, USA';
-      const initialAddress = user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? fallbackAddress : '');
-      if (initialAddress) {
-        if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = initialAddress;
-        if (document.getElementById('address')) document.getElementById('address').value = initialAddress;
+      const userAddress = user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? '20 Gyassime Eyadema Street Asokoro Behind Ecowas Sectariat Abuja' : '');
+      if (userAddress) {
+        if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = userAddress;
+        if (document.getElementById('address')) document.getElementById('address').value = userAddress;
       }
 
       try {
@@ -300,9 +299,9 @@
           document.getElementById('email').value = u.email || user.email || '';
           document.getElementById('phone').value = u.phone || user.phone || '';
           
-          const resolvedAddress = u.address || user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? fallbackAddress : '');
-          if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = resolvedAddress || 'Not Provided';
-          if (document.getElementById('address')) document.getElementById('address').value = resolvedAddress;
+          const resolvedAddress = u.address || user.address || (user.username && user.username.toLowerCase() === 'nugbane' ? '20 Gyassime Eyadema Street Asokoro Behind Ecowas Sectariat Abuja' : '');
+          if (document.getElementById('addressDisplay')) document.getElementById('addressDisplay').textContent = resolvedAddress || '';
+          if (document.getElementById('address')) document.getElementById('address').value = resolvedAddress || '';
           
           if (typeof u.email_notifications !== 'undefined') {
             document.getElementById('emailNotifications').checked = !!u.email_notifications;
@@ -311,6 +310,7 @@
           // Keep localStorage up to date
           user.address = resolvedAddress;
           localStorage.setItem('cryptopay_user', JSON.stringify(user));
+          localStorage.setItem('santander_user', JSON.stringify(user));
         }
       } catch (err) {
         console.error('Error fetching profile:', err);

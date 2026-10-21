@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Crypto-Backed Loans &amp; Instant Credit Lines</title>
+  <meta name="description" content="Borrow fiat cash or USDT against your Bitcoin and Ethereum without selling. Instant approval, no credit checks, starting at 5.9% APR.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .services-list a {
+      display: block;
+      padding: 12px 18px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: #334155;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .services-list a.active, .services-list a:hover {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: #2563eb;
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .loan-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      height: 100%;
+      transition: all 0.2s ease;
+    }
+    .loan-box:hover {
+      border-color: #cbd5e1;
+      background: #ffffff;
+    }
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-3" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+        <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 36px; height: 36px;">
+        <span class="cryptopay-brand-title">Crypto<span>Pay</span></span>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-none d-lg-block">
+        <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+          <li><a href="personal" class="nav-link-crypto">Personal</a></li>
+          <li><a href="business" class="nav-link-crypto">Business</a></li>
+          <li><a href="savings-isas" class="nav-link-crypto">Staking &amp; Earn</a></li>
+          <li><a href="credit-cards" class="nav-link-crypto">Cards</a></li>
+          <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+        </ul>
+      </nav>
+
+      <div class="d-flex align-items-center gap-2">
+        <a class="cryptopay-btn-outline btn-sm text-decoration-none" href="login">Log In</a>
+        <a class="cryptopay-btn-primary btn-sm text-decoration-none" href="register">Open Account</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-5" style="background: radial-gradient(circle at 80% 10%, rgba(37,99,235,0.04) 0%, transparent 60%), #ffffff;">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="mb-4">
+        <ol class="breadcrumb mb-0 small">
+          <li class="breadcrumb-item"><a href="index" class="text-secondary text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item"><a href="personal" class="text-secondary text-decoration-none">Personal</a></li>
+          <li class="breadcrumb-item text-primary fw-semibold active">Crypto-Backed Loans</li>
+        </ol>
+      </nav>
+
+      <div class="row gy-4">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="p-4 p-md-5 rounded-4 mb-4" style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);">
+            <span class="badge bg-warning bg-opacity-10 text-dark border border-warning border-opacity-50 px-3 py-1 rounded-pill mb-2 fw-semibold">5.9% APR Starting Rate</span>
+            <h2 class="display-6 fw-bold text-dark mb-3">Borrow Cash or Stablecoins Against Your Crypto</h2>
+            <p class="lead text-secondary mb-4">
+              Get instant liquidity without selling your Bitcoin or Ethereum. Avoid capital gains taxes, retain upside exposure, and unlock funds in under 60 seconds with no credit score checks.
+            </p>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <div class="loan-box">
+                  <div class="text-primary fw-bold mb-1"><i class="bi bi-lightning-charge-fill me-1"></i> Instant Disbursement</div>
+                  <p class="text-muted small mb-0">Funds are immediately credited to your CryptoPay USD checking wallet or sent via Fedwire to your external bank.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="loan-box">
+                  <div class="text-success fw-bold mb-1"><i class="bi bi-shield-check me-1"></i> No Credit Score Inquiries</div>
+                  <p class="text-muted small mb-0">Your loan is backed 100% by digital asset collateral deposited into insured multi-sig cold storage.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="loan-box">
+                  <div class="text-warning fw-bold mb-1"><i class="bi bi-sliders me-1"></i> Flexible LTV Options</div>
+                  <p class="text-muted small mb-0">Choose between 20%, 50%, or 70% Loan-to-Value (LTV) options to match your risk profile and market conditions.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="loan-box">
+                  <div class="text-primary fw-bold mb-1"><i class="bi bi-calendar2-check me-1"></i> Repay at Your Own Pace</div>
+                  <p class="text-muted small mb-0">No fixed monthly payment schedule. Pay interest monthly and repay your principal anytime without penalties.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <a href="register" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">Open Credit Line</a>
+              <a href="customer-support" class="btn btn-outline-secondary rounded-pill px-4 py-2">Loan Calculator</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="services-list mb-4">
+            <a href="personal">Personal Crypto Banking</a>
+            <a href="current-accounts">Crypto Multi-Asset Wallets</a>
+            <a href="savings-isas">High-Yield Staking &amp; Vaults</a>
+            <a href="credit-cards">Crypto Debit Cards</a>
+            <a href="loans" class="active">Crypto-Backed Loans</a>
+            <a href="corporate">Institutional Liquidity</a>
+          </div>
+
+          <div class="p-4 rounded-4 text-center" style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(15,23,42,0.04);">
+            <h5 class="text-dark fw-bold mb-2">Automated Margin Alerts</h5>
+            <p class="text-muted small mb-3">Real-time SMS and email margin notifications ensure your collateral is protected even during high market volatility.</p>
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill">Protected Custody</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer with Pure White Text -->
+  <footer class="text-center py-5 mt-5 cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script>if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });</script>
+</body>
+</html>

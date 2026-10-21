@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Personal Cryptocurrency Banking</title>
+  <meta name="description" content="Everyday crypto banking made seamless. Hold, send, swap, and earn on Bitcoin, Ethereum, and USDT with CryptoPay personal accounts.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .services-list a {
+      display: block;
+      padding: 12px 18px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: #334155;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .services-list a.active, .services-list a:hover {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: #2563eb;
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .personal-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      height: 100%;
+      transition: all 0.2s ease;
+    }
+    .personal-box:hover {
+      border-color: #cbd5e1;
+      background: #ffffff;
+    }
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="nav-link-crypto">Home</a></li>
+            <li><a href="services" class="nav-link-crypto">Services</a></li>
+            <li><a href="markets" class="nav-link-crypto">Markets</a></li>
+            <li><a href="pricing" class="nav-link-crypto">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="nav-link-crypto">About Us</a></li>
+            <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">Log In</a>
+          <a class="cryptopay-btn-primary btn-sm text-decoration-none py-1.5 px-3 d-none d-sm-inline-flex" href="register" style="font-size: 0.85rem;">Open Account</a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill text-primary me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up text-primary me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill text-primary me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1 d-flex gap-2">
+            <a href="login" class="btn btn-outline-primary btn-sm w-50 py-2 fw-semibold rounded-3">Log In</a>
+            <a href="register" class="btn btn-primary btn-sm w-50 py-2 fw-semibold rounded-3">Open Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-5" style="background: radial-gradient(circle at 80% 10%, rgba(37,99,235,0.04) 0%, transparent 60%), #ffffff;">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="mb-4">
+        <ol class="breadcrumb mb-0 small">
+          <li class="breadcrumb-item"><a href="index" class="text-secondary text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item text-primary fw-semibold active">Personal Crypto Banking</li>
+        </ol>
+      </nav>
+
+      <div class="row gy-4">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="p-4 p-md-5 rounded-4 mb-4" style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);">
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill mb-2 fw-semibold">Next-Gen Personal Finance</span>
+            <h2 class="display-6 fw-bold text-dark mb-3">Everyday Cryptocurrency Banking, Reimagined</h2>
+            <p class="lead text-secondary mb-4">
+              Eliminate the headaches of multiple crypto exchanges, clunky self-custody wallets, and slow wire transfers. CryptoPay gives you a unified bank account with native multi-asset crypto wallets and fiat USD integration.
+            </p>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <div class="personal-box">
+                  <div class="text-primary fw-bold mb-1"><i class="bi bi-wallet2 me-1"></i> Multi-Currency Wallets</div>
+                  <p class="text-muted small mb-0">Deposit Bitcoin, Ethereum, Solana, and USDT with dedicated blockchain addresses and instant confirmation.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="personal-box">
+                  <div class="text-success fw-bold mb-1"><i class="bi bi-arrow-left-right me-1"></i> Zero-Fee P2P Transfers</div>
+                  <p class="text-muted small mb-0">Send crypto or fiat instantly to any @CryptoPay username worldwide with zero gas fees.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="personal-box">
+                  <div class="text-warning fw-bold mb-1"><i class="bi bi-credit-card me-1"></i> Metal Cashback Card</div>
+                  <p class="text-muted small mb-0">Spend your crypto at over 80 million merchants worldwide with up to 8% Bitcoin cashback.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="personal-box">
+                  <div class="text-primary fw-bold mb-1"><i class="bi bi-graph-up me-1"></i> Compound Staking</div>
+                  <p class="text-muted small mb-0">Earn up to 12.5% APY on idle stablecoins with daily automated payouts and flexible withdrawals.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <a href="register" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">Open Personal Account</a>
+              <a href="inside" class="btn btn-outline-secondary rounded-pill px-4 py-2">View Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="services-list mb-4">
+            <a href="personal" class="active">Personal Crypto Banking</a>
+            <a href="current-accounts">Crypto Multi-Asset Wallets</a>
+            <a href="savings-isas">High-Yield Staking &amp; Vaults</a>
+            <a href="credit-cards">Crypto Debit Cards</a>
+            <a href="loans">Crypto-Backed Loans</a>
+            <a href="business">Web3 Business Accounts</a>
+          </div>
+
+          <div class="p-4 rounded-4 text-center" style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(15,23,42,0.04);">
+            <h5 class="text-dark fw-bold mb-2">Need Guidance?</h5>
+            <p class="text-muted small mb-3">Speak to our personal crypto wealth advisors about diversifying your holdings.</p>
+            <a href="customer-support" class="btn btn-outline-primary rounded-pill w-100 py-2">Contact Advisory Team</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer with Pure White Text & 4 Columns on 1 Line -->
+  <footer class="text-center py-3 mt-2 cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+
+      <!-- 4 Columns on 1 Line: Company, Services, Client Portal, Support & Legal -->
+      <div class="row g-3 text-start mb-3">
+        
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Company</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="about" class="text-white text-decoration-none opacity-90">About Us</a></li>
+            <li><a href="markets" class="text-white text-decoration-none opacity-90">Crypto Markets</a></li>
+            <li><a href="pricing" class="text-white text-decoration-none opacity-90">Pricing &amp; Fees</a></li>
+            <li><a href="terms" class="text-white text-decoration-none opacity-90">Terms &amp; Compliance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Services</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="services" class="text-white text-decoration-none opacity-90">All Services</a></li>
+            <li><a href="personal" class="text-white text-decoration-none opacity-90">Personal Banking</a></li>
+            <li><a href="business" class="text-white text-decoration-none opacity-90">Web3 Business</a></li>
+            <li><a href="savings-isas" class="text-white text-decoration-none opacity-90">Staking Vaults</a></li>
+            <li><a href="credit-cards" class="text-white text-decoration-none opacity-90">Metal Visa Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Client Portal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="login" class="text-white text-decoration-none opacity-90">Online Banking Login</a></li>
+            <li><a href="register" class="text-white text-decoration-none opacity-90">Open Account</a></li>
+            <li><a href="inside" class="text-white text-decoration-none opacity-90">Portfolio Dashboard</a></li>
+            <li><a href="transfer" class="text-white text-decoration-none opacity-90">Instant Transfers</a></li>
+            <li><a href="statements" class="text-white text-decoration-none opacity-90">Account Statements</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Support &amp; Legal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="tel:+18129651537" class="text-white text-decoration-none opacity-90"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a></li>
+            <li><a href="customer-support" class="text-white text-decoration-none opacity-90">Help Center</a></li>
+            <li><a href="chat" class="text-white text-decoration-none opacity-90">24/7 Live Support</a></li>
+            <li><a href="terms#terms" class="text-white text-decoration-none opacity-90">Terms of Service</a></li>
+            <li><a href="terms#privacy" class="text-white text-decoration-none opacity-90">Privacy Policy</a></li>
+            <li><a href="terms#risk" class="text-white text-decoration-none opacity-90">Risk Disclosure</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="border-secondary opacity-25 my-3">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script>if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });</script>
+</body>
+</html>

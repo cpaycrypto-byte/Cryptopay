@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Account Statements &amp; Tax Reports</title>
+  <meta name="description" content="View and download CryptoPay cryptocurrency banking statements and audit reports.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .statement-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+    .form-control, .form-select {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15) !important;
+    }
+    .table-crypto {
+      color: #0f172a;
+      border-color: #e2e8f0;
+    }
+    .table-crypto thead th {
+      background-color: #f1f5f9;
+      color: #475569;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .table-crypto tbody td {
+      background-color: #ffffff;
+      padding: 12px 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f1f5f9;
+      color: #0f172a;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="inside" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-1">
+            <li><a href="inside" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Dashboard</a></li>
+            <li><a href="transfer" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Send / Transfer</a></li>
+            <li><a href="transactions" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Transactions</a></li>
+            <li><a href="statements" class="btn btn-sm btn-light fw-bold text-primary px-3 rounded-pill">Statements</a></li>
+            <li><a href="account-settings" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Security</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <!-- Bank-Style Sign Off / Log Out Button -->
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-2.5 px-md-3 py-1 fw-semibold d-inline-flex align-items-center" onclick="logout()" title="Sign Off" style="font-size: 0.82rem; border-color: rgba(220, 53, 69, 0.35);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="me-1 text-danger">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span class="d-none d-sm-inline">Sign Off</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenu" aria-controls="mobileNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenu">
+        <div class="d-flex flex-column gap-1 pb-1">
+          <a href="inside" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-grid-fill text-primary me-2"></i>Dashboard</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="transfer" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-send-fill text-primary me-2"></i>Send / Transfer</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="transactions" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-clock-history text-primary me-2"></i>Transactions</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="statements" class="btn btn-sm text-start py-2 px-3 fw-bold bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-file-earmark-pdf-fill me-2"></i>Statements</span>
+            <i class="bi bi-chevron-right small"></i>
+          </a>
+          <a href="account-settings" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-shield-lock-fill text-primary me-2"></i>Security</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <button onclick="logout()" class="btn btn-sm text-start py-2 px-3 fw-semibold text-danger rounded-3 d-flex align-items-center justify-content-between border-0 bg-danger bg-opacity-10 mt-1">
+            <span><i class="bi bi-box-arrow-right text-danger me-2"></i>Sign Off</span>
+            <i class="bi bi-chevron-right small text-danger"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-4">
+    <div class="container">
+
+      <!-- Statements Page Header -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+        <div>
+          <h4 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-pdf-fill text-primary me-2"></i>Crypto Banking Statements</h4>
+          <p class="text-secondary small mb-0">Download certified account statements &amp; audit reports for personal tax or corporate bookkeeping</p>
+        </div>
+      </div>
+
+      <!-- Compact Single-Row Filter Toolbar -->
+      <div class="statement-card p-3 mb-4">
+        <form id="statementForm" class="row g-2 align-items-end">
+          <div class="col-12 col-md-5">
+            <label for="accountSelect" class="form-label text-dark fw-bold mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase;">Select Account / Facility</label>
+            <select id="accountSelect" class="form-select form-select-sm" required>
+              <option value="">Choose wallet account...</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="periodSelect" class="form-label text-dark fw-bold mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase;">Statement Period</label>
+            <select id="periodSelect" class="form-select form-select-sm" required disabled>
+              <option value="">Select an account first</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <button type="submit" class="btn btn-primary btn-sm w-100 py-1.5 rounded-pill fw-semibold shadow-sm" id="queryBtn">
+              <i class="bi bi-search me-1"></i> Query Statement
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Statements Table View -->
+      <div id="statementsContainer">
+        <div class="statement-card p-4 text-center text-muted small">
+          <i class="bi bi-arrow-up-circle fs-3 text-primary d-block mb-2"></i>
+          Select an account facility and billing period above to load your certified statement.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= COMPACT LOGGED-IN FOOTER ================= -->
+  <footer class="text-center py-3 mt-4 cryptopay-footer-pure-white" style="background-color: #080d1a; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important; font-size: 0.8rem; opacity: 0.85;">
+        &copy; 2026 CryptoPay Technologies Inc. All rights reserved. FDIC-Insured Custody Gateway &bull; Regulated Digital Banking &bull; Priority Support: <a href="tel:+18129651537" class="text-white text-decoration-none fw-semibold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function(){
+      const userStr = localStorage.getItem('cryptopay_user') || localStorage.getItem('santander_user');
+      let currentTransactions = [];
+      if(!userStr){ window.location.href = 'login'; return; }
+      const user = JSON.parse(userStr);
+
+      try {
+        const dashRes = await fetch(`/api/user/${user.username}/dashboard`, { 
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
+        });
+        const dashData = await dashRes.json();
+        if(dashData.success){
+          const accountSelect = document.getElementById('accountSelect');
+          dashData.accounts.forEach(acc => {
+            const opt = document.createElement('option'); 
+            opt.value = acc.account_number;
+            const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+            let friendlyType = acc.account_type;
+            if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyType = 'Fiat & Crypto Wallet';
+            else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyType = 'Crypto Earn & Savings Vault';
+            else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyType = 'Business & Treasury Account';
+            else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyType = 'Crypto Debit Card';
+            opt.textContent = `${friendlyType} (${maskedAcc})`;
+            accountSelect.appendChild(opt);
+          });
+
+          // Preselect first account if available
+          if (dashData.accounts.length > 0) {
+            accountSelect.selectedIndex = 1;
+            accountSelect.dispatchEvent(new Event('change'));
+          }
+        }
+      } catch(e) { console.error('Error loading accounts', e); }
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text || '';
+        return div.innerHTML;
+      }
+
+      document.getElementById('accountSelect').addEventListener('change', async function() {
+        const accountNumber = this.value;
+        const periodSelect = document.getElementById('periodSelect');
+        periodSelect.innerHTML = '<option value="">Loading statement periods...</option>';
+        periodSelect.disabled = true;
+
+        if(!accountNumber) {
+          periodSelect.innerHTML = '<option value="">Select an account first</option>';
+          return;
+        }
+
+        try {
+          const res = await fetch(`/api/account/${accountNumber}/statement-periods`, { 
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
+          });
+          const data = await res.json();
+          if (data.success && data.periods && data.periods.length > 0) {
+            periodSelect.innerHTML = '';
+            data.periods.forEach(p => {
+              const opt = document.createElement('option');
+              opt.value = p.value;
+              opt.textContent = p.label;
+              periodSelect.appendChild(opt);
+            });
+            periodSelect.disabled = false;
+            // Preselect the first monthly period if available, otherwise "All"
+            periodSelect.selectedIndex = data.periods.length > 1 ? 1 : 0;
+            // Auto query statement
+            queryStatement();
+          } else {
+            periodSelect.innerHTML = '<option value="all">All Activity (Complete History)</option>';
+            periodSelect.disabled = false;
+            queryStatement();
+          }
+        } catch(err) {
+          console.error('Error loading periods:', err);
+          periodSelect.innerHTML = '<option value="all">All Activity (Complete History)</option>';
+          periodSelect.disabled = false;
+          queryStatement();
+        }
+      });
+
+      // Instant update when user changes period from the dropdown
+      document.getElementById('periodSelect').addEventListener('change', function() {
+        queryStatement();
+      });
+
+      document.getElementById('statementForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        queryStatement();
+      });
+
+      async function queryStatement() {
+        const account = document.getElementById('accountSelect').value;
+        const periodSelect = document.getElementById('periodSelect');
+        const period = periodSelect.value || 'all';
+        const accountSelect = document.getElementById('accountSelect');
+        const accountText = accountSelect.options[accountSelect.selectedIndex] ? accountSelect.options[accountSelect.selectedIndex].text : '';
+        const periodText = periodSelect.options[periodSelect.selectedIndex] ? periodSelect.options[periodSelect.selectedIndex].text : period;
+
+        if (!account) return;
+
+        const container = document.getElementById('statementsContainer');
+        container.innerHTML = '<div class="statement-card p-5 text-center"><div class="spinner-border text-primary me-2"></div><span class="text-secondary small">Compiling statement records...</span></div>';
+
+        try {
+          const res = await fetch(`/api/account/${account}/transactions?period=${encodeURIComponent(period)}`, { 
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
+          });
+          const data = await res.json();
+          const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+          const balance = parseFloat(data.accountBalance || 0);
+
+          if(data.success && data.transactions && data.transactions.length > 0){
+            currentTransactions = data.transactions;
+            
+            let html = `
+              <div class="statement-card p-4 shadow-sm">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-3 pb-3 border-bottom gap-2">
+                  <div>
+                    <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                      <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 small fw-bold">
+                        <i class="bi bi-shield-check me-1"></i>Official Certified Statement
+                      </span>
+                      <span class="badge bg-primary bg-opacity-10 text-primary small fw-semibold">
+                        Period: ${periodText}
+                      </span>
+                      <span class="badge bg-light text-secondary border small">
+                        ${data.transactions.length} ${data.transactions.length === 1 ? 'Transaction' : 'Transactions'}
+                      </span>
+                    </div>
+                    <h5 class="text-dark fw-bold mb-0">${accountText}</h5>
+                  </div>
+                  <div>
+                    <button class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm fw-semibold" onclick="downloadPDF()">
+                      <i class="bi bi-file-earmark-pdf me-1"></i> Download PDF Report
+                    </button>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-crypto mb-0">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Transaction Memo</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Balance After</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+            `;
+            data.transactions.forEach(tx => {
+              const isCredit = (tx.transaction_type || '').toLowerCase() === 'credit';
+              const amtClass = isCredit ? 'text-success fw-bold' : 'text-danger fw-bold';
+              const sign = isCredit ? '+' : '-';
+              html += `
+                <tr>
+                  <td class="small text-muted font-monospace">${new Date(tx.created_at).toLocaleDateString()}</td>
+                  <td class="text-dark fw-semibold">${escapeHtml(tx.description)}</td>
+                  <td><span class="badge ${isCredit ? 'bg-success bg-opacity-10 text-success border border-success border-opacity-25' : 'bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25'}">${tx.transaction_type}</span></td>
+                  <td class="${amtClass}">${sign}${formatter.format(tx.amount)}</td>
+                  <td class="text-dark font-monospace">${formatter.format(tx.balance_after)}</td>
+                </tr>
+              `;
+            });
+            html += `</tbody></table></div></div>`;
+            container.innerHTML = html;
+          } else {
+            currentTransactions = [];
+            container.innerHTML = `
+              <div class="statement-card p-4 shadow-sm">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-3 pb-3 border-bottom gap-2">
+                  <div>
+                    <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                      <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 small fw-bold">
+                        <i class="bi bi-shield-check me-1"></i>Official Certified Statement
+                      </span>
+                      <span class="badge bg-primary bg-opacity-10 text-primary small fw-semibold">
+                        Period: ${periodText}
+                      </span>
+                    </div>
+                    <h5 class="text-dark fw-bold mb-0">${accountText}</h5>
+                    <div class="text-muted small mt-1">Period Balance: <strong class="text-dark font-monospace">${formatter.format(balance)}</strong></div>
+                  </div>
+                  <div>
+                    <button class="btn btn-sm btn-outline-primary rounded-pill px-3 shadow-sm fw-semibold" onclick="downloadPDF()">
+                      <i class="bi bi-file-earmark-pdf me-1"></i> Download PDF Summary
+                    </button>
+                  </div>
+                </div>
+                <div class="text-center py-5 text-muted">
+                  <i class="bi bi-calendar-check fs-1 text-primary text-opacity-50 d-block mb-3"></i>
+                  <h6 class="fw-bold text-dark mb-1">No Transactions Recorded</h6>
+                  <p class="small text-secondary mb-0">No debits or credits were posted during ${periodText}. Account balance stood unchanged at ${formatter.format(balance)}.</p>
+                </div>
+              </div>`;
+          }
+        } catch(err) {
+          console.error(err);
+          container.innerHTML = '<div class="alert alert-danger text-center">Failed to load statement details. Please try again.</div>';
+        }
+      }
+
+      window.downloadPDF = async function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const accountSelect = document.getElementById('accountSelect');
+        const periodSelect = document.getElementById('periodSelect');
+        const accountText = accountSelect.options[accountSelect.selectedIndex] ? accountSelect.options[accountSelect.selectedIndex].text : 'Account Statement';
+        const periodText = periodSelect.options[periodSelect.selectedIndex] ? periodSelect.options[periodSelect.selectedIndex].text : 'Statement Period';
+        const periodVal = (periodSelect.value || 'statement').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+        // Header & Bank Branding
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.setTextColor(37, 99, 235); // CryptoPay Blue
+        doc.text("CryptoPay", 14, 20);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(100, 116, 139);
+        doc.text("Global Cryptocurrency Banking & Asset Custody", 14, 26);
+        doc.text("Official Certified Financial Statement & Audit Record", 14, 31);
+        doc.text("Support Desk: +1 812-965-1537 | support@cryptopay.network", 14, 36);
+
+        doc.setFontSize(11);
+        doc.setTextColor(15, 23, 42);
+        doc.text(`Account: ${accountText}`, 14, 46);
+        doc.text(`Statement Period: ${periodText}`, 14, 52);
+
+        const latestTx = (currentTransactions && currentTransactions.length > 0) ? currentTransactions[0] : null;
+        if (latestTx) {
+          doc.text(`Closing Balance: ${formatter.format(latestTx.balance_after)}`, 14, 58);
+        }
+
+        const tableRows = (currentTransactions && currentTransactions.length > 0) ? currentTransactions.map(tx => [
+          new Date(tx.created_at).toLocaleDateString(),
+          tx.description,
+          tx.transaction_type,
+          (tx.transaction_type.toLowerCase() === 'credit' ? '+' : '-') + formatter.format(tx.amount),
+          formatter.format(tx.balance_after)
+        ]) : [
+          ['-', `No transaction activity recorded for ${periodText}`, '-', '-', '-']
+        ];
+
+        doc.autoTable({
+          startY: latestTx ? 64 : 58,
+          head: [['Date', 'Description', 'Type', 'Amount (USD)', 'Balance After']],
+          body: tableRows,
+          theme: 'striped',
+          headStyles: { fillColor: [37, 99, 235], textColor: [255, 255, 255] }
+        });
+
+        // Add certified footer on PDF
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+          doc.setPage(i);
+          doc.setFontSize(8);
+          doc.setTextColor(148, 163, 184);
+          doc.text("CryptoPay Technologies Inc. • FDIC-Insured Custodial Vaults • Official Certified Statement • Page " + i + " of " + pageCount, 14, 285);
+        }
+
+        doc.save(`CryptoPay_Statement_${periodVal}.pdf`);
+      };
+    });
+
+    function logout() {
+      try {
+        localStorage.removeItem('cryptopay_user');
+        localStorage.removeItem('santander_user');
+        localStorage.removeItem('customerToken');
+        sessionStorage.clear();
+      } catch (e) {
+        console.error('Logout storage clear error:', e);
+      }
+      window.location.href = 'login?signed_out=true';
+    }
+  </script>
+</body>
+</html>

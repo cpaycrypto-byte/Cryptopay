@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Corporate Crypto Cards &amp; Expense Management</title>
+  <meta name="description" content="CryptoPay Corporate Cards: Empower your team with instant virtual and physical metal crypto cards, up to 5% crypto rewards, and programmatic treasury spending controls.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .biz-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+    .biz-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      height: 100%;
+      transition: all 0.2s ease;
+    }
+    .biz-box:hover {
+      border-color: #cbd5e1;
+      background: #ffffff;
+    }
+    .services-list a {
+      display: block;
+      padding: 12px 18px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: #334155;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .services-list a.active, .services-list a:hover {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: #2563eb;
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-3" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+        <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 36px; height: 36px;">
+        <span class="cryptopay-brand-title">Crypto<span>Pay</span></span>
+      </a>
+
+      <nav id="navmenu" class="navmenu d-none d-lg-block">
+        <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+          <li><a href="personal" class="nav-link-crypto">Personal</a></li>
+          <li><a href="business" class="nav-link-crypto active text-primary">Business</a></li>
+          <li><a href="savings-isas" class="nav-link-crypto">Staking &amp; Earn</a></li>
+          <li><a href="credit-cards" class="nav-link-crypto">Cards</a></li>
+          <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+        </ul>
+      </nav>
+
+      <div class="d-flex align-items-center gap-2">
+        <a class="cryptopay-btn-outline btn-sm text-decoration-none" href="login">Log In</a>
+        <a class="cryptopay-btn-primary btn-sm text-decoration-none" href="register">Open Account</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-5" style="background: radial-gradient(circle at 80% 10%, rgba(37,99,235,0.04) 0%, transparent 60%), #ffffff;">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="mb-4">
+        <ol class="breadcrumb mb-0 small">
+          <li class="breadcrumb-item"><a href="index" class="text-secondary text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item"><a href="business" class="text-secondary text-decoration-none">Business</a></li>
+          <li class="breadcrumb-item text-primary fw-semibold active">Corporate Crypto Cards</li>
+        </ol>
+      </nav>
+
+      <div class="row gy-4">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="biz-card mb-4">
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill mb-2 fw-semibold">
+              <i class="bi bi-credit-card-2-front me-1"></i> Enterprise Expense Cards
+            </span>
+            <h1 class="display-6 fw-bold text-dark mb-3">CryptoPay Corporate Cards &amp; Treasury Spending</h1>
+            <p class="lead text-secondary mb-4">
+              Equip your teams with modern corporate Visa cards backed directly by your company's stablecoin and crypto reserves. Real-time controls, automatic receipt capture, and up to 5% Bitcoin rewards.
+            </p>
+
+            <img src="img/business-credit-cards.png" alt="CryptoPay Corporate Cards" class="img-fluid rounded-4 mb-4" style="max-height: 380px; width: 100%; object-fit: cover; border: 1px solid #e2e8f0;">
+
+            <h3 class="fw-bold mb-3 text-dark">Enterprise Expense Management Built for Web3</h3>
+            <p class="text-secondary">
+              Stop juggling cumbersome fiat conversions and outdated bank limits. Issue virtual cards in seconds for SaaS subscriptions, digital marketing spend, and travel allowances, funded directly from USDT, USDC, or USD treasury accounts.
+            </p>
+
+            <div class="row g-3 my-3">
+              <div class="col-md-6">
+                <div class="biz-box">
+                  <div class="text-primary fs-3 mb-2"><i class="bi bi-award"></i></div>
+                  <h5 class="fw-bold text-dark">Up to 5% Crypto Cashback</h5>
+                  <p class="small text-muted mb-0">Earn BTC, ETH, or USDT yield on every dollar spent across eligible enterprise categories with automatic reinvestment.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="biz-box">
+                  <div class="text-primary fs-3 mb-2"><i class="bi bi-sliders"></i></div>
+                  <h5 class="fw-bold text-dark">Granular Spend Controls</h5>
+                  <p class="small text-muted mb-0">Set monthly budgets, per-transaction caps, merchant category locks, and multi-tier approval workflows from your dashboard.</p>
+                </div>
+              </div>
+            </div>
+
+            <h4 class="fw-bold text-dark mt-4 mb-3">Card Tiers for Every Stage of Business</h4>
+            <ul class="list-unstyled text-secondary d-flex flex-column gap-2 mb-4">
+              <li><i class="bi bi-check-circle-fill text-primary me-2"></i><strong>CryptoPay Virtual Team Cards:</strong> Instant issuance with zero setup fees. Ideal for digital ads, AWS cloud billing, and team software.</li>
+              <li><i class="bi bi-check-circle-fill text-primary me-2"></i><strong>CryptoPay Executive Metal Visa:</strong> Laser-etched black metal card with priority lounge access, airport travel perks, and zero FX foreign transaction fees globally.</li>
+              <li><i class="bi bi-check-circle-fill text-primary me-2"></i><strong>Zero FX Markups:</strong> Spend abroad across 150+ fiat currencies at direct mid-market interbank exchange rates.</li>
+              <li><i class="bi bi-check-circle-fill text-primary me-2"></i><strong>Accounting Integration:</strong> Real-time reconciliation with QuickBooks, Xero, and Cryptio with digital receipt uploads.</li>
+            </ul>
+
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <a href="register" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">Order Corporate Cards</a>
+              <a href="customer-support" class="btn btn-outline-secondary rounded-pill px-4 py-2">Request Enterprise Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="services-list mb-4">
+            <a href="business">Business Overview</a>
+            <a href="business-accounts">Business Accounts</a>
+            <a href="business-loans">Commercial Crypto Credit</a>
+            <a href="business-credit-cards" class="active">Corporate Crypto Cards</a>
+          </div>
+
+          <div class="p-4 rounded-4 text-center" style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(15,23,42,0.04);">
+            <div class="text-primary fs-3 mb-2"><i class="bi bi-shield-lock"></i></div>
+            <h5 class="fw-bold text-dark">Instant Card Freezing</h5>
+            <p class="small text-muted mb-3">Freeze, unfreeze, or regenerate card numbers in one click from the CryptoPay dashboard if a card is misplaced or compromised.</p>
+            <a href="inside" class="btn btn-outline-primary rounded-pill w-100 py-2">Manage Cards</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer with Pure White Text -->
+  <footer class="text-center py-5 mt-5 cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script>if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });</script>
+</body>
+</html>

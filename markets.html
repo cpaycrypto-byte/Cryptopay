@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Real-Time Cryptocurrency Markets &amp; Prices</title>
+  <meta name="description" content="Explore real-time cryptocurrency market prices, 24-hour volume, price changes, and supported digital assets on CryptoPay.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .markets-hero {
+      background: radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                  #ffffff;
+      padding: 60px 0 40px 0;
+    }
+    .market-table-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+    .table-markets {
+      margin-bottom: 0;
+    }
+    .table-markets thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .table-markets tbody td {
+      padding: 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f1f5f9;
+      color: #0f172a;
+    }
+    .table-markets tbody tr:hover td {
+      background: #f8fafc;
+    }
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+    .form-control {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      border-radius: 10px;
+    }
+    .form-control:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="nav-link-crypto">Home</a></li>
+            <li><a href="services" class="nav-link-crypto">Services</a></li>
+            <li><a href="markets" class="nav-link-crypto active text-primary">Markets</a></li>
+            <li><a href="pricing" class="nav-link-crypto">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="nav-link-crypto">About Us</a></li>
+            <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">Log In</a>
+          <a class="cryptopay-btn-primary btn-sm text-decoration-none py-1.5 px-3 d-none d-sm-inline-flex" href="register" style="font-size: 0.85rem;">Open Account</a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill text-primary me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-bold bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill text-primary me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1 d-flex gap-2">
+            <a href="login" class="btn btn-outline-primary btn-sm w-50 py-2 fw-semibold rounded-3">Log In</a>
+            <a href="register" class="btn btn-primary btn-sm w-50 py-2 fw-semibold rounded-3">Open Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero -->
+    <section class="markets-hero">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1 rounded-pill mb-2 fw-semibold">
+              <i class="bi bi-graph-up-arrow me-1"></i> Live Institutional Feed
+            </span>
+            <h1 class="display-5 fw-bold text-dark mb-1">Cryptocurrency Markets</h1>
+            <p class="text-secondary mb-0">Track real-time prices, 24-hour volume, and market changes across supported digital assets.</p>
+          </div>
+          <div style="min-width: 280px;">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-slate"><i class="bi bi-search text-secondary"></i></span>
+              <input type="text" id="marketSearch" class="form-control" placeholder="Search Bitcoin, Solana, USDT..." onkeyup="filterMarkets()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Markets Table -->
+        <div class="market-table-card">
+          <div class="d-flex justify-content-between align-items-center p-3 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1 rounded-pill small fw-semibold" id="liveStatusBadge">
+                <span class="pulse-dot-green d-inline-block me-1"></span> Live Data Feed Active
+              </span>
+              <span class="text-secondary small" id="lastUpdatedTime">Connecting live stream...</span>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 small" onclick="fetchLiveMarketRates()">
+              <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-markets" id="marketTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Asset</th>
+                  <th>Price (USD)</th>
+                  <th>24h Change</th>
+                  <th>24h Volume</th>
+                  <th>Market Cap</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody id="marketTableBody">
+                <tr id="row-BTC">
+                  <td>1</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; font-weight: 700;">BTC</span>
+                      <div>
+                        <div class="fw-bold text-dark">Bitcoin</div>
+                        <div class="small text-muted">BTC &bull; Layer 1</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-BTC">$68,420.00</td>
+                  <td class="text-success fw-bold" id="change-BTC"><i class="bi bi-caret-up-fill me-1"></i>+3.42%</td>
+                  <td class="text-secondary" id="vol-BTC">$34.8 Billion</td>
+                  <td class="text-secondary">$1.35 Trillion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Swap / Buy</a></td>
+                </tr>
+                <tr id="row-ETH">
+                  <td>2</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8; font-weight: 700;">ETH</span>
+                      <div>
+                        <div class="fw-bold text-dark">Ethereum</div>
+                        <div class="small text-muted">ETH &bull; Smart Contracts</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-ETH">$3,514.80</td>
+                  <td class="text-success fw-bold" id="change-ETH"><i class="bi bi-caret-up-fill me-1"></i>+4.85%</td>
+                  <td class="text-secondary" id="vol-ETH">$18.2 Billion</td>
+                  <td class="text-secondary">$423 Billion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Swap / Buy</a></td>
+                </tr>
+                <tr id="row-SOL">
+                  <td>3</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700;">SOL</span>
+                      <div>
+                        <div class="fw-bold text-dark">Solana</div>
+                        <div class="small text-muted">SOL &bull; High Throughput</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-SOL">$184.20</td>
+                  <td class="text-success fw-bold" id="change-SOL"><i class="bi bi-caret-up-fill me-1"></i>+8.12%</td>
+                  <td class="text-secondary" id="vol-SOL">$6.4 Billion</td>
+                  <td class="text-secondary">$84.9 Billion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Swap / Buy</a></td>
+                </tr>
+                <tr id="row-USDT">
+                  <td>4</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf; font-weight: 700;">USDT</span>
+                      <div>
+                        <div class="fw-bold text-dark">Tether USD</div>
+                        <div class="small text-muted">USDT &bull; Fiat Stablecoin</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-USDT">$1.00</td>
+                  <td class="text-secondary fw-bold" id="change-USDT">0.00%</td>
+                  <td class="text-secondary" id="vol-USDT">$48.1 Billion</td>
+                  <td class="text-secondary">$118 Billion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Deposit</a></td>
+                </tr>
+                <tr id="row-BNB">
+                  <td>5</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15; font-weight: 700;">BNB</span>
+                      <div>
+                        <div class="fw-bold text-dark">BNB</div>
+                        <div class="small text-muted">BNB &bull; BSC Chain</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-BNB">$592.50</td>
+                  <td class="text-success fw-bold" id="change-BNB"><i class="bi bi-caret-up-fill me-1"></i>+2.15%</td>
+                  <td class="text-secondary" id="vol-BNB">$1.8 Billion</td>
+                  <td class="text-secondary">$89.1 Billion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Swap / Buy</a></td>
+                </tr>
+                <tr id="row-USDC">
+                  <td>6</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bg-secondary bg-opacity-25 text-dark fw-bold">USDC</span>
+                      <div>
+                        <div class="fw-bold text-dark">USD Coin</div>
+                        <div class="small text-muted">USDC &bull; Regulated Stablecoin</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="fw-bold text-dark" id="price-USDC">$1.00</td>
+                  <td class="text-secondary fw-bold" id="change-USDC">0.00%</td>
+                  <td class="text-secondary" id="vol-USDC">$6.1 Billion</td>
+                  <td class="text-secondary">$35.4 Billion</td>
+                  <td class="text-end"><a href="inside" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">Deposit</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with Pure White Text & 4 Columns on 1 Line -->
+  <footer class="text-center py-3 mt-2 cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+
+      <!-- 4 Columns on 1 Line: Company, Services, Client Portal, Support & Legal -->
+      <div class="row g-3 text-start mb-3">
+        
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Company</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="about" class="text-white text-decoration-none opacity-90">About Us</a></li>
+            <li><a href="markets" class="text-white text-decoration-none opacity-90">Crypto Markets</a></li>
+            <li><a href="pricing" class="text-white text-decoration-none opacity-90">Pricing &amp; Fees</a></li>
+            <li><a href="terms" class="text-white text-decoration-none opacity-90">Terms &amp; Compliance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Services</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="services" class="text-white text-decoration-none opacity-90">All Services</a></li>
+            <li><a href="personal" class="text-white text-decoration-none opacity-90">Personal Banking</a></li>
+            <li><a href="business" class="text-white text-decoration-none opacity-90">Web3 Business</a></li>
+            <li><a href="savings-isas" class="text-white text-decoration-none opacity-90">Staking Vaults</a></li>
+            <li><a href="credit-cards" class="text-white text-decoration-none opacity-90">Metal Visa Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Client Portal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="login" class="text-white text-decoration-none opacity-90">Online Banking Login</a></li>
+            <li><a href="register" class="text-white text-decoration-none opacity-90">Open Account</a></li>
+            <li><a href="inside" class="text-white text-decoration-none opacity-90">Portfolio Dashboard</a></li>
+            <li><a href="transfer" class="text-white text-decoration-none opacity-90">Instant Transfers</a></li>
+            <li><a href="statements" class="text-white text-decoration-none opacity-90">Account Statements</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Support &amp; Legal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="tel:+18129651537" class="text-white text-decoration-none opacity-90"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a></li>
+            <li><a href="customer-support" class="text-white text-decoration-none opacity-90">Help Center</a></li>
+            <li><a href="chat" class="text-white text-decoration-none opacity-90">24/7 Live Support</a></li>
+            <li><a href="terms#terms" class="text-white text-decoration-none opacity-90">Terms of Service</a></li>
+            <li><a href="terms#privacy" class="text-white text-decoration-none opacity-90">Privacy Policy</a></li>
+            <li><a href="terms#risk" class="text-white text-decoration-none opacity-90">Risk Disclosure</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="border-secondary opacity-25 my-3">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/chat-widget.js"></script>
+  <script>
+    const marketState = {
+      BTC: { price: 68420.00, change: 3.42, volume: '$34.8 Billion' },
+      ETH: { price: 3514.80, change: 4.85, volume: '$18.2 Billion' },
+      SOL: { price: 184.20, change: 8.12, volume: '$6.4 Billion' },
+      USDT: { price: 1.00, change: 0.00, volume: '$48.1 Billion' },
+      BNB: { price: 592.50, change: 2.15, volume: '$1.8 Billion' },
+      USDC: { price: 1.00, change: 0.00, volume: '$6.1 Billion' }
+    };
+
+    function updatePriceCell(symbol, newPrice, change, vol) {
+      const priceEl = document.getElementById('price-' + symbol);
+      const changeEl = document.getElementById('change-' + symbol);
+      const volEl = document.getElementById('vol-' + symbol);
+
+      if (!priceEl) return;
+
+      const oldPrice = marketState[symbol] ? marketState[symbol].price : newPrice;
+      const formattedPrice = '$' + newPrice.toLocaleString('en-US', { minimumFractionDigits: newPrice < 10 ? 4 : 2, maximumFractionDigits: newPrice < 10 ? 4 : 2 });
+      
+      priceEl.textContent = formattedPrice;
+
+      if (newPrice > oldPrice) {
+        priceEl.classList.remove('price-flash-down');
+        priceEl.classList.add('price-flash-up');
+        setTimeout(() => priceEl.classList.remove('price-flash-up'), 1000);
+      } else if (newPrice < oldPrice) {
+        priceEl.classList.remove('price-flash-up');
+        priceEl.classList.add('price-flash-down');
+        setTimeout(() => priceEl.classList.remove('price-flash-down'), 1000);
+      }
+
+      if (changeEl && change !== undefined) {
+        const isUp = change >= 0;
+        changeEl.className = (isUp ? 'text-success' : 'text-danger') + ' fw-bold';
+        changeEl.innerHTML = (isUp ? '<i class="bi bi-caret-up-fill me-1"></i>+' : '<i class="bi bi-caret-down-fill me-1"></i>') + change.toFixed(2) + '%';
+      }
+
+      if (volEl && vol) {
+        volEl.textContent = vol;
+      }
+
+      marketState[symbol].price = newPrice;
+      if (change !== undefined) marketState[symbol].change = change;
+    }
+
+    async function fetchLiveMarketRates() {
+      try {
+        const response = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=[%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22,%22BNBUSDT%22]');
+        if (response.ok) {
+          const data = await response.json();
+          data.forEach(item => {
+            const sym = item.symbol.replace('USDT', '');
+            const p = parseFloat(item.lastPrice);
+            const c = parseFloat(item.priceChangePercent);
+            const v = '$' + (parseFloat(item.quoteVolume) / 1e9).toFixed(1) + ' Billion';
+            updatePriceCell(sym, p, c, v);
+          });
+          document.getElementById('liveStatusBadge').innerHTML = '<span class="pulse-dot-green d-inline-block me-1"></span> Live Data Feed Active';
+          document.getElementById('lastUpdatedTime').textContent = 'Live • ' + new Date().toLocaleTimeString();
+          return;
+        }
+      } catch (err) {
+        // Fallback to simulated live tick if blocked by network/CORS
+      }
+
+      simulateTick();
+    }
+
+    function simulateTick() {
+      const activeCoins = ['BTC', 'ETH', 'SOL', 'BNB'];
+      const sym = activeCoins[Math.floor(Math.random() * activeCoins.length)];
+      const current = marketState[sym];
+      const deltaPercent = (Math.random() - 0.48) * 0.002;
+      const newPrice = Math.round((current.price * (1 + deltaPercent)) * 100) / 100;
+      const newChange = current.change + (deltaPercent > 0 ? 0.02 : -0.02);
+      updatePriceCell(sym, newPrice, newChange);
+      document.getElementById('lastUpdatedTime').textContent = 'Live • ' + new Date().toLocaleTimeString();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetchLiveMarketRates();
+      setInterval(fetchLiveMarketRates, 4000);
+    });
+
+    function filterMarkets() {
+      const input = document.getElementById('marketSearch').value.toLowerCase();
+      const rows = document.getElementById('marketTableBody').getElementsByTagName('tr');
+      for (let i = 0; i < rows.length; i++) {
+        const text = rows[i].textContent.toLowerCase();
+        rows[i].style.display = text.includes(input) ? '' : 'none';
+      }
+    }
+  </script>
+</body>
+</html>

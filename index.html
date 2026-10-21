@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Next-Gen Online Cryptocurrency Banking Platform</title>
+  <meta name="description" content="CryptoPay is an institutional-grade online cryptocurrency bank uniting multi-currency crypto wallets, high-yield staking vaults, instant zero-fee transfers, and high-limit metal cards.">
+  <meta name="keywords" content="crypto bank, bitcoin banking, cryptocurrency debit card, crypto staking, usdt deposit, web3 banking">
+
+  <!-- Favicons -->
+  <link href="img/cryptopay_icon.svg" rel="icon">
+  <link href="img/cryptopay_icon.svg" rel="apple-touch-icon">
+
+  <!-- Modern Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="css/main.css" rel="stylesheet">
+
+  <style>
+    /* CRITICAL OVERRIDE: Ensure all content is immediately 100% visible with zero animation delays or opacity hiding */
+    [data-aos], html:not(.no-js) [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+      transition: none !important;
+    }
+
+    /* Modern Light Fintech Layout Styles */
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+
+    .hero-clean {
+      background: radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                  #ffffff;
+      padding: 70px 0 80px 0;
+    }
+
+    .hero-glow-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 50px;
+      color: #2563eb;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .pulse-dot-green {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .crypto-price-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+    .crypto-price-card:hover {
+      transform: translateY(-4px);
+      border-color: #2563eb;
+      box-shadow: 0 16px 32px rgba(37, 99, 235, 0.1);
+    }
+
+    .feature-card-clean {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 32px;
+      height: 100%;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.03);
+      transition: all 0.25s ease;
+    }
+    .feature-card-clean:hover {
+      transform: translateY(-4px);
+      border-color: rgba(37, 99, 235, 0.35);
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.08);
+    }
+
+    .calculator-clean-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+    }
+
+    .step-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 32px 24px;
+      height: 100%;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+      transition: all 0.25s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: #2563eb;
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.08);
+    }
+
+    .security-vault-container {
+      background: linear-gradient(135deg, #0b1120 0%, #0f172a 60%, #1e3a8a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 50px 40px;
+      color: #ffffff;
+      box-shadow: 0 20px 50px rgba(11, 17, 32, 0.2);
+    }
+
+    .emergency-support-card {
+      background: #ffffff;
+      border: 2px solid #f59e0b;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.1);
+    }
+
+    .faq-accordion-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px !important;
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+    }
+    .faq-accordion-item .accordion-button {
+      background: #ffffff;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 20px 24px;
+      font-size: 1.05rem;
+    }
+    .faq-accordion-item .accordion-button:not(.collapsed) {
+      color: #2563eb;
+      background: rgba(37, 99, 235, 0.04);
+      box-shadow: none;
+    }
+    .faq-accordion-item .accordion-body {
+      padding: 20px 24px 24px 24px;
+      color: #475569;
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <!-- ================= TOP LIVE CRYPTO TICKER ================= -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1" id="liveTicker">
+        
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+3.42%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.4);">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+4.85%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+8.12%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.4);">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4);">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+2.15%</span>
+        </div>
+
+        <div class="d-none d-lg-flex align-items-center gap-3 ms-auto">
+          <div class="d-flex align-items-center gap-2">
+            <span class="pulse-dot-green"></span>
+            <span class="text-light small fw-medium" style="font-size: 0.78rem;">Live Market Feed</span>
+          </div>
+          <a href="tel:+18129651537" class="text-white text-decoration-none small d-flex align-items-center gap-1.5 fw-semibold" style="font-size: 0.8rem; background: rgba(255,255,255,0.08); padding: 3px 12px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.12);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span class="opacity-75">24/7 Hotline:</span> +1 812-965-1537
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= UNCONGESTED MAIN HEADER ================= -->
+  <header id="header" class="header cryptopay-header sticky-top py-2">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        
+        <!-- Brand Logo -->
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <!-- Clean Decongested Navigation Links -->
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="nav-link-crypto active">Home</a></li>
+            <li><a href="services" class="nav-link-crypto">Services</a></li>
+            <li><a href="markets" class="nav-link-crypto">Markets</a></li>
+            <li><a href="pricing" class="nav-link-crypto">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="nav-link-crypto">About Us</a></li>
+            <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+          </ul>
+        </nav>
+
+        <!-- Clean Auth Actions -->
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">
+            Log In
+          </a>
+          <a class="cryptopay-btn-primary btn-sm text-decoration-none py-1.5 px-3 d-none d-sm-inline-flex" href="register" style="font-size: 0.85rem;">
+            Open Account
+          </a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-bold bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up text-primary me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill text-primary me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1 d-flex gap-2">
+            <a href="login" class="btn btn-outline-primary btn-sm w-50 py-2 fw-semibold rounded-3">Log In</a>
+            <a href="register" class="btn btn-primary btn-sm w-50 py-2 fw-semibold rounded-3">Open Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="hero" class="hero-clean">
+      <div class="container">
+        <div class="row gy-5 align-items-center">
+          
+          <div class="col-lg-6">
+            <div class="hero-glow-tag">
+              <span class="pulse-dot-green"></span>
+              Next-Gen Cryptocurrency Banking Platform
+            </div>
+
+            <h1 class="display-4 fw-extrabold text-dark mb-3" style="letter-spacing: -1.2px; line-height: 1.15;">
+              The Modern Standard for <span style="color: #2563eb;">Crypto &amp; Dollar</span> Banking
+            </h1>
+
+            <p class="lead text-secondary mb-4" style="font-size: 1.15rem; line-height: 1.6;">
+              Hold, deposit, and transfer USD cash alongside Bitcoin, Ethereum, Solana, and USDT. Instant zero-fee conversion, up to 12.5% staking yield, and high-limit metal CryptoPay Visa debit cards.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mb-4">
+              <a href="register" class="cryptopay-btn-glow text-decoration-none d-inline-flex align-items-center">
+                <i class="bi bi-wallet2 me-2"></i> Open Account Free
+              </a>
+              <a href="login" class="cryptopay-btn-outline text-decoration-none d-inline-flex align-items-center">
+                <i class="bi bi-shield-check me-2 text-primary"></i> Launch Web Portal
+              </a>
+            </div>
+
+            <!-- Trust Metrics -->
+            <div class="pt-4 border-top border-secondary border-opacity-10 row g-3 text-start">
+              <div class="col-4">
+                <div class="fs-4 fw-bold text-dark">$4.8B+</div>
+                <div class="small text-muted">Settlement Volume</div>
+              </div>
+              <div class="col-4">
+                <div class="fs-4 fw-bold text-dark">100%</div>
+                <div class="small text-muted">Proof of Reserves</div>
+              </div>
+              <div class="col-4">
+                <div class="fs-4 fw-bold text-dark">0.00s</div>
+                <div class="small text-muted">Instant P2P Speed</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Graphic with Floating Card -->
+          <div class="col-lg-6">
+            <div class="position-relative">
+              <div class="rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-10">
+                <img src="img/cryptopay_hero.jpg" alt="CryptoPay Online Cryptocurrency Banking Platform" class="img-fluid w-100" style="object-fit: cover;">
+              </div>
+              
+              <!-- Floating Live Portfolio Card -->
+              <div class="position-absolute bottom-0 start-0 m-4 p-3 crypto-card-white d-none d-sm-block shadow-lg" style="max-width: 300px;">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="small text-secondary fw-semibold">Net Portfolio Value</span>
+                  <span class="badge bg-success bg-opacity-10 text-success fw-bold small">+14.2%</span>
+                </div>
+                <div class="h4 fw-bold text-dark mb-1">$58,940.25 USD</div>
+                <div class="small text-primary"><i class="bi bi-shield-fill-check me-1"></i>Multi-Sig Vault Protected</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE CRYPTO MARKET PRICES SECTION ================= -->
+    <section class="py-5" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+          <div>
+            <h3 class="text-dark fw-bold mb-1">Live Cryptocurrency Markets</h3>
+            <p class="text-secondary small mb-0">Real-time spot exchange rates with zero gas fee internal swaps</p>
+          </div>
+          <a href="register" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Trade 50+ Cryptos</a>
+        </div>
+
+        <div class="row g-3">
+          <!-- Bitcoin -->
+          <div class="col-md-6 col-lg-3">
+            <div class="crypto-price-card">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="badge-btc rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-currency-bitcoin fs-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-dark fw-bold">Bitcoin</div>
+                    <div class="text-muted small">BTC/USD</div>
+                  </div>
+                </div>
+                <span class="text-success small fw-bold">+3.42%</span>
+              </div>
+              <div class="fs-4 fw-bold text-dark mb-2">$68,420.00</div>
+              <div class="d-flex justify-content-between text-muted small">
+                <span>24h Vol: $28.4B</span>
+                <a href="register" class="text-primary fw-semibold text-decoration-none">Buy BTC &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ethereum -->
+          <div class="col-md-6 col-lg-3">
+            <div class="crypto-price-card">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="badge-eth rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-gem fs-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-dark fw-bold">Ethereum</div>
+                    <div class="text-muted small">ETH/USD</div>
+                  </div>
+                </div>
+                <span class="text-success small fw-bold">+4.85%</span>
+              </div>
+              <div class="fs-4 fw-bold text-dark mb-2">$3,514.80</div>
+              <div class="d-flex justify-content-between text-muted small">
+                <span>Staking: 6.8% APY</span>
+                <a href="register" class="text-primary fw-semibold text-decoration-none">Buy ETH &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solana -->
+          <div class="col-md-6 col-lg-3">
+            <div class="crypto-price-card">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="badge-sol rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-lightning-charge fs-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-dark fw-bold">Solana</div>
+                    <div class="text-muted small">SOL/USD</div>
+                  </div>
+                </div>
+                <span class="text-success small fw-bold">+8.12%</span>
+              </div>
+              <div class="fs-4 fw-bold text-dark mb-2">$184.20</div>
+              <div class="d-flex justify-content-between text-muted small">
+                <span>Speed: 2,400 TPS</span>
+                <a href="register" class="text-primary fw-semibold text-decoration-none">Buy SOL &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tether -->
+          <div class="col-md-6 col-lg-3">
+            <div class="crypto-price-card">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="badge-usdt rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-cash-stack fs-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-dark fw-bold">Tether USD</div>
+                    <div class="text-muted small">USDT/USD</div>
+                  </div>
+                </div>
+                <span class="text-info small fw-bold">1:1 Peg</span>
+              </div>
+              <div class="fs-4 fw-bold text-dark mb-2">$1.0000</div>
+              <div class="d-flex justify-content-between text-muted small">
+                <span>Earn: 12.5% APY</span>
+                <a href="register" class="text-primary fw-semibold text-decoration-none">Deposit &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS IN 3 STEPS ================= -->
+    <section class="py-5" style="background-color: #ffffff;">
+      <div class="container py-4">
+        <div class="text-center max-w-700 mx-auto mb-5">
+          <div class="hero-glow-tag mx-auto">Seamless Onboarding</div>
+          <h2 class="display-6 fw-bold text-dark mb-3">Get Started in 3 Simple Steps</h2>
+          <p class="text-secondary lead">Open your multi-currency crypto bank account in minutes with zero paperwork and zero maintenance fees.</p>
+        </div>
+
+        <div class="row g-4 position-relative">
+          <!-- Step 1 -->
+          <div class="col-lg-4">
+            <div class="step-card text-center">
+              <div class="mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold fs-3" style="width: 68px; height: 68px; background: rgba(37, 99, 235, 0.1);">
+                1
+              </div>
+              <h4 class="text-dark fw-bold mb-2">Register &amp; Verify</h4>
+              <p class="text-secondary small mb-3">
+                Complete our fast 3-minute biometric verification. Instantly unlock a dedicated US virtual bank account with account &amp; routing numbers alongside secure crypto wallets.
+              </p>
+              <span class="badge bg-light text-primary border px-3 py-1.5 rounded-pill small fw-semibold"><i class="bi bi-clock-history me-1"></i>3 Minutes Setup</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="col-lg-4">
+            <div class="step-card text-center">
+              <div class="mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center text-success fw-bold fs-3" style="width: 68px; height: 68px; background: rgba(16, 185, 129, 0.1);">
+                2
+              </div>
+              <h4 class="text-dark fw-bold mb-2">Deposit Cash or Crypto</h4>
+              <p class="text-secondary small mb-3">
+                Deposit USD through instant ACH, domestic Fedwire, or debit card. Or transfer Bitcoin, Ethereum, Solana, and USDT directly using your personalized multi-chain deposit addresses.
+              </p>
+              <span class="badge bg-light text-success border px-3 py-1.5 rounded-pill small fw-semibold"><i class="bi bi-shield-check me-1"></i>Zero Platform Deposit Fees</span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="col-lg-4">
+            <div class="step-card text-center">
+              <div class="mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center text-warning fw-bold fs-3" style="width: 68px; height: 68px; background: rgba(245, 158, 11, 0.1);">
+                3
+              </div>
+              <h4 class="text-dark fw-bold mb-2">Spend, Earn &amp; Transfer</h4>
+              <p class="text-secondary small mb-3">
+                Send zero-fee instant P2P transfers globally, spend in 80M+ stores with your high-limit metal Visa card, or allocate idle balances to earn up to 12.5% daily staking APY.
+              </p>
+              <span class="badge bg-light text-warning border px-3 py-1.5 rounded-pill small fw-semibold"><i class="bi bi-graph-up-arrow me-1"></i>Up to 12.5% APY</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <a href="register" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm">
+            <i class="bi bi-arrow-right-circle me-2"></i>Open Your Free Account Today
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CORE CRYPTO BANKING PILLARS ================= -->
+    <section class="py-5" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container py-4">
+        
+        <div class="text-center max-w-700 mx-auto mb-5">
+          <div class="hero-glow-tag mx-auto">Enterprise-Grade Crypto Banking</div>
+          <h2 class="display-6 fw-bold text-dark mb-3">Everything You Need In A Modern Crypto Bank</h2>
+          <p class="text-secondary lead">Eliminate friction between traditional fiat payment rails and global blockchain networks.</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Feature 1: Multi-Currency Crypto & Dollar Accounts -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">
+                <i class="bi bi-wallet2 fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">Dollar &amp; Crypto Wallets</h4>
+              <p class="text-secondary mb-4">Dedicated virtual USD bank account (routing &amp; account number) paired seamlessly with Bitcoin, Ethereum, Solana, and USDT wallets.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Deposit USD via Wire, ACH or Debit</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Instant convert USD to Crypto</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>On-chain crypto deposit addresses &amp; QR</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 2: Instant P2P & Wire Transfers -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(79, 70, 229, 0.1); color: #4f46e5;">
+                <i class="bi bi-send-check fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">Instant Global Transfers</h4>
+              <p class="text-secondary mb-4">Send digital assets or fiat instantly to any user worldwide with 9-digit cryptographic PIN authorization and zero network fee friction.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>9-digit cryptographic routing verification</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Off-chain zero-fee internal ledger</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Real-time status tracking &amp; receipts</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 3: Crypto Debit Card -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <i class="bi bi-credit-card-2-front fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">Metal CryptoPay Visa</h4>
+              <p class="text-secondary mb-4">Spend your USD cash, Bitcoin, or stablecoins at over 80 million merchants worldwide with automatic conversion and up to 8% Bitcoin cashback.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Up to 8% cashback paid in Bitcoin</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Instant virtual card issuance</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Apple Pay &amp; Google Pay support</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 4: High Yield Staking -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <i class="bi bi-graph-up-arrow fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">High-Yield Staking Vaults</h4>
+              <p class="text-secondary mb-4">Earn compound interest paid out daily directly into your CryptoPay account with zero minimum lockup and flexible instant withdrawals.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>12.5% APY on USDT &amp; USDC</li>
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>6.8% APY on Ethereum (ETH)</li>
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Daily automated yield compounding</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 5: Web3 Business Gateway -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                <i class="bi bi-building fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">Web3 Corporate Banking</h4>
+              <p class="text-secondary mb-4">Accept payments from global clients in crypto or fiat, manage team spending, and automate payroll with institutional multi-sig governance.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Multi-signature approval workflows</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Automated invoice settlement</li>
+                <li><i class="bi bi-check-circle-fill text-primary me-2"></i>QuickBooks &amp; Xero sync</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 6: Cold Storage Custody -->
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card-clean">
+              <div class="rounded-3 p-3 mb-3 d-inline-block" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
+                <i class="bi bi-shield-lock fs-3"></i>
+              </div>
+              <h4 class="text-dark fw-bold mb-3">Institutional Custody</h4>
+              <p class="text-secondary mb-4">98% of all digital assets are held in geographically segregated multi-party computation (MPC) cold storage vaults with full syndicate insurance.</p>
+              <ul class="list-unstyled text-secondary small d-flex flex-column gap-2 mb-0">
+                <li><i class="bi bi-check-circle-fill text-info me-2"></i>Hardware security module protection</li>
+                <li><i class="bi bi-check-circle-fill text-info me-2"></i>Biometric 2FA verification</li>
+                <li><i class="bi bi-check-circle-fill text-info me-2"></i>Real-time cryptographic Proof of Reserves</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE CRYPTO YIELD CALCULATOR ================= -->
+    <section class="py-5" style="background-color: #ffffff;">
+      <div class="container py-4">
+        <div class="row align-items-center gy-4">
+          
+          <div class="col-lg-5">
+            <div class="hero-glow-tag">Yield Simulator</div>
+            <h2 class="display-6 fw-bold text-dark mb-3">Simulate Your Daily Crypto Yield</h2>
+            <p class="text-secondary mb-4">
+              Explore potential earnings across CryptoPay High-Yield Staking Vaults. Interest is compounded continuously and credited directly into your account daily.
+            </p>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill fs-4 text-primary"></i>
+                <span class="text-dark fw-medium">Zero lockup terms — withdraw anytime</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill fs-4 text-primary"></i>
+                <span class="text-dark fw-medium">Automated daily compounding of interest</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill fs-4 text-primary"></i>
+                <span class="text-dark fw-medium">Smart-contract insurance coverage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="calculator-clean-card">
+              <h4 class="text-dark fw-bold mb-4">Staking Interest Calculator</h4>
+              
+              <!-- Asset Selector -->
+              <div class="mb-4">
+                <label class="form-label text-secondary small fw-bold">Select Staking Asset</label>
+                <div class="row g-2">
+                  <div class="col-3">
+                    <button class="btn w-100 btn-outline-primary active fw-bold py-2" id="calcUsdtBtn" onclick="setCalcAsset('USDT', 12.5)">USDT (12.5%)</button>
+                  </div>
+                  <div class="col-3">
+                    <button class="btn w-100 btn-outline-secondary fw-bold py-2" id="calcBtcBtn" onclick="setCalcAsset('BTC', 5.2)">BTC (5.2%)</button>
+                  </div>
+                  <div class="col-3">
+                    <button class="btn w-100 btn-outline-secondary fw-bold py-2" id="calcEthBtn" onclick="setCalcAsset('ETH', 6.8)">ETH (6.8%)</button>
+                  </div>
+                  <div class="col-3">
+                    <button class="btn w-100 btn-outline-secondary fw-bold py-2" id="calcSolBtn" onclick="setCalcAsset('SOL', 7.9)">SOL (7.9%)</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Amount Input Slider -->
+              <div class="mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-secondary small fw-semibold">Deposit Principal (USD Equivalent)</span>
+                  <span class="text-primary fw-bold fs-5" id="calcAmountLabel">$10,000 USD</span>
+                </div>
+                <input type="range" class="form-range" id="calcSlider" min="500" max="100000" step="500" value="10000" oninput="updateCalculation(this.value)">
+                <div class="d-flex justify-content-between text-muted small mt-1">
+                  <span>$500</span>
+                  <span>$50,000</span>
+                  <span>$100,000+</span>
+                </div>
+              </div>
+
+              <!-- Output Projection Box -->
+              <div class="p-3 rounded-3 mb-4" style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                <div class="row text-center g-3">
+                  <div class="col-4 border-end border-secondary border-opacity-25">
+                    <div class="text-secondary small">Daily Payout</div>
+                    <div class="text-dark fw-bold fs-5" id="calcDaily">$3.42</div>
+                  </div>
+                  <div class="col-4 border-end border-secondary border-opacity-25">
+                    <div class="text-secondary small">Monthly Earning</div>
+                    <div class="text-dark fw-bold fs-5" id="calcMonthly">$104.16</div>
+                  </div>
+                  <div class="col-4">
+                    <div class="text-secondary small">Yearly Yield</div>
+                    <div class="text-success fw-bold fs-4" id="calcYearly">$1,250.00</div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="register" class="cryptopay-btn-primary w-100 py-3 text-center text-decoration-none fs-6">
+                Start Staking with CryptoPay <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INSTITUTIONAL SECURITY & PROOF OF RESERVES ================= -->
+    <section class="py-5" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container py-3">
+        <div class="security-vault-container">
+          <div class="row align-items-center gy-4">
+            <div class="col-lg-6">
+              <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 700; font-size: 0.85rem;">
+                <i class="bi bi-shield-lock-fill me-1"></i> Institutional Security Architecture
+              </div>
+              <h2 class="display-6 fw-bold text-white mb-3">Uncompromising Asset Protection &amp; 100% Reserves</h2>
+              <p class="mb-4" style="color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; line-height: 1.7;">
+                Unlike conventional fractional-reserve banks, CryptoPay maintains a strict 1:1 reserve ratio for all customer deposits. Your funds are never rehypothecated, loaned out, or placed at risk without explicit vault lockup instructions.
+              </p>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <div class="fs-4 fw-bold text-success mb-1">100% 1:1</div>
+                    <div style="color: rgba(255, 255, 255, 0.75); font-size: 0.82rem;">Proof of Reserves Verified</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <div class="fs-4 fw-bold text-info mb-1">$250M</div>
+                    <div style="color: rgba(255, 255, 255, 0.75); font-size: 0.82rem;">Syndicate Crime Insurance</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <div class="fs-4 fw-bold text-warning mb-1">SOC 2 Type II</div>
+                    <div style="color: rgba(255, 255, 255, 0.75); font-size: 0.82rem;">Certified Infrastructure</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <div class="fs-4 fw-bold text-white mb-1">MPC Cold Vaults</div>
+                    <div style="color: rgba(255, 255, 255, 0.75); font-size: 0.82rem;">Zero Single-Point Failures</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="p-4 p-md-4 rounded-4" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12);">
+                <h4 class="text-white fw-bold mb-3"><i class="bi bi-shield-check text-success me-2"></i>Real-Time Custody Safeguards</h4>
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-4" style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem;">
+                  <li class="d-flex align-items-start gap-3">
+                    <i class="bi bi-check2-circle text-success fs-5 mt-0.5"></i>
+                    <div>
+                      <strong class="text-white d-block">Multi-Party Computation (MPC):</strong>
+                      Private keys are mathematically divided into distributed shards across air-gapped hardware security modules in 4 global financial jurisdictions.
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-start gap-3">
+                    <i class="bi bi-check2-circle text-success fs-5 mt-0.5"></i>
+                    <div>
+                      <strong class="text-white d-block">Cryptographic Merkle Tree Auditing:</strong>
+                      Users can independently verify that their account balances are included in our public solvency trees without exposing personal data.
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-start gap-3">
+                    <i class="bi bi-check2-circle text-success fs-5 mt-0.5"></i>
+                    <div>
+                      <strong class="text-white d-block">Real-Time Threat Detection &amp; Anti-Fraud:</strong>
+                      Heuristic machine-learning models continuously analyze transfer velocity and flag unauthorized address deviations before transactions leave custody.
+                    </div>
+                  </li>
+                </ul>
+                <a href="terms#terms" class="btn btn-outline-light rounded-pill px-4 py-2.5 fw-semibold w-100 text-center">
+                  Explore Legal &amp; Custody Framework
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 24/7 PRIORITY SUPPORT & EMERGENCY DESK ================= -->
+    <section class="py-5" style="background-color: #ffffff;">
+      <div class="container">
+        <div class="emergency-support-card">
+          <div class="row align-items-center gy-3">
+            <div class="col-lg-8">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill small">24/7 Telephone Assistance</span>
+                <span class="text-muted small">&bull; Average response under 15 seconds</span>
+              </div>
+              <h3 class="text-dark fw-bold mb-2">Direct Banking Support &amp; Emergency Card Freeze</h3>
+              <p class="text-secondary mb-0" style="line-height: 1.6;">
+                Need instant assistance with a wire transfer, identity verification, or misplaced debit card? Our dedicated specialist team and compliance officers are active 24 hours a day, 7 days a week.
+              </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                <a href="tel:+18129651537" class="btn btn-warning rounded-pill px-4 py-3 fw-bold text-dark d-inline-flex align-items-center gap-2 shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span>+1 812-965-1537</span>
+                </a>
+                <a href="chat" class="btn btn-outline-dark rounded-pill px-3 py-3 fw-semibold d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-chat-dots-fill"></i> Live Chat
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FREQUENTLY ASKED QUESTIONS (FAQ) ================= -->
+    <section class="py-5" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+      <div class="container py-3">
+        <div class="text-center max-w-700 mx-auto mb-5">
+          <div class="hero-glow-tag mx-auto">Help &amp; Answers</div>
+          <h2 class="display-6 fw-bold text-dark mb-3">Frequently Asked Questions</h2>
+          <p class="text-secondary lead">Quick answers regarding account eligibility, security, transfers, and digital asset custody.</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="accordion" id="cryptoFaqAccordion">
+              
+              <!-- Item 1 -->
+              <div class="accordion-item faq-accordion-item">
+                <h2 class="accordion-header" id="faqHeading1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                    How does CryptoPay bridge fiat USD cash with cryptocurrency?
+                  </button>
+                </h2>
+                <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#cryptoFaqAccordion">
+                  <div class="accordion-body">
+                    When you register with CryptoPay, you receive both a dedicated virtual US checking account (complete with individual routing and account number) and dedicated multi-chain crypto wallets (Bitcoin, Ethereum, Solana, USDT). You can transfer USD directly via Fedwire or ACH and instantly swap between fiat and crypto with zero spread markup.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="accordion-item faq-accordion-item">
+                <h2 class="accordion-header" id="faqHeading2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                    Are my funds backed 1:1 and protected?
+                  </button>
+                </h2>
+                <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#cryptoFaqAccordion">
+                  <div class="accordion-body">
+                    Yes, absolutely. CryptoPay enforces a strict 100% full-reserve architecture. 98% of digital assets are held offline in multi-party computation (MPC) cold vaults with comprehensive $250M syndicate insurance policies. Customer funds are never rehypothecated or leveraged.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="accordion-item faq-accordion-item">
+                <h2 class="accordion-header" id="faqHeading3">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                    How do peer-to-peer transfers work and what are the fees?
+                  </button>
+                </h2>
+                <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#cryptoFaqAccordion">
+                  <div class="accordion-body">
+                    Transfers between registered CryptoPay accounts settle in under 0.01 seconds over our private cryptographic ledger with exactly $0 in gas or transfer fees. All transfers require your personal 9-digit PIN to prevent unauthorized activity.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="accordion-item faq-accordion-item">
+                <h2 class="accordion-header" id="faqHeading4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                    How does the CryptoPay Metal Visa Debit Card work?
+                  </button>
+                </h2>
+                <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#cryptoFaqAccordion">
+                  <div class="accordion-body">
+                    The CryptoPay Visa card connects directly to your cash and stablecoin balances. You can spend in over 80 million retail locations and online shops worldwide with automatic conversion, zero foreign exchange transaction fees, and up to 8% cashback paid out in Bitcoin.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 5 -->
+              <div class="accordion-item faq-accordion-item">
+                <h2 class="accordion-header" id="faqHeading5">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                    How quickly can I reach customer support if I need assistance?
+                  </button>
+                </h2>
+                <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#cryptoFaqAccordion">
+                  <div class="accordion-body">
+                    You can contact our 24/7 Priority Support Hotline directly at <a href="tel:+18129651537" class="fw-bold text-primary">+1 812-965-1537</a>, connect to our live chat in under 30 seconds via the web portal, or email <a href="mailto:support@cryptopay.global" class="text-primary">support@cryptopay.global</a>.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BANNER ================= -->
+    <section class="py-5" style="background-color: #ffffff;">
+      <div class="container">
+        <div class="p-5 rounded-4 text-center shadow-lg" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);">
+          <h2 class="display-6 fw-bold text-white mb-3">Ready to Experience True Crypto Banking?</h2>
+          <p class="lead text-white max-w-700 mx-auto mb-4" style="opacity: 0.95;">
+            Join thousands of individuals and Web3 businesses who manage fiat and digital assets seamlessly with CryptoPay. Verification takes under 3 minutes.
+          </p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="register" class="cryptopay-btn-glow px-4 py-3 fs-6 text-decoration-none text-white">
+              <i class="bi bi-wallet2 me-2"></i> Open Account Now
+            </a>
+            <a href="customer-support" class="btn btn-outline-light px-4 py-3 fs-6 rounded-3 text-decoration-none fw-semibold">
+              Speak to a Specialist
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="text-center py-4 cryptopay-footer-pure-white" style="background-color: #080d1a; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+    <div class="container">
+
+      <!-- 4 Columns on 1 Line: Company, Services, Client Portal, Support & Legal -->
+      <div class="row g-4 text-start mb-4">
+        
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Company</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-2 mb-0">
+            <li><a href="about" class="text-white text-decoration-none opacity-90">About Us</a></li>
+            <li><a href="markets" class="text-white text-decoration-none opacity-90">Crypto Markets</a></li>
+            <li><a href="pricing" class="text-white text-decoration-none opacity-90">Pricing &amp; Fees</a></li>
+            <li><a href="terms" class="text-white text-decoration-none opacity-90">Terms &amp; Compliance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Services</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-2 mb-0">
+            <li><a href="services" class="text-white text-decoration-none opacity-90">All Services</a></li>
+            <li><a href="personal" class="text-white text-decoration-none opacity-90">Personal Banking</a></li>
+            <li><a href="business" class="text-white text-decoration-none opacity-90">Web3 Business</a></li>
+            <li><a href="savings-isas" class="text-white text-decoration-none opacity-90">Staking Vaults</a></li>
+            <li><a href="credit-cards" class="text-white text-decoration-none opacity-90">Metal Visa Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Client Portal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-2 mb-0">
+            <li><a href="login" class="text-white text-decoration-none opacity-90">Online Banking Login</a></li>
+            <li><a href="register" class="text-white text-decoration-none opacity-90">Open Account</a></li>
+            <li><a href="inside" class="text-white text-decoration-none opacity-90">Portfolio Dashboard</a></li>
+            <li><a href="transfer" class="text-white text-decoration-none opacity-90">Instant Transfers</a></li>
+            <li><a href="statements" class="text-white text-decoration-none opacity-90">Account Statements</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Support &amp; Legal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-2 mb-0">
+            <li><a href="tel:+18129651537" class="text-white text-decoration-none opacity-90"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a></li>
+            <li><a href="customer-support" class="text-white text-decoration-none opacity-90">Help Center</a></li>
+            <li><a href="chat" class="text-white text-decoration-none opacity-90">24/7 Live Support</a></li>
+            <li><a href="terms#terms" class="text-white text-decoration-none opacity-90">Terms of Service</a></li>
+            <li><a href="terms#privacy" class="text-white text-decoration-none opacity-90">Privacy Policy</a></li>
+            <li><a href="terms#risk" class="text-white text-decoration-none opacity-90">Risk Disclosure</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="border-secondary opacity-25 my-4">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Live Chat Widget -->
+  <script src="js/chat-widget.js"></script>
+
+  <!-- Interactive Yield Calculator Script -->
+  <script>
+    let currentApy = 12.5;
+
+    function setCalcAsset(asset, apy) {
+      currentApy = apy;
+      ['calcUsdtBtn', 'calcBtcBtn', 'calcEthBtn', 'calcSolBtn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.classList.remove('btn-primary', 'text-white', 'active');
+          btn.classList.add('btn-outline-secondary');
+        }
+      });
+      const activeBtnId = 'calc' + asset.charAt(0).toUpperCase() + asset.slice(1).toLowerCase() + 'Btn';
+      const activeBtn = document.getElementById(activeBtnId);
+      if (activeBtn) {
+        activeBtn.classList.remove('btn-outline-secondary');
+        activeBtn.classList.add('btn-primary', 'text-white', 'active');
+      }
+      updateCalculation(document.getElementById('calcSlider').value);
+    }
+
+    function updateCalculation(amount) {
+      document.getElementById('calcAmountLabel').textContent = '$' + Number(amount).toLocaleString('en-US') + ' USD';
+      const yearly = amount * (currentApy / 100);
+      const monthly = yearly / 12;
+      const daily = yearly / 365;
+
+      document.getElementById('calcDaily').textContent = '$' + daily.toFixed(2);
+      document.getElementById('calcMonthly').textContent = '$' + monthly.toFixed(2);
+      document.getElementById('calcYearly').textContent = '$' + yearly.toFixed(2);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCalculation(10000);
+    });
+  </script>
+</body>
+</html>

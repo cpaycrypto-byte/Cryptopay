@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Pricing &amp; Fees - Transparent Institutional Rates</title>
+  <meta name="description" content="View CryptoPay's transparent fee schedule: $0 account fees, 0% deposit fees, 0.1% spot swaps, transparent network gas withdrawal costs, and account limits.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .pricing-hero {
+      background: radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                  #ffffff;
+      padding: 70px 0 50px 0;
+    }
+    .pricing-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      transition: all 0.25s ease;
+      height: 100%;
+    }
+    .pricing-card:hover {
+      border-color: #2563eb;
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(37, 99, 235, 0.08);
+    }
+    .pricing-card.featured {
+      border: 2px solid #2563eb;
+      position: relative;
+    }
+    .featured-badge {
+      position: absolute;
+      top: -14px;
+      right: 28px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .fee-table {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.03);
+    }
+    .fee-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 16px 20px;
+    }
+    .fee-table td {
+      padding: 16px 20px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+      font-size: 0.95rem;
+    }
+    .fee-table tr:last-child td {
+      border-bottom: none;
+    }
+    .nav-link-crypto {
+      color: #334155 !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px !important;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link-crypto:hover {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.06);
+    }
+    .nav-link-crypto.active {
+      color: #2563eb !important;
+      background: rgba(37, 99, 235, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="nav-link-crypto">Home</a></li>
+            <li><a href="services" class="nav-link-crypto">Services</a></li>
+            <li><a href="markets" class="nav-link-crypto">Markets</a></li>
+            <li><a href="pricing" class="nav-link-crypto active">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="nav-link-crypto">About Us</a></li>
+            <li><a href="customer-support" class="nav-link-crypto">Support</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">Log In</a>
+          <a class="cryptopay-btn-primary btn-sm text-decoration-none py-1.5 px-3 d-none d-sm-inline-flex" href="register" style="font-size: 0.85rem;">Open Account</a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill text-primary me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up text-primary me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-bold bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1 d-flex gap-2">
+            <a href="login" class="btn btn-outline-primary btn-sm w-50 py-2 fw-semibold rounded-3">Log In</a>
+            <a href="register" class="btn btn-primary btn-sm w-50 py-2 fw-semibold rounded-3">Open Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="pricing-hero text-center">
+      <div class="container">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.2); color: #2563eb; font-weight: 700; font-size: 0.85rem;">
+          <i class="bi bi-tag-fill me-1"></i> Transparent &amp; Fair Pricing
+        </div>
+        <h1 class="display-4 fw-bold text-dark mb-3">Simple Fees. No Hidden Charges.</h1>
+        <p class="text-secondary lead max-w-700 mx-auto mb-4">
+          Everything is transparent. Enjoy $0 account management, zero-fee crypto deposits, and direct network gas pass-through rates.
+        </p>
+      </div>
+    </section>
+
+    <!-- Account Tiers Section -->
+    <section class="py-5" style="background: #f8fafc;">
+      <div class="container">
+        
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-dark">Account Tiers &amp; Daily Limits</h2>
+          <p class="text-secondary">Scale your limits automatically as you complete verification milestones.</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+          
+          <!-- Standard -->
+          <div class="col-lg-4" data-aos="fade-up">
+            <div class="pricing-card">
+              <h4 class="fw-bold text-dark mb-1">Standard</h4>
+              <p class="text-secondary small mb-4">For individuals beginning their digital banking journey</p>
+              
+              <div class="d-flex align-items-baseline mb-4">
+                <span class="display-5 fw-bold text-dark">$0</span>
+                <span class="text-secondary ms-2">/ month</span>
+              </div>
+
+              <ul class="list-unstyled d-flex flex-column gap-3 small mb-4">
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$5,000 / day</strong> Fiat Deposit Limit</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$2,500 / day</strong> Fiat Withdrawal Limit</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$10,000 / day</strong> Crypto Transfers</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Multi-Currency Crypto Wallets</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Free Virtual Visa Debit Card</span>
+                </li>
+                <li class="d-flex align-items-center gap-2 text-muted">
+                  <i class="bi bi-x-circle-fill text-secondary"></i>
+                  <span>Priority Wire Settlements</span>
+                </li>
+              </ul>
+
+              <a href="register" class="btn btn-outline-primary w-100 rounded-pill py-2 fw-semibold">Get Started Free</a>
+            </div>
+          </div>
+
+          <!-- Verified Pro -->
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="pricing-card featured">
+              <div class="featured-badge">Most Popular</div>
+              <h4 class="fw-bold text-dark mb-1">Verified Plus</h4>
+              <p class="text-secondary small mb-4">Full KYC verification for active investors and web3 power users</p>
+              
+              <div class="d-flex align-items-baseline mb-4">
+                <span class="display-5 fw-bold text-primary">$100</span>
+                <span class="text-secondary ms-2">/ month</span>
+              </div>
+
+              <ul class="list-unstyled d-flex flex-column gap-3 small mb-4">
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$100,000 / day</strong> Fiat Deposit Limit</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$50,000 / day</strong> Fiat Withdrawal Limit</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>$250,000 / day</strong> Crypto Transfers</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Dedicated Domestic USD Account Details</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Solid Matte Metal Visa Card</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Max Staking APY (up to 12.4%)</span>
+                </li>
+              </ul>
+
+              <a href="register" class="btn btn-primary w-100 rounded-pill py-2 fw-semibold">Open Verified Account</a>
+            </div>
+          </div>
+
+          <!-- Institutional -->
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="pricing-card">
+              <h4 class="fw-bold text-dark mb-1">Institutional / VIP</h4>
+              <p class="text-secondary small mb-4">For registered businesses, hedge funds, and family offices</p>
+              
+              <div class="d-flex align-items-baseline mb-4">
+                <span class="display-5 fw-bold text-dark">Custom</span>
+                <span class="text-secondary ms-2">/ bespoke</span>
+              </div>
+
+              <ul class="list-unstyled d-flex flex-column gap-3 small mb-4">
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>Unlimited</strong> Fiat Deposit &amp; Withdrawal</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span><strong>Unlimited</strong> Multi-Chain Crypto Transfers</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Bespoke OTC Liquidity Desk &amp; Block Swaps</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Multi-User Sub-Accounts &amp; RBAC Controls</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Dedicated Senior Relationship Manager</span>
+                </li>
+                <li class="d-flex align-items-center gap-2">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>REST &amp; WebSocket Banking APIs</span>
+                </li>
+              </ul>
+
+              <a href="corporate" class="btn btn-outline-dark w-100 rounded-pill py-2 fw-semibold">Contact VIP Desk</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Master Fee Schedule Table -->
+        <div class="text-center mb-4 pt-3">
+          <h2 class="fw-bold text-dark">Detailed Fee Schedule</h2>
+          <p class="text-secondary">Granular breakdown for funding, trading, transfers, and asset custody.</p>
+        </div>
+
+        <div class="table-responsive fee-table mb-5">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Service / Transaction Type</th>
+                <th>Fee Rate</th>
+                <th>Processing Time</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Account Opening &amp; Maintenance</strong></td>
+                <td><span class="badge bg-success">FREE ($0.00)</span></td>
+                <td>Instant</td>
+                <td>No monthly maintenance or inactivity fees</td>
+              </tr>
+              <tr>
+                <td><strong>Crypto Deposits (All Chains)</strong></td>
+                <td><span class="badge bg-success">FREE ($0.00)</span></td>
+                <td>1 - 3 Block Confirmations</td>
+                <td>Supports BTC, ETH, SOL, Tron, BSC, Polygon</td>
+              </tr>
+              <tr>
+                <td><strong>USD Fiat Deposit (ACH / SEPA)</strong></td>
+                <td><span class="badge bg-success">FREE ($0.00)</span></td>
+                <td>Instant - 1 Business Day</td>
+                <td>Direct electronic bank debit</td>
+              </tr>
+              <tr>
+                <td><strong>USD Domestic Wire Deposit</strong></td>
+                <td><span class="badge bg-success">FREE ($0.00)</span></td>
+                <td>Same Day (FedNow)</td>
+                <td>Zero deposit fee charged by CryptoPay</td>
+              </tr>
+              <tr>
+                <td><strong>Internal P2P Crypto &amp; USD Transfers</strong></td>
+                <td><span class="badge bg-success">FREE (0%)</span></td>
+                <td>Instantaneous</td>
+                <td>Transfer to any CryptoPay username, tag, or email</td>
+              </tr>
+              <tr>
+                <td><strong>Instant Crypto Swaps &amp; Conversion</strong></td>
+                <td><strong>0.10%</strong> flat spread</td>
+                <td>Instant (sub-second)</td>
+                <td>Deep aggregated liquidity from top liquidity providers</td>
+              </tr>
+              <tr>
+                <td><strong>External Crypto Withdrawals</strong></td>
+                <td><strong>Network Gas Fee</strong> (Pass-through)</td>
+                <td>Dynamic (~2 to 10 mins)</td>
+                <td>CryptoPay adds 0% markup over actual blockchain miners/validators</td>
+              </tr>
+              <tr>
+                <td><strong>USD Domestic Wire Withdrawal</strong></td>
+                <td><strong>$15.00</strong> flat</td>
+                <td>Same Day / 24h</td>
+                <td>Standard wire processing fee; waived for transfers &gt; $10k</td>
+              </tr>
+              <tr>
+                <td><strong>CryptoPay Virtual Visa Card</strong></td>
+                <td><span class="badge bg-success">FREE ($0.00)</span></td>
+                <td>Instant Issuance</td>
+                <td>Compatible with Apple Pay and Google Wallet</td>
+              </tr>
+              <tr>
+                <td><strong>Foreign Exchange (FX) Markup on Card</strong></td>
+                <td><span class="badge bg-success">0.00%</span></td>
+                <td>Real-time</td>
+                <td>Spend globally in 150+ currencies without exchange penalty</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- FAQ Mini Section -->
+        <div class="row g-4 mt-4">
+          <div class="col-md-6">
+            <div class="p-4 bg-white rounded-4 border border-1 border-slate shadow-sm h-100">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-question-circle-fill text-primary me-2"></i>How are crypto withdrawal fees calculated?</h5>
+              <p class="text-secondary small mb-0">
+                CryptoPay charges only the true blockchain network fee (gas) required to broadcast and validate your transaction on-chain. We do not tack on surcharges or hidden exit tolls.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-4 bg-white rounded-4 border border-1 border-slate shadow-sm h-100">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-question-circle-fill text-primary me-2"></i>Are there any minimum balance requirements?</h5>
+              <p class="text-secondary small mb-0">
+                No. You can open an account, generate wallet addresses, and fund any amount from $50.00 with zero minimum balance penalizations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with Pure White Text & 4 Columns on 1 Line -->
+  <footer class="text-center py-3 mt-2 cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+
+      <!-- 4 Columns on 1 Line: Company, Services, Client Portal, Support & Legal -->
+      <div class="row g-3 text-start mb-3">
+        
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Company</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="about" class="text-white text-decoration-none opacity-90">About Us</a></li>
+            <li><a href="markets" class="text-white text-decoration-none opacity-90">Crypto Markets</a></li>
+            <li><a href="pricing" class="text-white text-decoration-none opacity-90">Pricing &amp; Fees</a></li>
+            <li><a href="terms" class="text-white text-decoration-none opacity-90">Terms &amp; Compliance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Services</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="services" class="text-white text-decoration-none opacity-90">All Services</a></li>
+            <li><a href="personal" class="text-white text-decoration-none opacity-90">Personal Banking</a></li>
+            <li><a href="business" class="text-white text-decoration-none opacity-90">Web3 Business</a></li>
+            <li><a href="savings-isas" class="text-white text-decoration-none opacity-90">Staking Vaults</a></li>
+            <li><a href="credit-cards" class="text-white text-decoration-none opacity-90">Metal Visa Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Client Portal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="login" class="text-white text-decoration-none opacity-90">Online Banking Login</a></li>
+            <li><a href="register" class="text-white text-decoration-none opacity-90">Open Account</a></li>
+            <li><a href="inside" class="text-white text-decoration-none opacity-90">Portfolio Dashboard</a></li>
+            <li><a href="transfer" class="text-white text-decoration-none opacity-90">Instant Transfers</a></li>
+            <li><a href="statements" class="text-white text-decoration-none opacity-90">Account Statements</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-6">
+          <h6 class="text-white fw-bold mb-2">Support &amp; Legal</h6>
+          <ul class="list-unstyled text-white small d-flex flex-column gap-1 mb-0">
+            <li><a href="tel:+18129651537" class="text-white text-decoration-none opacity-90"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a></li>
+            <li><a href="customer-support" class="text-white text-decoration-none opacity-90">Help Center</a></li>
+            <li><a href="chat" class="text-white text-decoration-none opacity-90">24/7 Live Support</a></li>
+            <li><a href="terms#terms" class="text-white text-decoration-none opacity-90">Terms of Service</a></li>
+            <li><a href="terms#privacy" class="text-white text-decoration-none opacity-90">Privacy Policy</a></li>
+            <li><a href="terms#risk" class="text-white text-decoration-none opacity-90">Risk Disclosure</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="border-secondary opacity-25 my-3">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script src="js/chat-widget.js"></script>
+  <script>if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });</script>
+</body>
+</html>

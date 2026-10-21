@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Crypto Bill &amp; Merchant Pay</title>
+  <meta name="description" content="Pay bills, utilities, and Web3 merchant invoices with cryptocurrency using CryptoPay.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .bill-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+    .form-control, .form-select {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15) !important;
+    }
+    .form-label {
+      color: #334155;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="inside" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-1">
+            <li><a href="inside" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Dashboard</a></li>
+            <li><a href="transfer" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Send / Transfer</a></li>
+            <li><a href="transactions" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Transactions</a></li>
+            <li><a href="statements" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Statements</a></li>
+            <li><a href="account-settings" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Security</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <!-- Notification Bell -->
+          <div class="dropdown">
+            <a class="nav-link position-relative p-2" href="#" role="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-bell-fill fs-5 text-secondary"></i>
+              <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" style="font-size: 0.65rem;">0</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="notificationDropdown" id="notificationList" style="width: 320px; max-height: 400px; overflow-y: auto; background-color: #ffffff; border: 1px solid #e2e8f0;">
+              <li><div class="dropdown-item text-center text-muted">No notifications</div></li>
+            </ul>
+          </div>
+
+          <!-- Bank-Style Sign Off / Log Out Button -->
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-2.5 px-md-3 py-1 fw-semibold d-inline-flex align-items-center" onclick="logout()" title="Sign Off" style="font-size: 0.82rem; border-color: rgba(220, 53, 69, 0.35);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="me-1 text-danger">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span class="d-none d-sm-inline">Sign Off</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenu" aria-controls="mobileNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenu">
+        <div class="d-flex flex-column gap-1 pb-1">
+          <a href="inside" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-grid-fill text-primary me-2"></i>Dashboard</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="transfer" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-send-fill text-primary me-2"></i>Send / Transfer</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="transactions" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-clock-history text-primary me-2"></i>Transactions</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="statements" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-file-earmark-pdf-fill text-primary me-2"></i>Statements</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="account-settings" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-shield-lock-fill text-primary me-2"></i>Security</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <button onclick="logout()" class="btn btn-sm text-start py-2 px-3 fw-semibold text-danger rounded-3 d-flex align-items-center justify-content-between border-0 bg-danger bg-opacity-10 mt-1">
+            <span><i class="bi bi-box-arrow-right text-danger me-2"></i>Sign Off</span>
+            <i class="bi bi-chevron-right small text-danger"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-5">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="bill-card p-4 p-md-5">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div>
+                <h3 class="fw-bold text-dark mb-1"><i class="bi bi-receipt-cutoff text-primary me-2"></i>Pay Bills with Crypto &amp; Fiat</h3>
+                <p class="text-muted small mb-0">Direct settlement for utilities, subscriptions, Web3 invoices &amp; merchants</p>
+              </div>
+              <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 rounded-pill">Instant Settlement</span>
+            </div>
+
+            <!-- Top Bill Payment Receipt Area -->
+            <div id="billResult" class="mb-4 d-none"></div>
+
+            <form id="billForm">
+              <div class="mb-3">
+                <label for="fromAccount" class="form-label">Payment Source Wallet</label>
+                <select class="form-select" id="fromAccount" required>
+                  <option value="">Select funding wallet...</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="payeeName" class="form-label">Payee / Merchant Name</label>
+                <input type="text" class="form-control" id="payeeName" placeholder="e.g. AWS Cloud, Starlink, OpenAI, Landlord, Electricity" required>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label for="amount" class="form-label">Amount (USD Value)</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light text-dark fw-bold border-slate">$</span>
+                    <input type="number" step="0.01" min="0.01" class="form-control" id="amount" placeholder="0.00" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="routingCode" class="form-label">9-Digit Payee / Authorization Code</label>
+                  <input type="text" class="form-control font-monospace" id="routingCode" maxlength="9" pattern="\d{9}" placeholder="e.g. 123456789" required>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="description" class="form-label">Bill Account Reference / Invoice Number (Optional)</label>
+                <input type="text" class="form-control" id="description" placeholder="e.g. INV-904128, Customer ID #4492">
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-3 fs-6 rounded-pill fw-semibold shadow-sm">
+                <i class="bi bi-check2-circle me-2"></i> Authorize Bill Payment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for Security Verification & Progress -->
+  <div class="modal fade" id="transactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 20px 45px rgba(15,23,42,0.15);">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold text-dark">
+            <i class="bi bi-shield-check text-primary me-2"></i>Processing Merchant Settlement
+          </h5>
+        </div>
+        <div class="modal-body p-4">
+          <!-- Progress view -->
+          <div id="modalProgressView">
+            <p class="text-secondary mb-2 text-center" id="progressStatus">Initiating bill settlement...</p>
+            <div class="progress mb-3 bg-light" style="height: 12px; border-radius: 6px;">
+              <div id="transactionProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%;"></div>
+            </div>
+            <div class="text-end fw-bold text-primary mb-2" id="progressPercentage">0%</div>
+          </div>
+
+          <!-- Verification view -->
+          <div id="modalVerificationView" class="d-none">
+            <div class="alert alert-warning border border-warning d-flex align-items-center rounded-3" role="alert">
+              <i class="bi bi-shield-lock-fill me-3 fs-3 text-warning"></i>
+              <div class="text-dark small">
+                <strong>Authorization Code Required:</strong> Please enter the 9-digit security code linked to your CryptoPay account to authorize settlement.
+              </div>
+            </div>
+            <form id="verificationForm" class="mt-3">
+              <div class="d-flex flex-column align-items-center mb-4">
+                <label for="verificationCode" class="form-label text-dark fw-bold mb-2">9-Digit Authorization Code</label>
+                <input type="text" class="form-control text-center font-monospace fs-3 bg-white text-dark border-primary" id="verificationCode" maxlength="9" placeholder="123456789" required autocomplete="off" style="max-width: 260px; letter-spacing: 3px;">
+                <div class="invalid-feedback text-center text-danger" id="verificationError">Invalid authorization code.</div>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-secondary w-50 rounded-pill" id="cancelTransactionBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary w-50 rounded-pill fw-semibold" id="confirmVerificationBtn">Confirm &amp; Settle</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= COMPACT LOGGED-IN FOOTER ================= -->
+  <footer class="text-center py-3 mt-4 cryptopay-footer-pure-white" style="background-color: #080d1a; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important; font-size: 0.8rem; opacity: 0.85;">
+        &copy; 2026 CryptoPay Technologies Inc. All rights reserved. FDIC-Insured Custody Gateway &bull; Regulated Digital Banking &bull; Priority Support: <a href="tel:+18129651537" class="text-white text-decoration-none fw-semibold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const userStr = localStorage.getItem('cryptopay_user') || localStorage.getItem('santander_user');
+      if (!userStr) { window.location.href = 'login'; return; }
+      const user = JSON.parse(userStr);
+
+      if (user.status === 'blocked') {
+        alert('Your account is blocked. Please contact support.');
+        logout();
+        return;
+      }
+      if (user.status === 'suspended') {
+        const form = document.getElementById('billForm');
+        if (form) {
+          form.innerHTML = `
+            <div class="alert alert-warning p-4 rounded-3 text-center">
+              <i class="bi bi-exclamation-triangle-fill fs-2 text-warning d-block mb-2"></i>
+              <h5 class="fw-bold text-dark">Bill Payments Disabled</h5>
+              <p class="mb-3 text-secondary">Your account is currently suspended. Bill settlement and digital asset payments are disabled. Please contact CryptoPay Priority Support.</p>
+              <a href="customer-support" class="btn btn-outline-primary rounded-pill px-4">Contact Priority Support</a>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      try {
+        const dashRes = await fetch(`/api/user/${user.username}/dashboard`, { 
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
+        });
+        const dashData = await dashRes.json();
+        if (dashData.success) {
+          const sel = document.getElementById('fromAccount');
+          dashData.accounts.forEach(acc => {
+            const opt = document.createElement('option');
+            opt.value = acc.account_number;
+            const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+            let friendlyType = acc.account_type;
+            if (acc.account_type === 'Current') friendlyType = 'Current (Checking & USD Gateway)';
+            else if (acc.account_type === 'Savings') friendlyType = 'Savings (High-Yield Vault)';
+            else if (acc.account_type === 'Business') friendlyType = 'Business (Commercial)';
+            else if (acc.account_type === 'ISA') friendlyType = 'CryptoPay Metal Visa Facility';
+            opt.textContent = `${friendlyType} - ${maskedAcc} (${formattedBal})`;
+            sel.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error('Error loading accounts for bill pay', err);
+      }
+
+      document.getElementById('billForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const from = document.getElementById('fromAccount').value;
+        const payee = document.getElementById('payeeName').value.trim();
+        const routingCode = document.getElementById('routingCode').value.trim();
+        const amt = document.getElementById('amount').value;
+        const desc = document.getElementById('description').value;
+        const out = document.getElementById('billResult');
+        out.innerHTML = '';
+
+        const modalElement = document.getElementById('transactionModal');
+        const txModal = new bootstrap.Modal(modalElement);
+        const progressView = document.getElementById('modalProgressView');
+        const verificationView = document.getElementById('modalVerificationView');
+        const progressBar = document.getElementById('transactionProgressBar');
+        const progressPercent = document.getElementById('progressPercentage');
+        const progressStatus = document.getElementById('progressStatus');
+        const verificationCodeInput = document.getElementById('verificationCode');
+        const verificationError = document.getElementById('verificationError');
+        const confirmBtn = document.getElementById('confirmVerificationBtn');
+        const cancelBtn = document.getElementById('cancelTransactionBtn');
+
+        progressView.classList.remove('d-none');
+        verificationView.classList.add('d-none');
+        progressBar.style.width = '0%';
+        progressPercent.textContent = '0%';
+        progressStatus.textContent = 'Contacting merchant payment gateway...';
+        verificationCodeInput.value = routingCode;
+        verificationCodeInput.classList.remove('is-invalid');
+        confirmBtn.disabled = false;
+        cancelBtn.disabled = false;
+
+        txModal.show();
+
+        let currentProgress = 0;
+        const interval = setInterval(() => {
+          currentProgress += 2.5;
+          if (currentProgress >= 95) {
+            currentProgress = 95;
+            clearInterval(interval);
+            setTimeout(() => {
+              progressView.classList.add('d-none');
+              verificationView.classList.remove('d-none');
+              verificationCodeInput.focus();
+            }, 300);
+          }
+          progressBar.style.width = `${Math.floor(currentProgress)}%`;
+          progressPercent.textContent = `${Math.floor(currentProgress)}%`;
+          if (currentProgress > 40 && currentProgress < 80) {
+            progressStatus.textContent = 'Securing blockchain settlement channel...';
+          } else if (currentProgress >= 80) {
+            progressStatus.textContent = 'Authenticating bill payment...';
+          }
+        }, 50);
+
+        cancelBtn.onclick = () => {
+          clearInterval(interval);
+          txModal.hide();
+        };
+
+        document.getElementById('verificationForm').onsubmit = async (ve) => {
+          ve.preventDefault();
+          const code = verificationCodeInput.value.trim();
+          if (!/^\d{9}$/.test(code)) {
+            verificationCodeInput.classList.add('is-invalid');
+            verificationError.textContent = 'Authorization code must be exactly 9 digits.';
+            return;
+          }
+
+          confirmBtn.disabled = true;
+          cancelBtn.disabled = true;
+
+          try {
+            const res = await fetch('/api/billpay', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+              },
+              body: JSON.stringify({
+                fromAccount: from,
+                payeeName: payee,
+                amount: amt,
+                description: desc || `Payment to ${payee}`,
+                transactionCode: code
+              })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+              verificationView.classList.add('d-none');
+              progressView.classList.remove('d-none');
+              progressStatus.textContent = 'Payment settled with merchant!';
+              progressBar.style.width = '100%';
+              progressPercent.textContent = '100%';
+
+              setTimeout(() => {
+                txModal.hide();
+                document.getElementById('billForm').classList.add('d-none');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                const refCode = 'BILL-' + Date.now().toString().slice(-8);
+                out.classList.remove('d-none');
+                out.innerHTML = `
+                  <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 p-0 animate__animated animate__fadeIn">
+                    <div class="p-4 text-white text-center" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);">
+                      <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-20 rounded-circle mb-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-check-circle-fill text-white fs-2"></i>
+                      </div>
+                      <h4 class="fw-bold mb-1">Bill Payment Settled &amp; Confirmed</h4>
+                      <div class="small text-white-50">CryptoPay Official Merchant Settlement Receipt</div>
+                    </div>
+                    <div class="card-body p-4 p-md-5 bg-white">
+                      <div class="text-center mb-4">
+                        <span class="text-muted small text-uppercase fw-semibold" style="letter-spacing: 1px;">Amount Paid</span>
+                        <div class="display-5 fw-bold text-dark my-1">$${parseFloat(amt).toLocaleString('en-US', {minimumFractionDigits: 2})} USD</div>
+                        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1.5 rounded-pill fw-semibold">
+                          <i class="bi bi-shield-check me-1"></i>Merchant Status: Confirmed &amp; Disbursed
+                        </span>
+                      </div>
+
+                      <div class="bg-light rounded-3 p-3 p-md-4 border border-secondary border-opacity-10 mb-4">
+                        <div class="row g-3 small">
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Settlement Reference:</span>
+                            <div class="d-flex align-items-center gap-1">
+                              <strong class="font-monospace text-dark fs-6">${refCode}</strong>
+                              <button class="btn btn-sm btn-link p-0 text-primary ms-1" onclick="navigator.clipboard.writeText('${refCode}')" title="Copy Reference"><i class="bi bi-clipboard"></i></button>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Merchant / Payee:</span>
+                            <strong class="text-dark fs-6">${payee}</strong>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Source Wallet:</span>
+                            <strong class="text-dark font-monospace">•••• ${String(from).slice(-4)}</strong>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Remaining Balance:</span>
+                            <strong class="text-success font-monospace fs-6">$${parseFloat(data.newBalance || 0).toLocaleString('en-US', {minimumFractionDigits: 2})} USD</strong>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Settlement Date:</span>
+                            <strong class="text-dark">${new Date().toLocaleString()}</strong>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="text-muted d-block">Processing Fee:</span>
+                            <strong class="text-dark font-monospace">$0.00 USD (Zero Fee Merchant Gateway)</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Relaxed redirect timer controls with stay button -->
+                      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2 mb-4 p-3 rounded-3 bg-primary bg-opacity-10 border border-primary border-opacity-25">
+                        <div class="small text-primary fw-semibold d-flex align-items-center gap-2">
+                          <i class="bi bi-hourglass-split fs-5"></i>
+                          <span id="billTimerText">Auto-returning to dashboard in <strong id="billSecs">30</strong> seconds...</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" onclick="if (window.billInterval) clearInterval(window.billInterval); document.getElementById('billTimerText').innerHTML='<span class=\"text-secondary\"><i class=\"bi bi-check-circle me-1\"></i>Auto-redirect paused. You can review your receipt as long as needed.</span>';">
+                            <i class="bi bi-pause-fill me-1"></i>Stay on Page
+                          </button>
+                          <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold" onclick="location.href='inside'">
+                            Return Now &rarr;
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Action Buttons -->
+                      <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold" onclick="window.print()">
+                          <i class="bi bi-printer me-1"></i>Print Receipt
+                        </button>
+                        <a href="transactions?account=${from}" class="btn btn-outline-primary rounded-pill px-4 fw-semibold">
+                          <i class="bi bi-clock-history me-1"></i>View in Ledger
+                        </a>
+                        <button type="button" class="btn btn-primary rounded-pill px-4 fw-semibold" onclick="if (window.billInterval) clearInterval(window.billInterval); document.getElementById('billForm').reset(); document.getElementById('billForm').classList.remove('d-none'); document.getElementById('billResult').classList.add('d-none');">
+                          <i class="bi bi-plus-lg me-1"></i>Pay Another Bill
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                let s = 30;
+                if (window.billInterval) clearInterval(window.billInterval);
+                window.billInterval = setInterval(() => {
+                  s--;
+                  const el = document.getElementById('billSecs');
+                  if (el) el.textContent = s;
+                  if (s <= 0) {
+                    clearInterval(window.billInterval);
+                    location.href = 'inside';
+                  }
+                }, 1000);
+              }, 800);
+            } else {
+              confirmBtn.disabled = false;
+              cancelBtn.disabled = false;
+              verificationCodeInput.classList.add('is-invalid');
+              if (data.locked) {
+                verificationError.textContent = data.message || 'Account locked due to 5 consecutive invalid code attempts. Please contact customer support.';
+                confirmBtn.disabled = true;
+                verificationCodeInput.disabled = true;
+                setTimeout(() => logout(true), 2500);
+                return;
+              }
+              verificationError.textContent = data.message || 'Invalid code. Please try again.';
+              verificationCodeInput.select();
+            }
+          } catch (err) {
+            console.error(err);
+            confirmBtn.disabled = false;
+            cancelBtn.disabled = false;
+            verificationCodeInput.classList.add('is-invalid');
+            verificationError.textContent = 'Invalid code. Please try again.';
+            verificationCodeInput.select();
+          }
+        };
+      });
+    });
+
+    function logout(locked) {
+      try {
+        localStorage.removeItem('cryptopay_user');
+        localStorage.removeItem('santander_user');
+        localStorage.removeItem('customerToken');
+        sessionStorage.clear();
+      } catch (e) {
+        console.error('Logout storage clear error:', e);
+      }
+      window.location.href = locked ? 'login?locked=true' : 'login?signed_out=true';
+    }
+  </script>
+</body>
+</html>

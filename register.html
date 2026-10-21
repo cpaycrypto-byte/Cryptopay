@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Open Online Crypto Banking Account</title>
+  <meta name="description" content="Open your CryptoPay account today. Instant digital asset wallets, USD cash reserve, high-yield staking vaults, and zero gas-fee crypto transfers.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+    .register-card-clean {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+    }
+    .form-control {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .form-control:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15) !important;
+    }
+    .form-floating label {
+      color: #64748b;
+    }
+    .section-divider-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 16px;
+    }
+    .crypto-checkbox-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .crypto-checkbox-box:hover {
+      background: rgba(37, 99, 235, 0.04);
+      border-color: #2563eb;
+    }
+
+    /* Multi-step wizard styles */
+    .wizard-step-node {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .wizard-step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #64748b;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #e2e8f0;
+      transition: all 0.25s ease;
+      margin-bottom: 4px;
+    }
+    .wizard-step-node.active .wizard-step-circle {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+    }
+    .wizard-step-node.completed .wizard-step-circle {
+      background: #10b981;
+      color: #ffffff;
+      border-color: #10b981;
+    }
+    .wizard-step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      transition: color 0.2s ease;
+    }
+    .wizard-step-node.active .wizard-step-label {
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .wizard-step-node.completed .wizard-step-label {
+      color: #10b981;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker (Compact) -->
+  <div class="cryptopay-topbar py-1" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item ms-auto text-light small d-none d-md-flex align-items-center gap-1">
+          <i class="bi bi-shield-check text-info me-1"></i> Identity &amp; AML Verification Portal
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header (Compact py-2, 30px icon) -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Home</a></li>
+            <li><a href="services" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Services</a></li>
+            <li><a href="markets" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Markets</a></li>
+            <li><a href="pricing" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">About Us</a></li>
+            <li><a href="customer-support" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Support</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Log In
+          </a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill text-primary me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up text-primary me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill text-primary me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1">
+            <a href="login" class="btn btn-outline-primary btn-sm w-100 py-2 fw-semibold rounded-3">Log In to Existing Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-4">
+    <div class="container py-lg-3">
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          
+          <div class="register-card-clean p-4 p-md-5">
+            <div class="text-center mb-4">
+              <h2 class="fw-bold text-dark mb-1">Open a CryptoPay Account</h2>
+              <p class="text-secondary small mb-0">Activate your primary USD cash account and multi-asset crypto wallets in under 3 minutes</p>
+            </div>
+
+            <!-- Progress Bar & Multi-Step Indicator -->
+            <div class="registration-wizard-header mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-bold text-primary text-uppercase" id="stepCounterText">Step 1 of 4: Personal Details</span>
+                <span class="small fw-bold text-secondary" id="stepPercentText">25% Completed</span>
+              </div>
+              <div class="progress" style="height: 6px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden;">
+                <div class="progress-bar bg-primary" id="regProgressBar" role="progressbar" style="width: 25%; transition: width 0.3s ease;"></div>
+              </div>
+              <div class="d-flex justify-content-between mt-3 text-center">
+                <div class="wizard-step-node active" id="node1" onclick="jumpToStep(1)">
+                  <div class="wizard-step-circle" id="circle1">1</div>
+                  <div class="wizard-step-label">Personal</div>
+                </div>
+                <div class="wizard-step-node" id="node2" onclick="jumpToStep(2)">
+                  <div class="wizard-step-circle" id="circle2">2</div>
+                  <div class="wizard-step-label">Facilities</div>
+                </div>
+                <div class="wizard-step-node" id="node3" onclick="jumpToStep(3)">
+                  <div class="wizard-step-circle" id="circle3">3</div>
+                  <div class="wizard-step-label">KYC Upload</div>
+                </div>
+                <div class="wizard-step-node" id="node4" onclick="jumpToStep(4)">
+                  <div class="wizard-step-circle" id="circle4">4</div>
+                  <div class="wizard-step-label">Security</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="stepErrorAlert" class="alert alert-danger d-none small mb-4"></div>
+
+            <form id="multiStepRegForm" onsubmit="event.preventDefault(); submitRegistration();">
+              
+              <!-- STEP 1: Personal Details -->
+              <div class="wizard-step-content" id="stepContent1">
+                <div class="section-divider-title"><i class="bi bi-person-fill me-1"></i> 1. Personal &amp; Legal Details</div>
+                
+                <div class="row g-2 mb-3">
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="Firstname" placeholder="First Name" required>
+                      <label for="Firstname">First Name *</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="Middlename" placeholder="Middle Name">
+                      <label for="Middlename">Middle Name (Optional)</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="Surname" placeholder="Surname" required>
+                      <label for="Surname">Surname *</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2 mb-3">
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="dob" placeholder="MM/DD/YYYY" required>
+                      <label for="dob">Date of Birth (MM/DD/YYYY) *</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <select class="form-select" id="idType" required onchange="handleIdTypeChange()">
+                        <option value="Driver's License (USA)" selected>Driver's License (USA)</option>
+                        <option value="State Identification Card">State Identification Card</option>
+                        <option value="US Passport / Passport Card">US Passport / Passport Card</option>
+                        <option value="Social Security Number (SSN)">Social Security Number (SSN)</option>
+                        <option value="Permanent Resident Card (Green Card)">Permanent Resident Card (Green Card)</option>
+                        <option value="International Passport">International Passport</option>
+                      </select>
+                      <label for="idType">Identification Type *</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="id" placeholder="License Number" required>
+                      <label for="id" id="idLabel">Driver's License Number *</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="address" placeholder="Residential Address" required>
+                  <label for="address">Full Residential Address *</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="Email" placeholder="name@example.com" required>
+                  <label for="Email">Email Address *</label>
+                </div>
+
+                <div class="row g-2 mb-4">
+                  <div class="col-4 col-md-3">
+                    <div class="form-floating">
+                      <input type="text" class="form-control fw-bold bg-light" id="countryCode" value="+1" readonly style="color: #0f172a; cursor: default;">
+                      <label for="countryCode">Country Code</label>
+                    </div>
+                  </div>
+                  <div class="col-8 col-md-9">
+                    <div class="form-floating">
+                      <input type="tel" class="form-control" id="phone" placeholder="(555) 000-0000" required>
+                      <label for="phone">Mobile Phone Number *</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                  <button type="button" class="btn btn-primary py-2.5 px-4 fw-bold rounded-3 shadow-sm" onclick="nextStep(2)">
+                    Continue to Facilities <i class="bi bi-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2: Choose Account Facilities -->
+              <div class="wizard-step-content d-none" id="stepContent2">
+                <div class="section-divider-title"><i class="bi bi-wallet-fill me-1"></i> 2. Choose Account Facilities</div>
+                <p class="text-secondary small mb-3">Select the account facilities you wish to provision:</p>
+
+                <!-- 1. Fiat & Crypto Wallet -->
+                <div class="crypto-checkbox-box">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="accWallet" value="Fiat & Crypto Wallet" checked>
+                    <label class="form-check-label text-dark fw-bold d-block" for="accWallet">
+                      Fiat &amp; Crypto Wallet <span class="badge bg-primary bg-opacity-10 text-primary ms-2">Primary Gateway</span>
+                    </label>
+                    <span class="text-secondary small d-block">Your primary account for managing supported fiat currencies and crypto assets.</span>
+                    <ul class="text-secondary small ps-3 mb-0 mt-1">
+                      <li>View balances and transaction history</li>
+                      <li>Deposit, withdraw, and transfer supported assets</li>
+                      <li>Buy and sell crypto where available</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 2. Crypto Earn & Savings Vault -->
+                <div class="crypto-checkbox-box">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="accVault" value="Crypto Earn & Savings Vault">
+                    <label class="form-check-label text-dark fw-bold d-block" for="accVault">
+                      Crypto Earn &amp; Savings Vault <span class="badge bg-success bg-opacity-10 text-success ms-2">Yield &amp; Staking</span>
+                    </label>
+                    <span class="text-secondary small d-block">Access eligible yield-generating or staking products, where available.</span>
+                    <ul class="text-secondary small ps-3 mb-0 mt-1">
+                      <li>View estimated rewards and rates</li>
+                      <li>Review lock-up and withdrawal conditions</li>
+                      <li>Understand the risks before subscribing</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 3. Business & Treasury Account -->
+                <div class="crypto-checkbox-box">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="accBusiness" value="Business & Treasury Account">
+                    <label class="form-check-label text-dark fw-bold d-block" for="accBusiness">
+                      Business &amp; Treasury Account <span class="badge bg-info bg-opacity-10 text-info ms-2">Commercial Web3</span>
+                    </label>
+                    <span class="text-secondary small d-block">Digital asset management for eligible businesses and organizations.</span>
+                    <ul class="text-secondary small ps-3 mb-0 mt-1">
+                      <li>Business verification and authorized users</li>
+                      <li>Payment tracking and transaction reporting</li>
+                      <li>Invoicing and bulk payments where supported</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 4. Crypto Debit Card -->
+                <div class="crypto-checkbox-box mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="accCard" value="Crypto Debit Card">
+                    <label class="form-check-label text-dark fw-bold d-block" for="accCard">
+                      Crypto Debit Card <span class="badge bg-warning bg-opacity-10 text-warning ms-2">Card Program</span>
+                    </label>
+                    <span class="text-secondary small d-block">Spend eligible funds through a supported card program.</span>
+                    <ul class="text-secondary small ps-3 mb-0 mt-1">
+                      <li>Virtual card, if available</li>
+                      <li>Physical card delivery, if supported</li>
+                      <li>Rewards only where officially offered</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-outline-secondary py-2.5 px-4 fw-semibold rounded-3" onclick="prevStep(1)">
+                    <i class="bi bi-arrow-left me-2"></i> Back
+                  </button>
+                  <button type="button" class="btn btn-primary py-2.5 px-4 fw-bold rounded-3 shadow-sm" onclick="nextStep(3)">
+                    Continue to KYC Verification <i class="bi bi-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 3: Compliance Verification (KYC) -->
+              <div class="wizard-step-content d-none" id="stepContent3">
+                <div class="section-divider-title"><i class="bi bi-file-earmark-person me-1"></i> 3. Compliance Verification (KYC)</div>
+                <p class="text-secondary small mb-3">To comply with global regulatory standards, please upload your compliance and identification documents (up to 5 items).</p>
+
+                <div class="p-3 bg-light rounded-3 border mb-4">
+                  <label for="idDocument" class="form-label text-dark fw-bold small mb-2">Upload Identification &amp; Compliance Documents (Up to 5 files)</label>
+                  <input class="form-control" type="file" id="idDocument" accept=".jpg,.jpeg,.png,.pdf" multiple onchange="handleFileSelection(this)">
+                  <div class="text-muted small mt-2">
+                    <i class="bi bi-shield-check text-success me-1"></i> You may upload up to 5 items (e.g. Passport, Driver's License Front/Back, Proof of Address, Selfie with ID). Supported formats: PDF, PNG, JPG.
+                  </div>
+                  <div id="fileSelectionPreview" class="small mt-2 text-primary fw-medium d-none"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-outline-secondary py-2.5 px-4 fw-semibold rounded-3" onclick="prevStep(2)">
+                    <i class="bi bi-arrow-left me-2"></i> Back
+                  </button>
+                  <button type="button" class="btn btn-primary py-2.5 px-4 fw-bold rounded-3 shadow-sm" onclick="nextStep(4)">
+                    Continue to Security <i class="bi bi-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 4: Portal Credentials & Security -->
+              <div class="wizard-step-content d-none" id="stepContent4">
+                <div class="section-divider-title"><i class="bi bi-shield-lock-fill me-1"></i> 4. Portal Credentials &amp; Security</div>
+                <p class="text-secondary small mb-3">Set up your portal access credentials and security password.</p>
+                
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="username" placeholder="Username" required autocomplete="username">
+                  <label for="username">Choose Username or CryptoPay Tag *</label>
+                </div>
+
+                <div class="row g-2 mb-4">
+                  <div class="col-md-6">
+                    <div class="form-floating position-relative">
+                      <input type="password" class="form-control" id="Password" placeholder="Password" style="padding-right: 48px;" required autocomplete="new-password">
+                      <label for="Password">Secure Password *</label>
+                      <span class="position-absolute end-0 top-50 translate-middle-y pe-3 toggle-password" data-target="Password" style="cursor: pointer; z-index: 10;">
+                        <i class="bi bi-eye text-muted fs-5"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating position-relative">
+                      <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" style="padding-right: 48px;" required autocomplete="new-password">
+                      <label for="ConfirmPassword">Confirm Password *</label>
+                      <span class="position-absolute end-0 top-50 translate-middle-y pe-3 toggle-password" data-target="ConfirmPassword" style="cursor: pointer; z-index: 10;">
+                        <i class="bi bi-eye text-muted fs-5"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-outline-secondary py-2.5 px-4 fw-semibold rounded-3" onclick="prevStep(3)">
+                    <i class="bi bi-arrow-left me-2"></i> Back
+                  </button>
+                  <button type="submit" class="btn btn-primary py-2.5 px-4 fw-bold rounded-3 shadow-sm" id="submitRegBtn">
+                    <i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application
+                  </button>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <span class="text-secondary small">Already have a CryptoPay account? <a href="login" class="text-primary text-decoration-none fw-bold">Log in here</a></span>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (Compact py-3 with exact copyright) -->
+  <footer class="text-center py-3 mt-auto cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">
+        &copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform &bull; Priority Support: <a href="tel:+18129651537" class="text-white text-decoration-none fw-semibold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    const stepTitles = {
+      1: "Step 1 of 4: Personal & Legal Details",
+      2: "Step 2 of 4: Choose Account Facilities",
+      3: "Step 3 of 4: Compliance Verification (KYC)",
+      4: "Step 4 of 4: Portal Credentials & Security"
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });
+      updateWizardUI();
+
+      document.querySelectorAll('.toggle-password').forEach(toggle => {
+        toggle.addEventListener('click', function () {
+          const targetId = this.getAttribute('data-target');
+          const input = document.getElementById(targetId);
+          const icon = this.querySelector('i');
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+          } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+          }
+        });
+      });
+    });
+
+    function updateWizardUI() {
+      // Hide all step contents
+      for (let i = 1; i <= totalSteps; i++) {
+        const stepEl = document.getElementById('stepContent' + i);
+        const nodeEl = document.getElementById('node' + i);
+        const circleEl = document.getElementById('circle' + i);
+        if (stepEl) {
+          if (i === currentStep) {
+            stepEl.classList.remove('d-none');
+          } else {
+            stepEl.classList.add('d-none');
+          }
+        }
+        if (nodeEl && circleEl) {
+          nodeEl.classList.remove('active', 'completed');
+          if (i === currentStep) {
+            nodeEl.classList.add('active');
+            circleEl.innerHTML = i;
+          } else if (i < currentStep) {
+            nodeEl.classList.add('completed');
+            circleEl.innerHTML = '<i class="bi bi-check-lg"></i>';
+          } else {
+            circleEl.innerHTML = i;
+          }
+        }
+      }
+
+      // Update progress bar & text
+      const progressPercent = Math.round((currentStep / totalSteps) * 100);
+      const progressBar = document.getElementById('regProgressBar');
+      const stepCounterText = document.getElementById('stepCounterText');
+      const stepPercentText = document.getElementById('stepPercentText');
+
+      if (progressBar) progressBar.style.width = progressPercent + '%';
+      if (stepCounterText) stepCounterText.textContent = stepTitles[currentStep];
+      if (stepPercentText) stepPercentText.textContent = progressPercent + '% Completed';
+
+      // Scroll to card top smoothly
+      const card = document.querySelector('.register-card-clean');
+      if (card && currentStep > 1) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function handleIdTypeChange() {
+      const select = document.getElementById('idType');
+      const input = document.getElementById('id');
+      const label = document.getElementById('idLabel');
+      if (!select || !input || !label) return;
+      const val = select.value;
+      if (val.includes("Driver's License")) {
+        label.textContent = "Driver's License Number *";
+        input.placeholder = "e.g. DL-82910481";
+      } else if (val.includes("State Identification")) {
+        label.textContent = "State ID Card Number *";
+        input.placeholder = "e.g. ID-49201948";
+      } else if (val.includes("US Passport")) {
+        label.textContent = "US Passport Number *";
+        input.placeholder = "e.g. 9-digit Passport No.";
+      } else if (val.includes("Social Security")) {
+        label.textContent = "Social Security Number (SSN) *";
+        input.placeholder = "e.g. XXX-XX-XXXX";
+      } else if (val.includes("Resident Card")) {
+        label.textContent = "Green Card / USCIS # *";
+        input.placeholder = "e.g. 9-digit USCIS #";
+      } else {
+        label.textContent = "Document / Passport No. *";
+        input.placeholder = "Enter Document Number";
+      }
+    }
+
+    function validateStep1() {
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+
+      const firstname = document.getElementById('Firstname').value.trim();
+      const surname = document.getElementById('Surname').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const id = document.getElementById('id').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const email = document.getElementById('Email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!firstname || !surname || !dob || !id || !address || !email || !phone) {
+        errBox.textContent = 'Please fill out all required fields marked with * in Step 1.';
+        errBox.classList.remove('d-none');
+        return false;
+      }
+      return true;
+    }
+
+    function handleFileSelection(input) {
+      const preview = document.getElementById('fileSelectionPreview');
+      if (!preview) return;
+      if (!input.files || input.files.length === 0) {
+        preview.classList.add('d-none');
+        return;
+      }
+      if (input.files.length > 5) {
+        alert('You may only upload up to 5 documents. Please choose at most 5 files.');
+        input.value = '';
+        preview.classList.add('d-none');
+        return;
+      }
+      preview.classList.remove('d-none');
+      const names = Array.from(input.files).map(f => f.name).join(', ');
+      preview.innerHTML = `<i class="bi bi-check-circle-fill text-success me-1"></i> ${input.files.length} document(s) selected: <span class="text-dark">${names}</span>`;
+    }
+
+    function validateStep2() {
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+
+      const hasOption = (document.getElementById('accWallet') && document.getElementById('accWallet').checked) ||
+                        (document.getElementById('accVault') && document.getElementById('accVault').checked) ||
+                        (document.getElementById('accBusiness') && document.getElementById('accBusiness').checked) ||
+                        (document.getElementById('accCard') && document.getElementById('accCard').checked) ||
+                        (document.getElementById('accCurrent') && document.getElementById('accCurrent').checked);
+
+      if (!hasOption) {
+        errBox.textContent = 'Please select at least one account facility to provision.';
+        errBox.classList.remove('d-none');
+        return false;
+      }
+      return true;
+    }
+
+    function nextStep(step) {
+      if (currentStep === 1 && !validateStep1()) return;
+      if (currentStep === 2 && !validateStep2()) return;
+      
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+
+      currentStep = step;
+      updateWizardUI();
+    }
+
+    function prevStep(step) {
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+      currentStep = step;
+      updateWizardUI();
+    }
+
+    function jumpToStep(step) {
+      if (step > currentStep) {
+        if (currentStep === 1 && !validateStep1()) return;
+        if (currentStep === 2 && !validateStep2()) return;
+      }
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+      currentStep = step;
+      updateWizardUI();
+    }
+
+    async function submitRegistration() {
+      const errBox = document.getElementById('stepErrorAlert');
+      errBox.classList.add('d-none');
+
+      const submitBtn = document.getElementById('submitRegBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Encrypting &amp; Submitting...';
+
+      const firstname = document.getElementById('Firstname').value.trim();
+      const middlename = document.getElementById('Middlename').value.trim();
+      const surname = document.getElementById('Surname').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const idType = document.getElementById('idType') ? document.getElementById('idType').value : "Driver's License (USA)";
+      const idNum = document.getElementById('id').value.trim();
+      const fullId = `${idType}: ${idNum}`;
+      const address = document.getElementById('address').value.trim();
+      const email = document.getElementById('Email').value.trim();
+      const countryCode = document.getElementById('countryCode') ? document.getElementById('countryCode').value.trim() : '+1';
+      const phoneNum = document.getElementById('phone').value.trim();
+      const fullPhone = `${countryCode} ${phoneNum}`.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('Password').value;
+      const confirmPassword = document.getElementById('ConfirmPassword').value;
+      const docInput = document.getElementById('idDocument');
+
+      if (!username) {
+        errBox.textContent = 'Please choose a username or tag.';
+        errBox.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errBox.textContent = 'Passwords do not match.';
+        errBox.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+        return;
+      }
+
+      if (password.length < 6) {
+        errBox.textContent = 'Password must be at least 6 characters long.';
+        errBox.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+        return;
+      }
+
+      const accountTypes = [];
+      const walletEl = document.getElementById('accWallet') || document.getElementById('accCurrent');
+      const vaultEl = document.getElementById('accVault') || document.getElementById('accSavings');
+      const bizEl = document.getElementById('accBusiness');
+      const cardEl = document.getElementById('accCard') || document.getElementById('accISA');
+
+      if (walletEl && walletEl.checked) accountTypes.push('Fiat & Crypto Wallet');
+      if (vaultEl && vaultEl.checked) accountTypes.push('Crypto Earn & Savings Vault');
+      if (bizEl && bizEl.checked) accountTypes.push('Business & Treasury Account');
+      if (cardEl && cardEl.checked) accountTypes.push('Crypto Debit Card');
+      if (accountTypes.length === 0) accountTypes.push('Fiat & Crypto Wallet');
+
+      const formData = new FormData();
+      formData.append('firstname', firstname);
+      formData.append('middlename', middlename);
+      formData.append('surname', surname);
+      formData.append('dob', dob);
+      formData.append('id', fullId);
+      formData.append('id_number', fullId);
+      formData.append('address', address);
+      formData.append('email', email);
+      formData.append('phone', fullPhone);
+      formData.append('username', username);
+      formData.append('password', password);
+      formData.append('account_types', accountTypes.join(', '));
+      if (docInput && docInput.files.length > 0) {
+        if (docInput.files.length > 5) {
+          errBox.textContent = 'You may upload up to 5 compliance documents only.';
+          errBox.classList.remove('d-none');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+          return;
+        }
+        for (let i = 0; i < docInput.files.length; i++) {
+          formData.append('idDocument', docInput.files[i]);
+        }
+      }
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          window.location.href = 'application-under-review';
+        } else {
+          errBox.textContent = data.message || 'Error submitting registration.';
+          errBox.classList.remove('d-none');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        errBox.textContent = 'A connection error occurred. Please check your connection and try again.';
+        errBox.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i> Submit CryptoPay Account Application';
+      }
+    }
+  </script>
+</body>
+</html>

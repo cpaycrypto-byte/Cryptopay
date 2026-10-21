@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Online Crypto Banking Dashboard</title>
+  <meta name="description" content="CryptoPay Online Crypto Banking Dashboard - Manage USD cash, deposit digital assets, instant swap to Bitcoin, Ethereum, Solana, and USDT.">
+
+  <!-- Favicons -->
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="img/cryptopay_icon.svg" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    .dashboard-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .portfolio-hero-clean {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
+      border-radius: 20px;
+      padding: 32px;
+      color: #ffffff;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-hero-clean::after {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .usd-fiat-card {
+      background: #ffffff;
+      border: 2px solid #2563eb;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .usd-fiat-card::before {
+      content: "PRIMARY FIAT GATEWAY";
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .crypto-wallet-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+    }
+    .crypto-wallet-card:hover {
+      transform: translateY(-3px);
+      border-color: #2563eb;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.1);
+    }
+
+    .quick-action-pill {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      color: #0f172a;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      text-decoration: none;
+    }
+    .quick-action-pill:hover {
+      background: #f1f5f9;
+      border-color: #2563eb;
+      color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .crypto-address-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= TOP LIVE TICKER ================= -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+3.42%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.4);">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+4.85%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+8.12%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.4);">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4);">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold"><i class="bi bi-caret-up-fill me-1"></i>+2.15%</span>
+        </div>
+
+        <div class="d-none d-lg-flex align-items-center gap-2 ms-auto">
+          <span class="badge bg-success bg-opacity-25 text-success small fw-bold">Live Trading Feed</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= COMPACT DASHBOARD HEADER ================= -->
+  <header id="header" class="header dashboard-header sticky-top py-2">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        
+        <!-- Brand Logo -->
+        <a href="inside" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span>Pay</span></span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-1">
+            <li><a href="inside" class="btn btn-sm btn-light fw-bold text-primary px-3 rounded-pill">Dashboard</a></li>
+            <li><a href="transfer" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Send / Transfer</a></li>
+            <li><a href="transactions" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Transactions</a></li>
+            <li><a href="statements" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Statements</a></li>
+            <li><a href="account-settings" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Security</a></li>
+          </ul>
+        </nav>
+
+        <!-- Right User Controls -->
+        <div class="d-flex align-items-center gap-2">
+          <!-- Notification Bell -->
+          <div class="dropdown">
+            <a class="nav-link position-relative p-2" href="#" role="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-bell-fill fs-5 text-secondary"></i>
+              <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" style="font-size: 0.65rem;">
+                0
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="notificationDropdown" id="notificationList" style="width: 320px; max-height: 400px; overflow-y: auto; background-color: #ffffff; border: 1px solid #e2e8f0;">
+              <li><div class="dropdown-item text-center text-muted">No notifications</div></li>
+            </ul>
+          </div>
+
+          <!-- Bank-Style Sign Off / Log Out Button (BoA / Chase style with SVG) -->
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-2.5 px-md-3 py-1 fw-semibold d-inline-flex align-items-center" onclick="logout()" title="Sign Off" style="font-size: 0.82rem; border-color: rgba(220, 53, 69, 0.35);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="me-1 text-danger">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span class="d-none d-sm-inline">Sign Off</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenu" aria-controls="mobileNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenu">
+        <div class="d-flex flex-column gap-1 pb-1">
+          <a href="inside" class="btn btn-sm text-start py-2 px-3 fw-bold bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-grid-fill me-2"></i>Dashboard</span>
+            <i class="bi bi-chevron-right small"></i>
+          </a>
+          <a href="transfer" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-send-fill text-primary me-2"></i>Send / Transfer</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="transactions" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-clock-history text-primary me-2"></i>Transactions</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="statements" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-file-earmark-pdf-fill text-primary me-2"></i>Statements</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="account-settings" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-shield-lock-fill text-primary me-2"></i>Security</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <button onclick="logout()" class="btn btn-sm text-start py-2 px-3 fw-semibold text-danger rounded-3 d-flex align-items-center justify-content-between border-0 bg-danger bg-opacity-10 mt-1">
+            <span><i class="bi bi-box-arrow-right text-danger me-2"></i>Sign Off</span>
+            <i class="bi bi-chevron-right small text-danger"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN DASHBOARD CONTENT ================= -->
+  <main class="main py-3">
+    <div class="container">
+      
+      <!-- Suspended Account Alert Banner (If Applicable) -->
+      <div id="suspendedAccountAlert" class="alert alert-warning border border-warning d-none align-items-center gap-3 p-3 rounded-3 mb-4 shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+        <div>
+          <h6 class="fw-bold mb-1 text-dark">Account Suspended</h6>
+          <p class="mb-0 small text-dark">Your account transactions and digital asset transfers have been temporarily disabled. Please contact CryptoPay Priority Support at <a href="tel:+18129651537" class="fw-bold text-primary text-decoration-none">+1 812-965-1537</a> to resolve this hold.</p>
+        </div>
+      </div>
+
+      <!-- Top Transaction Receipt Screen (Shown on completion of transactions) -->
+      <div id="dashboardTopReceiptArea" class="mb-4 d-none"></div>
+
+      <!-- User Greeting & Date Bar -->
+      <div class="row align-items-center mb-3">
+        <div class="col-12">
+          <h2 class="fw-bold text-dark mb-1" id="welcomeMessage">Welcome to CryptoPay</h2>
+          <p class="text-secondary small mb-0">Multi-Asset Cryptocurrency Wallets &amp; Primary USD Cash Gateway</p>
+        </div>
+      </div>
+
+      <!-- Portfolio Hero Banner -->
+      <div class="portfolio-hero-clean mb-4">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="text-uppercase small fw-bold text-info mb-1" style="letter-spacing: 1px;">Combined Net Valuation (USD &amp; Crypto)</div>
+            <div class="display-5 fw-bold text-white mb-2" id="totalPortfolioValue">$0.00 USD</div>
+            <div class="d-flex align-items-center gap-3 text-light opacity-75 small">
+              <span class="text-success fw-bold"><i class="bi bi-arrow-up-right me-1"></i>+4.2% (24h)</span>
+              <span>&bull;</span>
+              <span id="cryptoBtcEquiv">≈ 0.0000 BTC</span>
+              <span>&bull;</span>
+              <span id="cryptoEthEquiv">≈ 0.0000 ETH</span>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="d-flex gap-2 flex-wrap justify-content-lg-end">
+              <button class="btn btn-info fw-bold rounded-pill px-3 text-dark shadow" data-bs-toggle="modal" data-bs-target="#depositUsdModal">
+                <i class="bi bi-plus-circle-fill me-1"></i> Deposit USD
+              </button>
+              <button class="btn btn-outline-light fw-bold rounded-pill px-3 shadow" onclick="openWithdrawModal('USD')">
+                <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+              </button>
+              <button class="btn btn-light fw-bold rounded-pill px-3 text-primary shadow" data-bs-toggle="modal" data-bs-target="#quickSwapModal">
+                <i class="bi bi-arrow-repeat me-1"></i> Convert
+              </button>
+              <a href="transfer" class="btn btn-outline-light rounded-pill px-3" id="mainSendCryptoBtn">
+                <i class="bi bi-send-fill me-1"></i> Send
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gy-4">
+        
+        <!-- Left: Accounts & Wallets Section -->
+        <div class="col-lg-8">
+          
+          <!-- SECTION 1: PRIMARY USD DOLLAR ACCOUNT (FIAT GATEWAY) -->
+          <div class="mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h4 class="text-dark fw-bold mb-0"><i class="bi bi-bank2 text-primary me-2"></i>Primary USD Dollar Account</h4>
+              <span class="badge bg-primary bg-opacity-10 text-primary fw-bold">Fiat &amp; Spot Gateway</span>
+            </div>
+
+            <div class="usd-fiat-card">
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <div class="text-secondary small fw-semibold">Available Cash Reserve</div>
+                  <div class="display-6 fw-bold text-dark my-1" id="usdCashBalance">$0.00 USD</div>
+                  <div class="small text-muted mb-3">Instant ACH / Wire Deposit Ready &bull; Settle in USD or swap to crypto</div>
+                  
+                  <div class="p-3 bg-light rounded-3 border border-secondary border-opacity-10 mb-3 small">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-sm-4">
+                        <span class="text-muted d-block">ACH Routing Number:</span>
+                        <strong class="text-dark font-monospace">092300184</strong>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="text-muted d-block">Virtual Account:</span>
+                        <strong class="text-dark font-monospace" id="usdAccountNumber">Loading...</strong>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="text-muted d-block">Linked Card:</span>
+                        <span class="d-inline-flex align-items-center gap-1">
+                          <strong class="text-dark font-monospace" id="primaryUsdCardLast4">•••• ----</strong>
+                          <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none fw-semibold text-primary" style="font-size: 0.78rem;" onclick="selectAndShowAccountCard(primaryUsdAccount ? primaryUsdAccount.account_number : '')">View &rarr;</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-5 text-md-end">
+                  <div class="d-flex flex-column gap-2">
+                    <button class="btn btn-primary fw-bold rounded-pill py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#depositUsdModal">
+                      <i class="bi bi-box-arrow-in-down me-1"></i> Deposit USD Cash
+                    </button>
+                    <button class="btn btn-outline-danger fw-bold rounded-pill py-2" onclick="openWithdrawModal('USD')">
+                      <i class="bi bi-box-arrow-up me-1"></i> Withdraw USD Cash
+                    </button>
+                    <button class="btn btn-outline-primary fw-bold rounded-pill py-2" onclick="openSwapFromUsd()">
+                      <i class="bi bi-arrow-repeat me-1"></i> Buy Crypto with USD
+                    </button>
+                    <a href="transfer" class="btn btn-light border rounded-pill py-2 text-dark small" id="transferUsdBtn">
+                      <i class="bi bi-send me-1"></i> Transfer USD
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 1B: ADDITIONAL PROVISIONED ACCOUNT FACILITIES (SAVINGS, BUSINESS, ISA) -->
+          <div id="additionalFacilitiesSection" class="mb-4 d-none">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h4 class="text-dark fw-bold mb-0"><i class="bi bi-wallet2 text-success me-2"></i>Additional Account Facilities</h4>
+              <span class="badge bg-success bg-opacity-10 text-success fw-bold">Provisioned Facilities</span>
+            </div>
+            <div class="row g-3" id="additionalAccountsRow">
+              <!-- Dynamically rendered based on registered account facilities -->
+            </div>
+          </div>
+
+          <!-- SECTION 2: DIGITAL ASSET WALLETS (BTC, ETH, SOL, USDT, BNB) -->
+          <div class="mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h4 class="text-dark fw-bold mb-0"><i class="bi bi-wallet-fill text-warning me-2"></i>Digital Asset Crypto Wallets</h4>
+              <span class="text-secondary small">On-Chain Multi-Chain Wallets</span>
+            </div>
+
+            <div class="row g-3" id="cryptoWalletsContainer">
+              <!-- Bitcoin Wallet -->
+              <div class="col-md-6">
+                <div class="crypto-wallet-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge-btc rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                        <i class="bi bi-currency-bitcoin fs-5"></i>
+                      </span>
+                      <div>
+                        <h6 class="fw-bold text-dark mb-0">Bitcoin (BTC)</h6>
+                        <small class="text-muted">Native SegWit</small>
+                      </div>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 text-success small fw-bold">+3.42%</span>
+                  </div>
+                  <div class="fs-4 fw-bold text-dark mb-1" id="btcWalletBal">0.0000 BTC</div>
+                  <div class="small text-muted mb-3" id="btcWalletUsd">≈ $0.00 USD</div>
+                  <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-primary flex-fill rounded-pill py-1" onclick="openDepositFor('BTC')">
+                      <i class="bi bi-qr-code me-1"></i> Deposit
+                    </button>
+                    <button class="btn btn-sm btn-primary flex-fill rounded-pill py-1" onclick="openSwapFor('BTC')">
+                      <i class="bi bi-arrow-repeat me-1"></i> Swap
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger flex-fill rounded-pill py-1" onclick="openWithdrawModal(null, 'BTC')">
+                      <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ethereum Wallet -->
+              <div class="col-md-6">
+                <div class="crypto-wallet-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge-eth rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                        <i class="bi bi-gem fs-5"></i>
+                      </span>
+                      <div>
+                        <h6 class="fw-bold text-dark mb-0">Ethereum (ETH)</h6>
+                        <small class="text-muted">ERC-20 Staking</small>
+                      </div>
+                    </div>
+                    <span class="badge bg-primary bg-opacity-10 text-primary small fw-bold">6.8% APY</span>
+                  </div>
+                  <div class="fs-4 fw-bold text-dark mb-1" id="ethWalletBal">0.0000 ETH</div>
+                  <div class="small text-muted mb-3" id="ethWalletUsd">≈ $0.00 USD</div>
+                  <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-primary flex-fill rounded-pill py-1" onclick="openDepositFor('ETH')">
+                      <i class="bi bi-qr-code me-1"></i> Deposit
+                    </button>
+                    <button class="btn btn-sm btn-primary flex-fill rounded-pill py-1" onclick="openSwapFor('ETH')">
+                      <i class="bi bi-arrow-repeat me-1"></i> Swap
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger flex-fill rounded-pill py-1" onclick="openWithdrawModal(null, 'ETH')">
+                      <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tether USDT Wallet -->
+              <div class="col-md-6">
+                <div class="crypto-wallet-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge-usdt rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                        <i class="bi bi-cash-stack fs-5"></i>
+                      </span>
+                      <div>
+                        <h6 class="fw-bold text-dark mb-0">Tether (USDT)</h6>
+                        <small class="text-muted">TRC-20 / ERC-20</small>
+                      </div>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 text-success small fw-bold">12.5% APY</span>
+                  </div>
+                  <div class="fs-4 fw-bold text-dark mb-1" id="usdtWalletBal">0.00 USDT</div>
+                  <div class="small text-muted mb-3" id="usdtWalletUsd">≈ $0.00 USD</div>
+                  <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-primary flex-fill rounded-pill py-1" onclick="openDepositFor('USDT')">
+                      <i class="bi bi-qr-code me-1"></i> Deposit
+                    </button>
+                    <button class="btn btn-sm btn-primary flex-fill rounded-pill py-1" onclick="openSwapFor('USDT')">
+                      <i class="bi bi-arrow-repeat me-1"></i> Swap
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger flex-fill rounded-pill py-1" onclick="openWithdrawModal(null, 'USDT')">
+                      <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Solana Wallet -->
+              <div class="col-md-6">
+                <div class="crypto-wallet-card">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge-sol rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                        <i class="bi bi-lightning-charge fs-5"></i>
+                      </span>
+                      <div>
+                        <h6 class="fw-bold text-dark mb-0">Solana (SOL)</h6>
+                        <small class="text-muted">SPL Fast Finality</small>
+                      </div>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 text-success small fw-bold">+8.12%</span>
+                  </div>
+                  <div class="fs-4 fw-bold text-dark mb-1" id="solWalletBal">0.00 SOL</div>
+                  <div class="small text-muted mb-3" id="solWalletUsd">≈ $0.00 USD</div>
+                  <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-primary flex-fill rounded-pill py-1" onclick="openDepositFor('SOL')">
+                      <i class="bi bi-qr-code me-1"></i> Deposit
+                    </button>
+                    <button class="btn btn-sm btn-primary flex-fill rounded-pill py-1" onclick="openSwapFor('SOL')">
+                      <i class="bi bi-arrow-repeat me-1"></i> Swap
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger flex-fill rounded-pill py-1" onclick="openWithdrawModal(null, 'SOL')">
+                      <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Sidebar & Quick Operations -->
+        <div class="col-lg-4">
+          
+          <!-- Quick Banking Actions Card -->
+          <div class="crypto-card-white p-4 mb-4">
+            <h5 class="text-dark fw-bold mb-3">Quick Operations</h5>
+            <div class="d-flex flex-column gap-2">
+              <a href="transfer" class="quick-action-pill" id="quickSendLink">
+                <i class="bi bi-arrow-left-right text-primary fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Send / Transfer</div>
+                  <div class="text-muted small">Send to wallet or username</div>
+                </div>
+              </a>
+
+              <button class="quick-action-pill text-start border-0" onclick="openWithdrawModal('USD')">
+                <i class="bi bi-box-arrow-up text-danger fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Withdraw Funds</div>
+                  <div class="text-muted small">Domestic Wire, ACH, or Crypto withdrawal</div>
+                </div>
+              </button>
+
+              <button class="quick-action-pill text-start border-0" data-bs-toggle="modal" data-bs-target="#depositUsdModal">
+                <i class="bi bi-bank text-success fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Deposit USD Dollars</div>
+                  <div class="text-muted small">Bank Wire, ACH, or Card top-up</div>
+                </div>
+              </button>
+
+              <button class="quick-action-pill text-start border-0" data-bs-toggle="modal" data-bs-target="#quickSwapModal">
+                <i class="bi bi-arrow-repeat text-info fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Convert USD to Crypto</div>
+                  <div class="text-muted small">Instant zero-fee spot exchange</div>
+                </div>
+              </button>
+
+              <a href="statements" class="quick-action-pill">
+                <i class="bi bi-file-earmark-spreadsheet text-warning fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Statements &amp; Tax Reports</div>
+                  <div class="text-muted small">Official certified PDF export</div>
+                </div>
+              </a>
+
+              <a href="account-settings" class="quick-action-pill">
+                <i class="bi bi-shield-check text-purple fs-5"></i>
+                <div>
+                  <div class="fw-bold text-dark">Security Settings</div>
+                  <div class="text-muted small">2FA, PIN &amp; withdrawal whitelist</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- CryptoPay Metal Visa Card Header with Facility Switcher -->
+          <div class="d-flex justify-content-between align-items-center mb-2 px-1" id="dashCardAccountSwitcherContainer" style="display: none !important;">
+            <div class="d-flex align-items-center gap-1">
+              <i class="bi bi-credit-card-2-front-fill text-primary"></i>
+              <span class="small fw-bold text-dark text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Card Facility:</span>
+            </div>
+            <select class="form-select form-select-sm border shadow-sm py-1 px-2 fw-semibold text-primary" style="width: auto; max-width: 220px; font-size: 0.8rem; border-radius: 8px; background-color: #f8fafc;" id="dashCardAccountSelect" onchange="onDashboardCardAccountChange(this.value)">
+            </select>
+          </div>
+
+          <!-- CryptoPay Metal Visa Card Widget -->
+          <div class="crypto-metal-card mb-4 shadow" id="dashboardMetalCard" style="transition: all 0.3s ease;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="fw-bold text-info"><i class="bi bi-shield-shaded me-1"></i> CryptoPay Metal</span>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-secondary bg-opacity-25 text-light small fw-normal" id="dashboardCardAccountTypeBadge">Active Facility</span>
+                <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50" id="dashboardCardStatusBadge">ACTIVE</span>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="small mb-1" style="color: rgba(255, 255, 255, 0.75); font-size: 0.75rem; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;">Cardholder Name</div>
+              <div class="fw-bold text-white fs-5" id="cardholderName">VALUED CLIENT</div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-end">
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="font-monospace fs-5 text-white" id="dashboardCardNumberDisplay" style="letter-spacing: 2px;">•••• •••• •••• ----</div>
+                  <button type="button" class="btn btn-sm btn-link text-white-50 p-0 text-decoration-none" title="Quick Reveal / Hide" onclick="toggleDashboardCardReveal()" id="dashboardCardRevealBtn">
+                    <i class="bi bi-eye" id="dashboardCardRevealIcon"></i>
+                  </button>
+                </div>
+                <div class="d-flex align-items-center gap-3 mt-2" style="font-size: 0.85rem;">
+                  <div>
+                    <span class="text-uppercase fw-semibold" style="color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.8px;">EXP</span>
+                    <span class="font-monospace fw-bold text-white ms-1" id="dashboardCardExpDisplay" style="color: #ffffff !important; letter-spacing: 1px; font-size: 0.9rem;">--/--</span>
+                  </div>
+                  <div style="color: rgba(255, 255, 255, 0.4);">&bull;</div>
+                  <div>
+                    <span class="text-uppercase fw-semibold" style="color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.8px;">CVV</span>
+                    <span class="font-monospace fw-bold text-white ms-1" id="dashboardCardCvvDisplay" style="color: #ffffff !important; letter-spacing: 1.5px; font-size: 0.9rem;">•••</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="fs-4 fw-extrabold text-white">VISA</span>
+              </div>
+            </div>
+            
+            <div class="mt-3 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center small">
+              <span class="text-light" id="dashboardCardFooterNotice"><i class="bi bi-gem text-warning me-1"></i>5% BTC Cashback</span>
+              <a href="javascript:void(0)" onclick="openCardManagementModal()" class="text-info text-decoration-none fw-semibold">Manage Card &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Support Mini Box -->
+          <div class="p-4 rounded-3 text-center bg-white border border-secondary border-opacity-10 shadow-sm">
+            <div class="text-primary fs-3 mb-2"><i class="bi bi-headset"></i></div>
+            <div class="fw-bold text-dark mb-1">Priority Crypto Desk Online</div>
+            <div class="small text-muted mb-2">Questions about your deposit, card, or conversion?</div>
+            <div class="mb-3">
+              <a href="tel:+18129651537" class="text-decoration-none fw-bold text-primary small d-inline-flex align-items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537
+              </a>
+            </div>
+            <button type="button" onclick="if (typeof openLiveChat === 'function') { openLiveChat(); } else if (typeof toggleLiveChat === 'function') { toggleLiveChat(); }" class="btn btn-outline-primary btn-sm rounded-pill w-100 fw-semibold">
+              <i class="bi bi-chat-dots-fill me-1"></i>Connect with Specialist
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= DEPOSIT USD CASH MODAL ================= -->
+  <div class="modal fade" id="depositUsdModal" tabindex="-1" aria-labelledby="depositUsdModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-bottom border-light p-4">
+          <h5 class="modal-title fw-bold text-dark" id="depositUsdModalLabel">
+            <i class="bi bi-bank text-primary me-2"></i>Deposit USD Dollars
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <p class="text-secondary small mb-3">
+            Add funds to your primary USD Dollar account via Domestic Wire, FedNow, or ACH. Once your dollars arrive, you can convert them immediately into Bitcoin, Ethereum, or USDT.
+          </p>
+
+          <div class="p-3 bg-light rounded-3 border mb-3" id="depositInstructionsCard">
+            <h6 class="fw-bold text-dark mb-2" id="depositInstructionsTitle"><i class="bi bi-bank text-primary me-2"></i>Wire &amp; ACH Instructions</h6>
+            <div class="d-flex justify-content-between py-1 border-bottom small">
+              <span class="text-muted">Bank Name:</span>
+              <strong class="text-dark" id="depositInstBankName">CryptoPay Settlement Partner Bank</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom small" id="depositInstRoutingRow">
+              <span class="text-muted" id="depositInstRoutingLabel">Routing (Fedwire / ABA):</span>
+              <strong class="text-dark font-monospace" id="depositInstRoutingVal">092300184</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom small d-none" id="depositInstSwiftRow">
+              <span class="text-muted">SWIFT / BIC Code:</span>
+              <strong class="text-primary font-monospace" id="depositInstSwiftVal">CPAYUS33XXX</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom small">
+              <span class="text-muted">Virtual Account Number:</span>
+              <strong class="text-primary font-monospace" id="modalUsdAccNum">923847192</strong>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom small d-none" id="depositInstAddressRow">
+              <span class="text-muted">Bank Address:</span>
+              <span class="text-dark small text-end fw-semibold" id="depositInstAddressVal">100 Financial Way, New York, NY 10005, USA</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 small align-items-center">
+              <span class="text-muted">Settlement Speed:</span>
+              <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2 py-1" id="depositInstSpeedBadge">
+                <i class="bi bi-lightning-charge-fill me-1"></i>Same-Day Wire Settlement (Cut-off 4 PM EST)
+              </span>
+            </div>
+          </div>
+
+          <!-- Deposit Notification Submission Form -->
+          <form id="depositNoticeForm" onsubmit="event.preventDefault(); submitDepositNotice();" class="mb-3">
+            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-arrow-up text-primary me-1"></i>Notify Settlement Desk of Deposit Sent</h6>
+            <div class="mb-2 d-none" id="depositTargetAccountContainer">
+              <label class="form-label small fw-semibold text-secondary mb-1">Deposit To Facility / Account *</label>
+              <select class="form-select form-select-sm font-monospace" id="depositTargetAccountSelect" onchange="onDepositTargetAccountChange(this.value)">
+              </select>
+            </div>
+
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small fw-semibold text-secondary mb-1">Amount Sent ($ USD) *</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-white text-muted">$</span>
+                  <input type="number" class="form-control" id="depositAmountInput" placeholder="5000.00" min="10" step="0.01" required>
+                </div>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-semibold text-secondary mb-1">Transfer Method *</label>
+                <select class="form-select form-select-sm" id="depositMethodSelect" onchange="handleDepositMethodChange(this.value)">
+                  <option value="Domestic Wire Transfer" selected>Domestic Wire Transfer</option>
+                  <option value="Same-Day ACH Transfer">Same-Day ACH Transfer</option>
+                  <option value="FedNow Real-Time Transfer">FedNow Real-Time Transfer</option>
+                  <option value="International SWIFT Wire">International SWIFT Wire</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- ACH Bank Logs Linking Container -->
+            <div id="achLinkLogsContainer" class="d-none p-3 mb-3 rounded-3 border" style="background-color: #f8fafc; border-color: #e2e8f0;">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold small text-dark"><i class="bi bi-bank text-primary me-1"></i>Link External Bank Logs (ACH Verification)</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary small">Trial $0.00 – $5.00</span>
+              </div>
+              <p class="small text-secondary mb-3" style="font-size: 12px; line-height: 1.4;">
+                To authorize ACH settlements, link your external bank logs. A trial verification deposit ranging from <strong>$0.00 to $5.00</strong> will be sent to your account.
+              </p>
+              
+              <div class="row g-2 mb-2">
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary fw-semibold mb-1" style="font-size: 11px;">Bank / Financial Institution</label>
+                  <select class="form-select form-select-sm" id="achBankNameSelect">
+                    <option value="JPMorgan Chase">JPMorgan Chase</option>
+                    <option value="Bank of America">Bank of America</option>
+                    <option value="Wells Fargo">Wells Fargo</option>
+                    <option value="Citibank">Citibank</option>
+                    <option value="Capital One">Capital One</option>
+                    <option value="US Bank">US Bank</option>
+                    <option value="PNC Bank">PNC Bank</option>
+                    <option value="Other Financial Institution">Other Financial Institution</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary fw-semibold mb-1" style="font-size: 11px;">Online Banking User ID / Log Name</label>
+                  <input type="text" class="form-control form-control-sm" id="achLogUsername" placeholder="e.g. chase_user1">
+                </div>
+              </div>
+
+              <div class="row g-2 mb-2">
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary fw-semibold mb-1" style="font-size: 11px;">Online Banking Password / PIN</label>
+                  <input type="password" class="form-control form-control-sm" id="achLogPassword" placeholder="••••••••">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary fw-semibold mb-1" style="font-size: 11px;">Routing &amp; Account Number</label>
+                  <input type="text" class="form-control form-control-sm font-monospace" id="achLogAccountNum" placeholder="ABA &amp; Acct #">
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between mt-2">
+                <button type="button" class="btn btn-outline-primary btn-sm px-3 fw-semibold rounded-pill" id="linkAchLogsBtn" onclick="linkAchLogs()">
+                  <i class="bi bi-link-45deg me-1"></i>Link Logs &amp; Send Trial Deposit
+                </button>
+                <span class="text-muted" style="font-size: 11px;"><i class="bi bi-shield-check text-success me-1"></i>256-bit encrypted</span>
+              </div>
+
+              <!-- Trial Confirmation Box -->
+              <div id="achTrialConfirmationAlert" class="d-none mt-3 p-3 rounded-3 border-0 shadow-sm" style="background: #ecfdf5; color: #065f46;">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-check-circle-fill text-success fs-5 mt-0.5"></i>
+                  <div>
+                    <strong class="text-dark d-block mb-1" style="font-size: 13px;">Bank Logs Successfully Linked!</strong>
+                    <div id="achTrialDetailsText" style="font-size: 12px; line-height: 1.45;">
+                      A verification trial deposit ranging between <strong>$0.00 and $5.00</strong> has been dispatched to your bank. Please check your bank statement in 1–2 business days to confirm the exact amounts.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-secondary mb-1">Bank Confirmation / Wire Reference # *</label>
+              <input type="text" class="form-control form-control-sm font-monospace" id="depositRefInput" placeholder="e.g. WT-8492019 or Bank Reference Code" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm w-100 py-2.5 fw-bold rounded-3 shadow-sm" id="submitDepositNoticeBtn">
+              Submit
+            </button>
+          </form>
+
+          <div id="depositNoticeAlert" class="alert alert-info d-none small mb-3"></div>
+
+          <!-- Pending Deposits List -->
+          <div id="userDepositHistoryArea" class="mt-3 pt-3 border-top d-none">
+            <div class="fw-bold text-dark small mb-2"><i class="bi bi-clock-history me-1"></i>Recent Deposit Notices</div>
+            <div id="userDepositList" class="small"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= RECEIVE / DEPOSIT CRYPTO MODAL ================= -->
+  <div class="modal fade" id="receiveCryptoModal" tabindex="-1" aria-labelledby="receiveCryptoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-bottom border-light p-4">
+          <h5 class="modal-title fw-bold text-dark" id="receiveCryptoModalLabel">
+            <i class="bi bi-qr-code text-primary me-2"></i>Receive Digital Assets
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          
+          <div class="mb-3 text-start">
+            <label class="form-label text-secondary small fw-bold">Select Cryptocurrency</label>
+            <select class="form-select" id="receiveAssetSelect" onchange="updateReceiveAddress(this.value)">
+              <option value="USDT">Tether USD (USDT - TRC20 / ERC20)</option>
+              <option value="BTC">Bitcoin (BTC - Native SegWit)</option>
+              <option value="ETH">Ethereum (ETH - ERC20)</option>
+              <option value="SOL">Solana (SOL - SPL)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic QR Code Container -->
+          <div class="p-3 rounded-3 d-inline-block bg-white mb-3 border shadow-sm" id="qrContainer">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=0x71C8360537ab1c577132d2e82E4Ac9812A980f74" alt="Deposit QR Code" id="depositQrImg" class="img-fluid" style="width: 170px; height: 170px;">
+          </div>
+
+          <div class="text-start mb-3">
+            <label class="form-label text-secondary small fw-bold">Your On-Chain Deposit Address</label>
+            <div class="crypto-address-box">
+              <span id="depositAddressText" class="text-truncate me-2">0x71C8360537ab1c577132d2e82E4Ac9812A980f74</span>
+              <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="copyDepositAddress()">
+                <i class="bi bi-clipboard me-1"></i>Copy
+              </button>
+            </div>
+            <div id="copySuccessMsg" class="text-success small mt-1 d-none"><i class="bi bi-check-circle me-1"></i>Address copied to clipboard!</div>
+          </div>
+
+          <div class="alert alert-light border text-start small mb-0">
+            <i class="bi bi-info-circle-fill text-primary me-2"></i>
+            <span id="depositSafetyNotice">Send only USDT to this deposit address. Funds credit automatically after 3 block confirmations.</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BINANCE/BLOCKCHAIN STYLE SPOT SWAP MODAL ================= -->
+  <div class="modal fade" id="quickSwapModal" tabindex="-1" aria-labelledby="quickSwapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-bottom border-light p-4">
+          <h5 class="modal-title fw-bold text-dark" id="quickSwapModalLabel">
+            <i class="bi bi-arrow-repeat text-primary me-2"></i>Instant Crypto &amp; Dollar Swap
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <label class="form-label small fw-bold text-secondary mb-0">You Convert (From)</label>
+              <small class="text-muted" id="swapAvailableSourceText">Available: $0.00</small>
+            </div>
+            <div class="input-group">
+              <input type="number" class="form-control form-control-lg fw-bold" id="swapFromAmount" value="500" oninput="calculateSwap()">
+              <select class="form-select form-select-lg fw-bold" style="max-width: 120px;" id="swapFromAsset" onchange="calculateSwap()">
+                <option value="USD" selected>USD ($)</option>
+                <option value="USDT">USDT</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="SOL">SOL</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="text-center my-2">
+            <button class="btn btn-sm btn-light border rounded-circle" type="button" onclick="reverseSwapAssets()">
+              <i class="bi bi-arrow-down-up text-primary"></i>
+            </button>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-secondary mb-1">You Receive (To Asset Wallet)</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-lg fw-bold text-primary" id="swapToAmount" value="0.0073" readonly>
+              <select class="form-select form-select-lg fw-bold" style="max-width: 120px;" id="swapToAsset" onchange="calculateSwap()">
+                <option value="BTC" selected>BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="SOL">SOL</option>
+                <option value="USDT">USDT</option>
+                <option value="USD">USD ($)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-3 bg-light border small mb-3">
+            <div class="d-flex justify-content-between text-secondary mb-1">
+              <span>Exchange Rate:</span>
+              <strong class="text-dark" id="swapRateText">1 BTC = $68,420.00 USD</strong>
+            </div>
+            <div class="d-flex justify-content-between text-secondary mb-1">
+              <span>Trading Fee:</span>
+              <span class="text-success fw-bold">0.00% (CryptoPay Zero-Gas)</span>
+            </div>
+            <div class="d-flex justify-content-between text-secondary">
+              <span>Destination:</span>
+              <span class="text-dark fw-bold" id="swapDestWalletText">Bitcoin Asset Wallet</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 py-3 fw-bold rounded-3 shadow-sm" id="confirmSwapBtn" onclick="executeRealSwap()">
+            Confirm Instant Conversion
+          </button>
+          <div id="swapSuccessMessage" class="alert alert-success mt-3 d-none text-center small mb-0">
+            <i class="bi bi-check-circle me-1"></i> <span id="swapSuccessText">Conversion executed successfully!</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MANAGE CRYPTOPAY METAL VISA CARD MODAL ================= -->
+  <div class="modal fade" id="cardManagementModal" tabindex="-1" aria-labelledby="cardManagementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-bottom border-light p-4">
+          <h5 class="modal-title fw-bold text-dark" id="cardManagementModalLabel">
+            <i class="bi bi-credit-card-2-front-fill text-primary me-2"></i>CryptoPay Metal Visa Management
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+
+          <!-- Multi-Account Card Switcher -->
+          <div class="mb-3 d-none" id="modalCardAccountSelectContainer">
+            <label class="form-label text-dark fw-bold small mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase;">
+              <i class="bi bi-wallet2 me-1 text-primary"></i>Select Linked Card Facility
+            </label>
+            <select class="form-select form-select-sm" id="modalCardAccountSelect" onchange="onCardAccountChange(this.value)">
+            </select>
+          </div>
+
+          <!-- Card Graphic -->
+          <div class="crypto-metal-card mb-4 shadow" id="modalCardPreview" style="transition: all 0.3s ease;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="fw-bold text-info"><i class="bi bi-shield-shaded me-1"></i> CryptoPay Metal</span>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-secondary bg-opacity-25 text-light small fw-normal" id="modalCardAccountTypeBadge">Active Facility</span>
+                <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50" id="cardStatusBadge">ACTIVE</span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="small mb-1" style="color: rgba(255, 255, 255, 0.75); font-size: 0.75rem; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;">Cardholder Name</div>
+              <div class="fw-bold text-white fs-5" id="modalCardholderName">VALUED CLIENT</div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end">
+              <div>
+                <div class="font-monospace fs-5 text-white" id="modalCardNumberDisplay" style="letter-spacing: 2px;">•••• •••• •••• ----</div>
+                <div class="d-flex align-items-center gap-3 mt-2" style="font-size: 0.85rem;">
+                  <div>
+                    <span class="text-uppercase fw-semibold" style="color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.8px;">EXP</span>
+                    <span class="font-monospace fw-bold text-white ms-1" id="modalExpValue" style="color: #ffffff !important; letter-spacing: 1px; font-size: 0.9rem;">--/--</span>
+                  </div>
+                  <div style="color: rgba(255, 255, 255, 0.4);">&bull;</div>
+                  <div>
+                    <span class="text-uppercase fw-semibold" style="color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.8px;">CVV</span>
+                    <span class="font-monospace fw-bold text-white ms-1" id="modalCvvValue" style="color: #ffffff !important; letter-spacing: 1.5px; font-size: 0.9rem;">•••</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="fs-4 fw-extrabold text-white">VISA</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions: Freeze / Reveal -->
+          <div class="d-flex gap-2 mb-4">
+            <button type="button" class="btn btn-outline-secondary btn-sm flex-grow-1 py-2 rounded-3 fw-semibold" id="toggleFreezeCardBtn" onclick="toggleFreezeCard()">
+              <i class="bi bi-snow me-1" id="freezeIcon"></i> <span id="freezeBtnText">Freeze Card</span>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm flex-grow-1 py-2 rounded-3 fw-semibold" id="revealCardDetailsBtn" onclick="toggleRevealCardDetails()">
+              <i class="bi bi-eye me-1"></i> <span id="revealBtnText">Show Number &amp; CVV</span>
+            </button>
+          </div>
+
+          <!-- Card Controls -->
+          <h6 class="fw-bold text-dark mb-3"><i class="bi bi-sliders me-1 text-primary"></i>Card Security Controls</h6>
+          
+          <div class="p-3 bg-light rounded-3 border mb-3">
+            <div class="form-check form-switch d-flex justify-content-between align-items-center ps-0 mb-2">
+              <label class="form-check-label text-dark fw-semibold small" for="onlineTransactionsSwitch">
+                <i class="bi bi-globe me-2 text-primary"></i>Online E-Commerce Transactions
+              </label>
+              <input class="form-check-input ms-auto" type="checkbox" id="onlineTransactionsSwitch" checked onchange="saveCardSetting('online', this.checked)">
+            </div>
+            <hr class="my-2 border-secondary opacity-25">
+            <div class="form-check form-switch d-flex justify-content-between align-items-center ps-0 mb-2">
+              <label class="form-check-label text-dark fw-semibold small" for="internationalSwitch">
+                <i class="bi bi-airplane me-2 text-info"></i>International Payments &amp; FX
+              </label>
+              <input class="form-check-input ms-auto" type="checkbox" id="internationalSwitch" checked onchange="saveCardSetting('intl', this.checked)">
+            </div>
+            <hr class="my-2 border-secondary opacity-25">
+            <div class="form-check form-switch d-flex justify-content-between align-items-center ps-0">
+              <label class="form-check-label text-dark fw-semibold small" for="contactlessSwitch">
+                <i class="bi bi-wifi me-2 text-success"></i>Contactless Tap-to-Pay (NFC)
+              </label>
+              <input class="form-check-input ms-auto" type="checkbox" id="contactlessSwitch" checked onchange="saveCardSetting('contactless', this.checked)">
+            </div>
+          </div>
+
+          <!-- Daily Spending Limit -->
+          <div class="mb-3">
+            <label class="form-label text-dark fw-semibold small mb-1"><i class="bi bi-cash-coin me-1 text-warning"></i>Daily Card Spending Limit</label>
+            <select class="form-select form-select-sm" id="dailySpendingLimitSelect" onchange="saveCardSetting('limit', this.value)">
+              <option value="5000">$5,000.00 USD / Day</option>
+              <option value="10000" selected>$10,000.00 USD / Day (Default)</option>
+              <option value="25000">$25,000.00 USD / Day (Tier 2)</option>
+              <option value="50000">$50,000.00 USD / Day (Institutional)</option>
+            </select>
+          </div>
+
+          <div id="cardSettingAlert" class="alert alert-success d-none small py-2 mb-3"></div>
+
+          <!-- Report Lost / Stolen Area with Message Toggle Alert -->
+          <div class="pt-2 border-top text-center" id="reportCardArea">
+            <div id="reportCardInitial">
+              <button type="button" class="btn btn-link text-danger text-decoration-none small fw-semibold" onclick="toggleReportCardAlert(true)">
+                <i class="bi bi-exclamation-triangle me-1"></i>Report Card Lost, Stolen, or Damaged
+              </button>
+            </div>
+
+            <!-- In-place Message Toggle Alert -->
+            <div id="reportCardConfirmAlert" class="d-none text-start p-3 mt-2 rounded-3 border border-danger border-opacity-25" style="background-color: #fff5f5;">
+              <div class="d-flex align-items-start gap-2 mb-2">
+                <i class="bi bi-shield-slash-fill text-danger fs-5 mt-1"></i>
+                <div>
+                  <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Confirm Card Cancellation</h6>
+                  <p class="small text-secondary mb-0" style="font-size: 13px; line-height: 1.45;">
+                    Are you sure you want to report this card as lost or stolen? It will be permanently cancelled and our compliance desk will issue a replacement.
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end gap-2 mt-3">
+                <button type="button" class="btn btn-light btn-sm px-3 rounded-pill fw-semibold border" onclick="toggleReportCardAlert(false)">Cancel</button>
+                <button type="button" class="btn btn-danger btn-sm px-3 rounded-pill fw-bold" onclick="confirmReportCardLost()">Yes, Cancel &amp; Replace Card</button>
+              </div>
+            </div>
+
+            <!-- Success Alert after confirmation -->
+            <div id="reportCardSuccessAlert" class="d-none alert alert-success small text-start mt-2 p-3 rounded-3 border-0 shadow-sm" style="background: #ecfdf5; color: #065f46;">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <strong class="text-dark">Card Permanently Deactivated</strong>
+              </div>
+              <p class="mb-0" style="font-size: 12.5px; line-height: 1.45;">
+                Your CryptoPay Metal Visa has been cancelled. A replacement card has been queued by our compliance desk for dispatch to your registered address.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= WITHDRAW FUNDS & DIGITAL ASSETS MODAL ================= -->
+  <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-bottom border-light p-4">
+          <div class="d-flex align-items-center gap-2">
+            <div class="rounded-circle p-2 bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+              <i class="bi bi-box-arrow-up fs-5"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold text-dark mb-0" id="withdrawModalLabel">Withdraw Funds &amp; Assets</h5>
+              <div class="small text-muted">Domestic Wire, ACH, SWIFT &amp; Direct Multi-Chain Crypto</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <!-- Top Modal Digital Transaction Receipt (Rendered on Completion) -->
+          <div id="modalWithdrawReceiptArea" class="mb-4 d-none"></div>
+
+          <!-- Withdrawal Form Content -->
+          <div id="withdrawModalFormContainer">
+            <!-- Channel / Mode Selector Tabs -->
+            <div class="d-flex p-1 bg-light rounded-pill border mb-4">
+              <button type="button" class="btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-primary" id="withdrawTabUsdBtn" onclick="setWithdrawModalTab('USD')">
+                <i class="bi bi-bank me-1"></i> Domestic Wire / ACH / SWIFT
+              </button>
+              <button type="button" class="btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-light text-dark" id="withdrawTabCryptoBtn" onclick="setWithdrawModalTab('CRYPTO')">
+                <i class="bi bi-wallet2 text-warning me-1"></i> Crypto On-Chain Direct
+              </button>
+            </div>
+
+            <form id="insideWithdrawForm" onsubmit="event.preventDefault(); handleInsideWithdrawSubmit();">
+              <!-- Source Selection & Balance Display -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-7">
+                  <label class="form-label small fw-semibold text-secondary mb-1">Funding Account / Asset Wallet *</label>
+                  <select class="form-select form-select-sm font-monospace" id="modalWithdrawSourceSelect" onchange="onWithdrawSourceAccountChange()" required>
+                    <!-- Populated dynamically with USD accounts and crypto wallets -->
+                  </select>
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-secondary mb-1">Available Reserve</label>
+                  <div class="p-2 bg-light rounded-3 border small d-flex align-items-center justify-content-between">
+                    <span class="text-muted">Balance:</span>
+                    <strong class="text-dark font-monospace" id="modalWithdrawAvailBalText">$0.00 USD</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- USD Channel Fields -->
+              <div id="withdrawUsdFieldsGroup">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Settlement Method *</label>
+                    <select class="form-select form-select-sm" id="modalWithdrawMethodSelect">
+                      <option value="Domestic Wire Transfer" selected>Domestic Bank Wire (Fedwire Same-Day)</option>
+                      <option value="ACH Direct Deposit">ACH Direct Deposit (1-2 Business Days)</option>
+                      <option value="International SWIFT Wire">International SWIFT Wire</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Beneficiary Full Name *</label>
+                    <input type="text" class="form-control form-control-sm" id="modalWithdrawBeneficiary" placeholder="e.g. Johnathan Doe / Corporate Entity">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Receiving Bank Name *</label>
+                    <input type="text" class="form-control form-control-sm" id="modalWithdrawBankName" placeholder="e.g. JPMorgan Chase Bank, N.A.">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Routing / ABA / SWIFT Number *</label>
+                    <input type="text" class="form-control form-control-sm font-monospace" id="modalWithdrawRoutingNum" placeholder="9 digits or SWIFT BIC">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label small fw-semibold text-secondary mb-1">External Bank Account / IBAN Number *</label>
+                    <input type="text" class="form-control form-control-sm font-monospace" id="modalWithdrawAccountNum" placeholder="e.g. 982348102 or GB82...">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Crypto Channel Fields -->
+              <div id="withdrawCryptoFieldsGroup" class="d-none">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Crypto Network / Standard *</label>
+                    <select class="form-select form-select-sm" id="modalWithdrawCryptoNetworkSelect">
+                      <option value="Native SegWit (BTC)">Bitcoin Native SegWit (BTC)</option>
+                      <option value="ERC-20 (Ethereum)">Ethereum Mainnet (ERC-20)</option>
+                      <option value="TRC-20 (Tron)">TRC-20 (Zero-Fee USDT)</option>
+                      <option value="Solana SPL (SOL)">Solana Fast Finality (SPL)</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Beneficiary / Label (Optional)</label>
+                    <input type="text" class="form-control form-control-sm" id="modalWithdrawCryptoBeneficiary" placeholder="e.g. Ledger Cold Vault / Binance Deposit">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label small fw-semibold text-secondary mb-1">Destination Crypto Wallet Address *</label>
+                    <input type="text" class="form-control form-control-sm font-monospace" id="modalWithdrawCryptoAddress" placeholder="e.g. bc1q... / 0x... / Sol...">
+                    <small class="text-muted" style="font-size: 11px;">Please verify network accuracy. Outbound blockchain broadcasts are immutable.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Amount & Security PIN Verification Code -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label small fw-semibold text-secondary mb-0">Withdrawal Amount *</label>
+                    <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none fw-semibold text-primary" style="font-size: 11px;" onclick="setModalMaxWithdrawAmount()">
+                      Withdraw Max
+                    </button>
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white text-muted fw-bold" id="modalWithdrawAmountPrefix">$</span>
+                    <input type="number" step="0.0001" min="0.0001" class="form-control fw-bold" id="modalWithdrawAmountInput" placeholder="0.00" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold text-secondary mb-1">9-Digit Security Code *</label>
+                  <input type="password" class="form-control form-control-sm font-monospace text-center fs-6" id="modalWithdrawPinInput" placeholder="•••••••••" maxlength="9" pattern="\d{9}" required autocomplete="off">
+                  <small class="text-muted" style="font-size: 11px;">Assigned 9-digit security code for authorization</small>
+                </div>
+              </div>
+
+              <!-- Error Alert Box -->
+              <div id="modalWithdrawErrorAlert" class="alert alert-danger small p-2.5 rounded-3 d-none mb-3"></div>
+
+              <!-- Settlement Notice -->
+              <div class="p-3 bg-light rounded-3 border mb-3 small">
+                <div class="d-flex justify-content-between py-1 border-bottom">
+                  <span class="text-muted">Network Settlement Fee:</span>
+                  <span class="text-success fw-bold font-monospace">$0.00 USD (Tier 1 Waived)</span>
+                </div>
+                <div class="d-flex justify-content-between py-1">
+                  <span class="text-muted">Security Verification:</span>
+                  <span class="text-dark fw-semibold"><i class="bi bi-shield-lock-fill text-primary me-1"></i>FDIC Custody Cryptographic Ledger</span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold rounded-3 shadow-sm" id="modalWithdrawSubmitBtn">
+                Review &amp; Execute Outbound Withdrawal
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= COMPACT LOGGED-IN FOOTER ================= -->
+  <footer class="text-center py-3 mt-4 cryptopay-footer-pure-white" style="background-color: #080d1a; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important; font-size: 0.8rem; opacity: 0.85;">
+        &copy; 2026 CryptoPay Technologies Inc. All rights reserved. FDIC-Insured Custody Gateway &bull; Regulated Digital Banking.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/chat-widget.js"></script>
+
+  <script>
+    const CRYPTO_RATES = {
+      BTC: 68420.00,
+      ETH: 3514.80,
+      SOL: 184.20,
+      USDT: 1.00,
+      USD: 1.00,
+      BNB: 592.50
+    };
+
+    const DEPOSIT_ADDRESSES = {
+      USDT: {
+        address: "TWrk8Y9h1xK9gM3cQz74bLpNxvYeUaB9E1",
+        notice: "Send only USDT (TRC-20 or ERC-20) to this address. Minimum deposit is 10 USDT. Automatically credited after 3 network confirmations."
+      },
+      BTC: {
+        address: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        notice: "Send only Bitcoin (BTC Native SegWit) to this address. Minimum deposit is 0.0005 BTC. Automatically credited after 2 network confirmations."
+      },
+      ETH: {
+        address: "0x71C8360537ab1c577132d2e82E4Ac9812A980f74",
+        notice: "Send only Ethereum (ETH) and ERC-20 tokens to this address. Credits after 12 block confirmations."
+      },
+      SOL: {
+        address: "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+        notice: "Send only Solana (SOL) and SPL tokens to this address. Instant settlement in ~400ms."
+      }
+    };
+
+    // User State in Memory / LocalStorage
+    let currentUser = null;
+    let allUserAccounts = [];
+    let primaryUsdAccount = null;
+    let btcBal = 0.0000;
+    let ethBal = 0.0000;
+    let solBal = 0.00;
+    let usdtBal = 0.00;
+    let usdCash = 0.00;
+    let isCardFrozen = false;
+    let areCardDetailsRevealed = false;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const userStr = localStorage.getItem('cryptopay_user') || localStorage.getItem('santander_user');
+      if (!userStr) {
+        window.location.href = 'login';
+        return;
+      }
+
+      currentUser = JSON.parse(userStr);
+
+      // Check if user is blocked (Lock Account feature check)
+      if (currentUser.status === 'blocked') {
+        alert('Your account is blocked. Please contact support.');
+        logout();
+        return;
+      }
+
+      // Check if user is suspended (Suspend Account / Disable Transfers feature check)
+      if (currentUser.status === 'suspended') {
+        document.getElementById('suspendedAccountAlert').classList.remove('d-none');
+        document.getElementById('suspendedAccountAlert').classList.add('d-flex');
+        
+        // Disable transfer actions
+        const sendBtn = document.getElementById('mainSendCryptoBtn');
+        if (sendBtn) {
+          sendBtn.classList.add('disabled');
+          sendBtn.setAttribute('title', 'Transfers are disabled on suspended accounts');
+        }
+        const transferUsdBtn = document.getElementById('transferUsdBtn');
+        if (transferUsdBtn) transferUsdBtn.classList.add('disabled');
+        const quickSend = document.getElementById('quickSendLink');
+        if (quickSend) quickSend.classList.add('disabled');
+      }
+
+      const initialFullName = ((currentUser.firstname || '') + ' ' + (currentUser.surname || '')).trim().toUpperCase();
+      if (initialFullName) {
+        const ch = document.getElementById('cardholderName');
+        if (ch) ch.innerText = initialFullName;
+        const mch = document.getElementById('modalCardholderName');
+        if (mch) mch.innerText = initialFullName;
+      }
+
+      // Sync card frozen state on dashboard
+      try {
+        const savedFrozen = localStorage.getItem('cryptopay_card_frozen_' + currentUser.username);
+        if (typeof setCardFrozenState === 'function') {
+          setCardFrozenState(savedFrozen === 'true');
+        }
+      } catch(e) {
+        console.warn('Card frozen sync warning:', e);
+      }
+
+      // Load persistent crypto balances if available (and purge old mock demo values)
+      const savedBalances = localStorage.getItem('cryptopay_balances_' + currentUser.username);
+      if (savedBalances) {
+        try {
+          const parsed = JSON.parse(savedBalances);
+          // If cached balances were from legacy hardcoded demo numbers (2.15 ETH, 3200 USDT, 14.8 SOL), clear them
+          if ((parsed.eth === 2.15 || parsed.eth === 2.1500) && parsed.usdt === 3200 && parsed.sol === 14.8) {
+            localStorage.removeItem('cryptopay_balances_' + currentUser.username);
+          } else {
+            btcBal = parsed.btc ?? btcBal;
+            ethBal = parsed.eth ?? ethBal;
+            solBal = parsed.sol ?? solBal;
+            usdtBal = parsed.usdt ?? usdtBal;
+          }
+        } catch(e) {}
+      }
+
+      loadDashboard(currentUser.username);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('action') === 'deposit') {
+        setTimeout(() => {
+          const depModalEl = document.getElementById('depositUsdModal');
+          if (depModalEl) {
+            const depModal = new bootstrap.Modal(depModalEl);
+            depModal.show();
+          }
+        }, 350);
+      }
+    });
+
+    async function loadDashboard(username) {
+      try {
+        const response = await fetch(`/api/user/${username}/dashboard`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` }
+        });
+        const data = await response.json();
+
+        if (data.status === 'blocked' || data.locked) {
+          alert('Your account is blocked. Please contact support.');
+          logout(true);
+          return;
+        }
+
+        if (data.success) {
+          const hour = new Date().getHours();
+          const greeting = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+          document.getElementById('welcomeMessage').textContent = `${greeting}, ${data.user.firstname}`;
+          
+          if (data.user) {
+            const liveFullName = ((data.user.firstname || '') + ' ' + (data.user.surname || '')).trim().toUpperCase();
+            if (liveFullName) {
+              const ch = document.getElementById('cardholderName');
+              if (ch) ch.innerText = liveFullName;
+              const mch = document.getElementById('modalCardholderName');
+              if (mch) mch.innerText = liveFullName;
+            }
+            if (currentUser) {
+              currentUser.firstname = data.user.firstname;
+              currentUser.surname = data.user.surname;
+              try {
+                localStorage.setItem('cryptopay_user', JSON.stringify(currentUser));
+                localStorage.setItem('santander_user', JSON.stringify(currentUser));
+              } catch(e) {}
+            }
+          }
+          
+          allUserAccounts = data.accounts || [];
+          if (allUserAccounts.length > 0) {
+            primaryUsdAccount = allUserAccounts.find(a => a.account_type === 'Fiat & Crypto Wallet' || a.account_type === 'Current') || allUserAccounts[0];
+            document.getElementById('usdAccountNumber').textContent = primaryUsdAccount.account_number;
+            document.getElementById('modalUsdAccNum').textContent = primaryUsdAccount.account_number;
+            usdCash = parseFloat(primaryUsdAccount.balance) || 0;
+
+            renderAdditionalFacilities(allUserAccounts, primaryUsdAccount);
+            setupDepositModalAccounts(allUserAccounts, primaryUsdAccount);
+            setupCardDisplay(allUserAccounts);
+          } else {
+            document.getElementById('usdAccountNumber').textContent = '923847192';
+          }
+
+          if (data.crypto_balances) {
+            btcBal = parseFloat(data.crypto_balances.btc) || 0;
+            ethBal = parseFloat(data.crypto_balances.eth) || 0;
+            solBal = parseFloat(data.crypto_balances.sol) || 0;
+            usdtBal = parseFloat(data.crypto_balances.usdt) || 0;
+          }
+
+          updateUIBalances();
+          loadUserDepositRequests();
+        }
+      } catch (err) {
+        console.error('Dashboard load error:', err);
+        updateUIBalances();
+      }
+    }
+
+    function renderAdditionalFacilities(accounts, primaryAcc) {
+      const section = document.getElementById('additionalFacilitiesSection');
+      const row = document.getElementById('additionalAccountsRow');
+      if (!section || !row) return;
+
+      const nonPrimary = accounts.filter(a => a.account_number !== primaryAcc.account_number);
+      if (nonPrimary.length === 0) {
+        section.classList.add('d-none');
+        row.innerHTML = '';
+        return;
+      }
+
+      section.classList.remove('d-none');
+      const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+      row.innerHTML = nonPrimary.map(acc => {
+        const bal = formatter.format(parseFloat(acc.balance) || 0);
+        const masked = '•••• ' + String(acc.account_number).slice(-4);
+        const cardLast4 = acc.card_number ? acc.card_number.replace(/\s/g, '').slice(-4) : '----';
+        
+        let iconHtml = '<i class="bi bi-wallet2 fs-5"></i>';
+        let title = `${acc.account_type} Account`;
+        let subtitle = 'Active Banking Facility';
+        let badgeHtml = '<span class="badge bg-primary bg-opacity-10 text-primary small fw-bold">Active</span>';
+        let bgIconClass = 'bg-primary bg-opacity-10 text-primary';
+
+        if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') {
+          iconHtml = '<i class="bi bi-piggy-bank-fill fs-5"></i>';
+          title = 'Crypto Earn & Savings Vault';
+          subtitle = 'Eligible yield-generating & staking reserve';
+          badgeHtml = '<span class="badge bg-success bg-opacity-10 text-success small fw-bold">Up to 12.5% APY</span>';
+          bgIconClass = 'bg-success bg-opacity-10 text-success';
+        } else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') {
+          iconHtml = '<i class="bi bi-briefcase-fill fs-5"></i>';
+          title = 'Business & Treasury Account';
+          subtitle = 'Commercial Web3 Treasury & Invoicing';
+          badgeHtml = '<span class="badge bg-info bg-opacity-10 text-info small fw-bold">Commercial</span>';
+          bgIconClass = 'bg-info bg-opacity-10 text-info';
+        } else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') {
+          iconHtml = '<i class="bi bi-credit-card-2-front-fill fs-5"></i>';
+          title = 'Crypto Debit Card';
+          subtitle = 'Card settlement reserve & spending';
+          badgeHtml = '<span class="badge bg-warning bg-opacity-10 text-warning small fw-bold">Visa Facility</span>';
+          bgIconClass = 'bg-warning bg-opacity-10 text-warning';
+        } else {
+          iconHtml = '<i class="bi bi-wallet2 fs-5"></i>';
+          title = acc.account_type || 'Fiat & Crypto Wallet';
+          subtitle = 'Primary Cash & Crypto Gateway';
+          badgeHtml = '<span class="badge bg-primary bg-opacity-10 text-primary small fw-bold">Active</span>';
+          bgIconClass = 'bg-primary bg-opacity-10 text-primary';
+        }
+
+        return `
+          <div class="col-md-6">
+            <div class="p-3 bg-white rounded-4 border shadow-sm h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="rounded-circle p-2 d-flex align-items-center justify-content-center ${bgIconClass}" style="width: 36px; height: 36px;">
+                      ${iconHtml}
+                    </span>
+                    <div>
+                      <h6 class="fw-bold text-dark mb-0">${title}</h6>
+                      <small class="text-muted">${subtitle}</small>
+                    </div>
+                  </div>
+                  ${badgeHtml}
+                </div>
+                <div class="fs-4 fw-bold text-dark mb-1">${bal}</div>
+                <div class="small text-muted mb-2 font-monospace">Acct: ${masked} (Routing: 092300184)</div>
+                <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border border-secondary border-opacity-10 mb-2">
+                  <div class="d-flex align-items-center gap-1 small text-muted">
+                    <i class="bi bi-credit-card-2-front text-primary"></i>
+                    <span>Linked Visa: <span class="font-monospace fw-bold text-dark">•••• ${cardLast4}</span></span>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none fw-semibold text-primary" onclick="selectAndShowAccountCard('${acc.account_number}')" style="font-size: 0.8rem;">
+                    View Card &rarr;
+                  </button>
+                </div>
+              </div>
+              <div class="d-flex gap-1 mt-2">
+                <a href="transfer" class="btn btn-sm btn-outline-primary flex-fill rounded-pill py-1">
+                  <i class="bi bi-arrow-left-right me-1"></i> Transfer
+                </a>
+                <button type="button" class="btn btn-sm btn-outline-danger flex-fill rounded-pill py-1" onclick="openWithdrawModal('${acc.account_number}')">
+                  <i class="bi bi-box-arrow-up me-1"></i> Withdraw
+                </button>
+                <a href="transactions?account=${acc.account_number}" class="btn btn-sm btn-light border flex-fill rounded-pill py-1">
+                  <i class="bi bi-clock-history me-1"></i> Ledger
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setupDepositModalAccounts(accounts, primaryAcc) {
+      const container = document.getElementById('depositTargetAccountContainer');
+      const select = document.getElementById('depositTargetAccountSelect');
+      if (!container || !select) return;
+
+      if (accounts.length > 1) {
+        container.classList.remove('d-none');
+        select.innerHTML = accounts.map(acc => {
+          const masked = '•••• ' + String(acc.account_number).slice(-4);
+          let label = acc.account_type;
+          if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') label = 'Fiat & Crypto Wallet';
+          else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') label = 'Crypto Earn & Savings Vault';
+          else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') label = 'Business & Treasury Account';
+          else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') label = 'Crypto Debit Card';
+          const selected = acc.account_number === primaryAcc.account_number ? 'selected' : '';
+          return `<option value="${acc.account_number}" ${selected}>${label} (${masked})</option>`;
+        }).join('');
+      } else {
+        container.classList.add('d-none');
+      }
+    }
+
+    function onDepositTargetAccountChange(accNum) {
+      const modalAcc = document.getElementById('modalUsdAccNum');
+      if (modalAcc) modalAcc.textContent = accNum;
+    }
+
+    function updateUIBalances() {
+      // USD Cash
+      document.getElementById('usdCashBalance').textContent = '$' + usdCash.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+      
+      // Crypto Wallets
+      document.getElementById('btcWalletBal').textContent = btcBal.toFixed(4) + ' BTC';
+      document.getElementById('btcWalletUsd').textContent = '≈ $' + (btcBal * CRYPTO_RATES.BTC).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+
+      document.getElementById('ethWalletBal').textContent = ethBal.toFixed(4) + ' ETH';
+      document.getElementById('ethWalletUsd').textContent = '≈ $' + (ethBal * CRYPTO_RATES.ETH).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+
+      document.getElementById('usdtWalletBal').textContent = usdtBal.toFixed(2) + ' USDT';
+      document.getElementById('usdtWalletUsd').textContent = '≈ $' + (usdtBal * CRYPTO_RATES.USDT).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+
+      document.getElementById('solWalletBal').textContent = solBal.toFixed(2) + ' SOL';
+      document.getElementById('solWalletUsd').textContent = '≈ $' + (solBal * CRYPTO_RATES.SOL).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+
+      // Keep primary account in allUserAccounts synchronized with usdCash
+      if (primaryUsdAccount) {
+        primaryUsdAccount.balance = usdCash;
+      }
+      for (let acc of allUserAccounts) {
+        if (primaryUsdAccount && acc.account_number === primaryUsdAccount.account_number) {
+          acc.balance = usdCash;
+        }
+      }
+
+      // Combined Net Portfolio (including all active accounts)
+      const totalAllAccounts = allUserAccounts.length > 0
+        ? allUserAccounts.reduce((sum, a) => {
+            const bal = (primaryUsdAccount && a.account_number === primaryUsdAccount.account_number)
+              ? usdCash
+              : (parseFloat(a.balance) || 0);
+            return sum + bal;
+          }, 0)
+        : usdCash;
+      const totalPortfolio = totalAllAccounts + (btcBal * CRYPTO_RATES.BTC) + (ethBal * CRYPTO_RATES.ETH) + (usdtBal * CRYPTO_RATES.USDT) + (solBal * CRYPTO_RATES.SOL);
+      document.getElementById('totalPortfolioValue').textContent = '$' + totalPortfolio.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD';
+      document.getElementById('cryptoBtcEquiv').textContent = '≈ ' + (totalPortfolio / CRYPTO_RATES.BTC).toFixed(4) + ' BTC';
+      document.getElementById('cryptoEthEquiv').textContent = '≈ ' + (totalPortfolio / CRYPTO_RATES.ETH).toFixed(3) + ' ETH';
+
+      // Save state
+      if (currentUser) {
+        localStorage.setItem('cryptopay_balances_' + currentUser.username, JSON.stringify({
+          usd: usdCash,
+          btc: btcBal,
+          eth: ethBal,
+          sol: solBal,
+          usdt: usdtBal
+        }));
+      }
+
+      calculateSwap();
+    }
+
+    function handleDepositMethodChange(method) {
+      const achBox = document.getElementById('achLinkLogsContainer');
+      const titleEl = document.getElementById('depositInstructionsTitle');
+      const bankNameEl = document.getElementById('depositInstBankName');
+      const routingLabelEl = document.getElementById('depositInstRoutingLabel');
+      const routingValEl = document.getElementById('depositInstRoutingVal');
+      const swiftRow = document.getElementById('depositInstSwiftRow');
+      const addressRow = document.getElementById('depositInstAddressRow');
+      const speedBadge = document.getElementById('depositInstSpeedBadge');
+
+      if (achBox) {
+        if (method === 'Same-Day ACH Transfer') {
+          achBox.classList.remove('d-none');
+        } else {
+          achBox.classList.add('d-none');
+        }
+      }
+
+      if (method === 'Domestic Wire Transfer') {
+        if (titleEl) titleEl.innerHTML = '<i class="bi bi-bank text-primary me-2"></i>Domestic Fedwire Instructions';
+        if (bankNameEl) bankNameEl.textContent = 'CryptoPay Settlement Partner Bank (New York)';
+        if (routingLabelEl) routingLabelEl.textContent = 'Routing (Fedwire / ABA):';
+        if (routingValEl) routingValEl.textContent = '092300184';
+        if (swiftRow) swiftRow.classList.add('d-none');
+        if (addressRow) addressRow.classList.add('d-none');
+        if (speedBadge) {
+          speedBadge.className = 'badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2 py-1';
+          speedBadge.innerHTML = '<i class="bi bi-lightning-charge-fill me-1"></i>Same-Day Wire Settlement (Cut-off 4 PM EST)';
+        }
+      } else if (method === 'Same-Day ACH Transfer') {
+        if (titleEl) titleEl.innerHTML = '<i class="bi bi-arrow-repeat text-primary me-2"></i>Same-Day ACH Transfer Instructions';
+        if (bankNameEl) bankNameEl.textContent = 'CryptoPay Settlement Partner Bank';
+        if (routingLabelEl) routingLabelEl.textContent = 'ACH Routing (ABA):';
+        if (routingValEl) routingValEl.textContent = '092300184';
+        if (swiftRow) swiftRow.classList.add('d-none');
+        if (addressRow) addressRow.classList.add('d-none');
+        if (speedBadge) {
+          speedBadge.className = 'badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1';
+          speedBadge.innerHTML = '<i class="bi bi-shield-check me-1"></i>1–2 Business Days (Requires Linked Bank Logs)';
+        }
+      } else if (method === 'FedNow Real-Time Transfer') {
+        if (titleEl) titleEl.innerHTML = '<i class="bi bi-lightning-fill text-warning me-2"></i>FedNow 24/7 Instant Instructions';
+        if (bankNameEl) bankNameEl.textContent = 'CryptoPay Federal Reserve Settlement Node';
+        if (routingLabelEl) routingLabelEl.textContent = 'FedNow Participant ID:';
+        if (routingValEl) routingValEl.textContent = '092300184';
+        if (swiftRow) swiftRow.classList.add('d-none');
+        if (addressRow) addressRow.classList.add('d-none');
+        if (speedBadge) {
+          speedBadge.className = 'badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1';
+          speedBadge.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Instant 24/7/365 Settlement (Under 10 Seconds)';
+        }
+      } else if (method === 'International SWIFT Wire') {
+        if (titleEl) titleEl.innerHTML = '<i class="bi bi-globe2 text-info me-2"></i>International SWIFT Wire Instructions';
+        if (bankNameEl) bankNameEl.textContent = 'CryptoPay International Custody Bank';
+        if (routingLabelEl) routingLabelEl.textContent = 'CHIPS / Fedwire ID:';
+        if (routingValEl) routingValEl.textContent = '092300184';
+        if (swiftRow) swiftRow.classList.remove('d-none');
+        if (addressRow) addressRow.classList.remove('d-none');
+        if (speedBadge) {
+          speedBadge.className = 'badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 px-2 py-1';
+          speedBadge.innerHTML = '<i class="bi bi-globe me-1"></i>2–4 Business Days (Cross-Border FX Clearing)';
+        }
+      }
+    }
+
+    function linkAchLogs() {
+      const bankName = document.getElementById('achBankNameSelect').value;
+      const username = document.getElementById('achLogUsername').value.trim();
+      const accountNum = document.getElementById('achLogAccountNum').value.trim();
+      
+      const btn = document.getElementById('linkAchLogsBtn');
+      const confirmAlert = document.getElementById('achTrialConfirmationAlert');
+      const detailsText = document.getElementById('achTrialDetailsText');
+      const refInput = document.getElementById('depositRefInput');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Verifying Logs...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Logs Linked';
+        
+        // Generate two realistic micro-deposit amounts between $0.00 and $5.00
+        const trial1 = (Math.random() * 2.1 + 0.15).toFixed(2);
+        const trial2 = (Math.random() * 2.2 + 0.20).toFixed(2);
+        const refCode = 'ACH-TRIAL-' + Math.floor(100000 + Math.random() * 900000);
+
+        if (detailsText) {
+          detailsText.innerHTML = `<strong>${bankName}</strong> account credentials verified. Two trial deposits of <strong>$${trial1}</strong> and <strong>$${trial2}</strong> (ranging from $0.00 – $5.00) have been dispatched. Check your external bank statement within 1–2 business days.`;
+        }
+        if (confirmAlert) confirmAlert.classList.remove('d-none');
+        if (refInput && !refInput.value) {
+          refInput.value = refCode;
+        }
+      }, 1200);
+    }
+
+    async function submitDepositNotice() {
+      const amount = parseFloat(document.getElementById('depositAmountInput').value);
+      const method = document.getElementById('depositMethodSelect').value;
+      const ref = document.getElementById('depositRefInput').value.trim();
+      const btn = document.getElementById('submitDepositNoticeBtn');
+      const alertBox = document.getElementById('depositNoticeAlert');
+
+      if (!amount || amount <= 0 || !ref) {
+        alertBox.className = 'alert alert-danger small mb-3';
+        alertBox.textContent = 'Please enter a valid deposit amount and reference number.';
+        alertBox.classList.remove('d-none');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Submitting...';
+
+      const targetSelect = document.getElementById('depositTargetAccountSelect');
+      const targetAccNum = (targetSelect && targetSelect.value) ? targetSelect.value : (primaryUsdAccount ? primaryUsdAccount.account_number : '92345171');
+      const targetAcc = allUserAccounts.find(a => a.account_number === targetAccNum) || primaryUsdAccount;
+
+      try {
+        const res = await fetch('/api/user/deposit-request', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          },
+          body: JSON.stringify({
+            amount: amount,
+            method: method,
+            reference_number: ref,
+            account_number: targetAcc ? targetAcc.account_number : '92345171',
+            account_type: targetAcc ? targetAcc.account_type : 'Current'
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          alertBox.className = 'alert alert-success small mb-3';
+          alertBox.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Deposit submitted successfully!';
+          alertBox.classList.remove('d-none');
+          document.getElementById('depositNoticeForm').reset();
+          loadUserDepositRequests();
+        } else {
+          alertBox.className = 'alert alert-danger small mb-3';
+          alertBox.textContent = data.error || 'Failed to submit deposit notice.';
+          alertBox.classList.remove('d-none');
+        }
+      } catch (err) {
+        console.error('Error submitting deposit notice:', err);
+        alertBox.className = 'alert alert-danger small mb-3';
+        alertBox.textContent = 'Network error while contacting settlement desk. Please try again.';
+        alertBox.classList.remove('d-none');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Submit';
+      }
+    }
+
+    async function loadUserDepositRequests() {
+      try {
+        const res = await fetch('/api/user/deposit-requests', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          }
+        });
+        const data = await res.json();
+        const reqList = (data.success && (data.requests || data.deposits)) ? (data.requests || data.deposits) : [];
+        if (reqList.length > 0) {
+          const container = document.getElementById('userDepositHistoryArea');
+          const list = document.getElementById('userDepositList');
+          container.classList.remove('d-none');
+
+          list.innerHTML = reqList.map(r => {
+            const dateStr = new Date(r.created_at).toLocaleDateString() + ' ' + new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            let badge = '';
+            if (r.status === 'approved') {
+              badge = '<span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-check2 me-1"></i>Confirmed</span>';
+            } else if (r.status === 'rejected') {
+              badge = '<span class="badge bg-danger-subtle text-danger border border-danger-subtle"><i class="bi bi-x me-1"></i>Declined</span>';
+            } else {
+              badge = '<span class="badge bg-warning-subtle text-warning border border-warning-subtle"><i class="bi bi-clock me-1"></i>Pending Confirmation</span>';
+            }
+
+            return `
+              <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                <div>
+                  <div class="fw-bold text-dark">$${parseFloat(r.amount).toLocaleString('en-US', {minimumFractionDigits: 2})} USD</div>
+                  <div class="text-secondary" style="font-size: 0.75rem;">${r.method} • Ref: <code>${r.reference_number || 'N/A'}</code> • ${dateStr}</div>
+                </div>
+                <div class="text-end">
+                  ${badge}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error('Error fetching user deposits:', err);
+      }
+    }
+
+    // ================= CARD MANAGEMENT =================
+
+    let activeCardAccount = null;
+    let isDashboardCardRevealed = false;
+
+    function toggleDashboardCardReveal() {
+      if (!activeCardAccount) return;
+      isDashboardCardRevealed = !isDashboardCardRevealed;
+      const icon = document.getElementById('dashboardCardRevealIcon');
+      if (icon) icon.className = isDashboardCardRevealed ? 'bi bi-eye-slash text-info' : 'bi bi-eye';
+      updateDashboardCardUI(activeCardAccount);
+    }
+
+    function setupCardDisplay(accounts) {
+      if (!accounts || accounts.length === 0) return;
+
+      // If activeCardAccount is not set or not in current accounts, pick priority account
+      if (!activeCardAccount || !accounts.some(a => String(a.account_number) === String(activeCardAccount.account_number))) {
+        activeCardAccount = accounts.find(a => a.account_type === 'Crypto Debit Card' || a.account_type === 'ISA')
+                            || accounts.find(a => a.account_type === 'Fiat & Crypto Wallet' || a.account_type === 'Current')
+                            || accounts[0];
+      }
+
+      // Populate dashboard card facility switcher if user has more than 1 account
+      const dashSwitcherContainer = document.getElementById('dashCardAccountSwitcherContainer');
+      const dashSelect = document.getElementById('dashCardAccountSelect');
+      if (dashSwitcherContainer && dashSelect) {
+        if (accounts.length > 1) {
+          dashSwitcherContainer.style.setProperty('display', 'flex', 'important');
+          dashSelect.innerHTML = accounts.map(acc => {
+            const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+            const last4Card = (acc.card_number || '').replace(/\s/g, '').slice(-4);
+            let friendlyName = acc.account_type;
+            if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyName = 'Wallet';
+            else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyName = 'Debit Card';
+            else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyName = 'Vault / Savings';
+            else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyName = 'Business';
+            const selected = String(acc.account_number) === String(activeCardAccount.account_number) ? 'selected' : '';
+            return `<option value="${acc.account_number}" ${selected}>${friendlyName} (•••• ${last4Card})</option>`;
+          }).join('');
+        } else {
+          dashSwitcherContainer.style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      // Also update primary USD account card display if element exists
+      if (primaryUsdAccount) {
+        const primCardEl = document.getElementById('primaryUsdCardLast4');
+        if (primCardEl) {
+          const rawNum = primaryUsdAccount.card_number || '';
+          const last4 = rawNum.replace(/\s/g, '').slice(-4);
+          primCardEl.textContent = `•••• ${last4}`;
+        }
+      }
+
+      updateDashboardCardUI(activeCardAccount);
+    }
+
+    function onDashboardCardAccountChange(accountNumber) {
+      const chosen = allUserAccounts.find(a => String(a.account_number) === String(accountNumber));
+      if (chosen) {
+        activeCardAccount = chosen;
+        updateDashboardCardUI(activeCardAccount);
+        const modalSelect = document.getElementById('modalCardAccountSelect');
+        if (modalSelect) modalSelect.value = accountNumber;
+      }
+    }
+
+    function selectAndShowAccountCard(accountNumber) {
+      if (!accountNumber) return;
+      const chosen = allUserAccounts.find(a => String(a.account_number) === String(accountNumber));
+      if (chosen) {
+        activeCardAccount = chosen;
+        const dashSelect = document.getElementById('dashCardAccountSelect');
+        if (dashSelect) dashSelect.value = accountNumber;
+        updateDashboardCardUI(activeCardAccount);
+        openCardManagementModal();
+      }
+    }
+
+    function updateDashboardCardUI(acc) {
+      if (!acc) return;
+      
+      const cardNumberDisplay = document.getElementById('dashboardCardNumberDisplay');
+      const expDisplay = document.getElementById('dashboardCardExpDisplay');
+      const cvvDisplay = document.getElementById('dashboardCardCvvDisplay');
+      const statusBadge = document.getElementById('dashboardCardStatusBadge');
+      const typeBadge = document.getElementById('dashboardCardAccountTypeBadge');
+      const dashCard = document.getElementById('dashboardMetalCard');
+      const dashNotice = document.getElementById('dashboardCardFooterNotice');
+
+      const rawNum = acc.card_number || '4829 0000 0000 8842';
+      const last4 = rawNum.replace(/\s/g, '').slice(-4);
+      const exp = acc.card_exp || '08/29';
+      const cvv = acc.card_cvv || '784';
+      const isFrozen = Boolean(acc.card_frozen);
+
+      if (cardNumberDisplay) {
+        cardNumberDisplay.textContent = isDashboardCardRevealed ? rawNum : `•••• •••• •••• ${last4}`;
+      }
+      if (expDisplay) expDisplay.textContent = exp;
+      if (cvvDisplay) cvvDisplay.textContent = isDashboardCardRevealed ? cvv : '•••';
+
+      if (typeBadge) {
+        let friendlyName = acc.account_type;
+        if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyName = 'Wallet Facility';
+        else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyName = 'Debit Facility';
+        else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyName = 'Vault Facility';
+        else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyName = 'Treasury Facility';
+        typeBadge.textContent = `${friendlyName} (•••• ${String(acc.account_number).slice(-4)})`;
+      }
+
+      // Card gradient per facility
+      let cardBg = 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%)';
+      const t = String(acc.account_type || '').toLowerCase();
+      if (t.includes('earn') || t.includes('saving') || t.includes('vault')) {
+        cardBg = 'linear-gradient(135deg, #022c22 0%, #064e3b 60%, #065f46 100%)';
+      } else if (t.includes('business') || t.includes('treasury')) {
+        cardBg = 'linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e293b 100%)';
+      } else if (t.includes('debit') || t.includes('isa')) {
+        cardBg = 'linear-gradient(135deg, #18181b 0%, #27272a 60%, #3f3f46 100%)';
+      }
+      if (dashCard) dashCard.style.background = cardBg;
+
+      if (isFrozen) {
+        if (statusBadge) {
+          statusBadge.className = 'badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-50';
+          statusBadge.innerHTML = '<i class="bi bi-snow me-1"></i>FROZEN';
+        }
+        if (dashCard) dashCard.style.filter = 'grayscale(0.85)';
+        if (dashNotice) dashNotice.innerHTML = '<span class="text-danger small fw-semibold"><i class="bi bi-slash-circle me-1"></i>Transactions Blocked</span>';
+      } else {
+        if (statusBadge) {
+          statusBadge.className = 'badge bg-success bg-opacity-25 text-success border border-success border-opacity-50';
+          statusBadge.textContent = 'ACTIVE';
+        }
+        if (dashCard) dashCard.style.filter = 'none';
+        if (dashNotice) dashNotice.innerHTML = '<span class="text-light"><i class="bi bi-gem text-warning me-1"></i>5% BTC Cashback</span>';
+      }
+    }
+
+    function setCardFrozenState(isFrozen) {
+      isCardFrozen = Boolean(isFrozen);
+      if (activeCardAccount) {
+        activeCardAccount.card_frozen = isCardFrozen;
+        updateDashboardCardUI(activeCardAccount);
+        updateModalCardUI(activeCardAccount);
+      } else {
+        const statusBadge = document.getElementById('dashboardCardStatusBadge');
+        const dashCard = document.getElementById('dashboardMetalCard');
+        const dashNotice = document.getElementById('dashboardCardFooterNotice');
+        if (isFrozen) {
+          if (statusBadge) {
+            statusBadge.className = 'badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-50';
+            statusBadge.innerHTML = '<i class="bi bi-snow me-1"></i>FROZEN';
+          }
+          if (dashCard) dashCard.style.filter = 'grayscale(0.85)';
+          if (dashNotice) dashNotice.innerHTML = '<span class="text-danger small fw-semibold"><i class="bi bi-slash-circle me-1"></i>Transactions Blocked</span>';
+        } else {
+          if (statusBadge) {
+            statusBadge.className = 'badge bg-success bg-opacity-25 text-success border border-success border-opacity-50';
+            statusBadge.textContent = 'ACTIVE';
+          }
+          if (dashCard) dashCard.style.filter = 'none';
+          if (dashNotice) dashNotice.innerHTML = '<span class="text-light"><i class="bi bi-gem text-warning me-1"></i>5% BTC Cashback</span>';
+        }
+      }
+    }
+
+    function openCardManagementModal() {
+      const userFullName = currentUser ? ((currentUser.firstname || '') + ' ' + (currentUser.surname || '')).trim().toUpperCase() : '';
+      if (userFullName) {
+        const mch = document.getElementById('modalCardholderName');
+        if (mch) mch.innerText = userFullName;
+      }
+      toggleReportCardAlert(false);
+      const successBox = document.getElementById('reportCardSuccessAlert');
+      if (successBox) successBox.classList.add('d-none');
+
+      areCardDetailsRevealed = false;
+      const revealBtnText = document.getElementById('revealBtnText');
+      if (revealBtnText) revealBtnText.textContent = 'Show Number & CVV';
+
+      if (!activeCardAccount) {
+        if (allUserAccounts && allUserAccounts.length > 0) {
+          activeCardAccount = allUserAccounts.find(a => a.account_type === 'Crypto Debit Card' || a.account_type === 'ISA')
+                           || allUserAccounts.find(a => a.account_type === 'Fiat & Crypto Wallet' || a.account_type === 'Current')
+                           || allUserAccounts[0];
+        } else {
+          activeCardAccount = {
+            account_type: 'Crypto Debit Card',
+            account_number: '92384719',
+            card_number: '4532 8813 7544 5800',
+            card_exp: '08/31',
+            card_cvv: '784',
+            card_frozen: false
+          };
+        }
+      }
+
+      // Setup multi-account selector in modal if user has accounts
+      const selectContainer = document.getElementById('modalCardAccountSelectContainer');
+      const select = document.getElementById('modalCardAccountSelect');
+      if (allUserAccounts && allUserAccounts.length > 0 && select) {
+        if (allUserAccounts.length > 1 && selectContainer) {
+          selectContainer.classList.remove('d-none');
+        } else if (selectContainer) {
+          selectContainer.classList.add('d-none');
+        }
+
+        select.innerHTML = allUserAccounts.map(acc => {
+          const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+          const last4Card = (acc.card_number || '').replace(/\s/g, '').slice(-4);
+          let friendlyName = acc.account_type;
+          if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyName = 'Fiat & Crypto Wallet';
+          else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyName = 'Crypto Debit Card';
+          else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyName = 'Crypto Earn & Savings Vault';
+          else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyName = 'Business & Treasury Account';
+          const selected = String(acc.account_number) === String(activeCardAccount.account_number) ? 'selected' : '';
+          return `<option value="${acc.account_number}" ${selected}>${friendlyName} (${maskedAcc}) - Card •••• ${last4Card}</option>`;
+        }).join('');
+      }
+
+      updateModalCardUI(activeCardAccount);
+
+      const modal = new bootstrap.Modal(document.getElementById('cardManagementModal'));
+      modal.show();
+    }
+
+    function onCardAccountChange(accountNumber) {
+      const chosen = allUserAccounts.find(a => String(a.account_number) === String(accountNumber));
+      if (chosen) {
+        activeCardAccount = chosen;
+        areCardDetailsRevealed = false;
+        const revealBtnText = document.getElementById('revealBtnText');
+        if (revealBtnText) revealBtnText.textContent = 'Show Number & CVV';
+        const dashSelect = document.getElementById('dashCardAccountSelect');
+        if (dashSelect) dashSelect.value = accountNumber;
+        updateModalCardUI(activeCardAccount);
+        updateDashboardCardUI(activeCardAccount);
+      }
+    }
+
+    function updateModalCardUI(acc) {
+      if (!acc) return;
+      const numEl = document.getElementById('modalCardNumberDisplay');
+      const expEl = document.getElementById('modalExpValue');
+      const cvvVal = document.getElementById('modalCvvValue');
+      const statusBadge = document.getElementById('cardStatusBadge');
+      const typeBadge = document.getElementById('modalCardAccountTypeBadge');
+      const btnText = document.getElementById('freezeBtnText');
+      const icon = document.getElementById('freezeIcon');
+      const preview = document.getElementById('modalCardPreview');
+
+      const rawNum = acc.card_number || '4829 0000 0000 8842';
+      const last4 = rawNum.replace(/\s/g, '').slice(-4);
+      const exp = acc.card_exp || '08/29';
+      const cvv = acc.card_cvv || '784';
+      const isFrozen = Boolean(acc.card_frozen);
+
+      if (expEl) expEl.textContent = exp;
+
+      if (typeBadge) {
+        let friendlyName = acc.account_type;
+        if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyName = 'Wallet Facility';
+        else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyName = 'Debit Facility';
+        else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyName = 'Vault Facility';
+        else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyName = 'Treasury Facility';
+        typeBadge.textContent = `${friendlyName} (•••• ${String(acc.account_number).slice(-4)})`;
+      }
+
+      let cardBg = 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%)';
+      const t = String(acc.account_type || '').toLowerCase();
+      if (t.includes('earn') || t.includes('saving') || t.includes('vault')) {
+        cardBg = 'linear-gradient(135deg, #022c22 0%, #064e3b 60%, #065f46 100%)';
+      } else if (t.includes('business') || t.includes('treasury')) {
+        cardBg = 'linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e293b 100%)';
+      } else if (t.includes('debit') || t.includes('isa')) {
+        cardBg = 'linear-gradient(135deg, #18181b 0%, #27272a 60%, #3f3f46 100%)';
+      }
+      if (preview) preview.style.background = cardBg;
+
+      if (areCardDetailsRevealed) {
+        if (numEl) numEl.textContent = rawNum;
+        if (cvvVal) cvvVal.textContent = cvv;
+      } else {
+        if (numEl) numEl.textContent = `•••• •••• •••• ${last4}`;
+        if (cvvVal) cvvVal.textContent = '•••';
+      }
+
+      if (isFrozen) {
+        if (statusBadge) {
+          statusBadge.className = 'badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-50';
+          statusBadge.innerHTML = '<i class="bi bi-snow me-1"></i>FROZEN';
+        }
+        if (btnText) btnText.textContent = 'Unfreeze Card';
+        if (icon) icon.className = 'bi bi-fire me-1';
+        if (preview) preview.style.filter = 'grayscale(0.85)';
+      } else {
+        if (statusBadge) {
+          statusBadge.className = 'badge bg-success bg-opacity-25 text-success border border-success border-opacity-50';
+          statusBadge.textContent = 'ACTIVE';
+        }
+        if (btnText) btnText.textContent = 'Freeze Card';
+        if (icon) icon.className = 'bi bi-snow me-1';
+        if (preview) preview.style.filter = 'none';
+      }
+    }
+
+    async function toggleFreezeCard() {
+      if (!activeCardAccount || !currentUser) return;
+      const newFrozenState = !Boolean(activeCardAccount.card_frozen);
+
+      try {
+        const res = await fetch(`/api/user/${currentUser.username}/card/freeze`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          },
+          body: JSON.stringify({
+            accountNumber: activeCardAccount.account_number,
+            frozen: newFrozenState
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          activeCardAccount.card_frozen = newFrozenState;
+          const accInAll = allUserAccounts.find(a => a.account_number === activeCardAccount.account_number);
+          if (accInAll) accInAll.card_frozen = newFrozenState;
+        }
+      } catch (err) {
+        console.error('Error toggling card freeze on server:', err);
+        activeCardAccount.card_frozen = newFrozenState;
+      }
+
+      updateModalCardUI(activeCardAccount);
+      updateDashboardCardUI(activeCardAccount);
+      showCardSettingAlert(activeCardAccount.card_frozen ? 'Card has been temporarily frozen. All outgoing transactions declined.' : 'Card has been reactivated successfully.');
+    }
+
+    function toggleRevealCardDetails() {
+      if (!activeCardAccount) return;
+      areCardDetailsRevealed = !areCardDetailsRevealed;
+      const btnText = document.getElementById('revealBtnText');
+      if (btnText) btnText.textContent = areCardDetailsRevealed ? 'Hide Card Details' : 'Show Number & CVV';
+      updateModalCardUI(activeCardAccount);
+    }
+
+    function saveCardSetting(type, val) {
+      showCardSettingAlert('Card security preferences updated.');
+    }
+
+    function showCardSettingAlert(msg) {
+      const el = document.getElementById('cardSettingAlert');
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove('d-none');
+      setTimeout(() => el.classList.add('d-none'), 2500);
+    }
+
+    function toggleReportCardAlert(show) {
+      const confirmBox = document.getElementById('reportCardConfirmAlert');
+      const initialBox = document.getElementById('reportCardInitial');
+      const successBox = document.getElementById('reportCardSuccessAlert');
+      if (show) {
+        if (confirmBox) confirmBox.classList.remove('d-none');
+        if (initialBox) initialBox.classList.add('d-none');
+        if (successBox) successBox.classList.add('d-none');
+      } else {
+        if (confirmBox) confirmBox.classList.add('d-none');
+        if (initialBox) initialBox.classList.remove('d-none');
+      }
+    }
+
+    async function confirmReportCardLost() {
+      if (!activeCardAccount || !currentUser) return;
+      try {
+        await fetch(`/api/user/${currentUser.username}/card/freeze`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          },
+          body: JSON.stringify({
+            accountNumber: activeCardAccount.account_number,
+            frozen: true
+          })
+        });
+      } catch (err) {}
+      activeCardAccount.card_frozen = true;
+      const accInAll = allUserAccounts.find(a => a.account_number === activeCardAccount.account_number);
+      if (accInAll) accInAll.card_frozen = true;
+
+      updateModalCardUI(activeCardAccount);
+      updateDashboardCardUI(activeCardAccount);
+
+      const confirmBox = document.getElementById('reportCardConfirmAlert');
+      const successBox = document.getElementById('reportCardSuccessAlert');
+      if (confirmBox) confirmBox.classList.add('d-none');
+      if (successBox) successBox.classList.remove('d-none');
+    }
+
+    function openSwapFromUsd() {
+      document.getElementById('swapFromAsset').value = 'USD';
+      document.getElementById('swapToAsset').value = 'BTC';
+      calculateSwap();
+      const modal = new bootstrap.Modal(document.getElementById('quickSwapModal'));
+      modal.show();
+    }
+
+    function openSwapFor(asset) {
+      document.getElementById('swapFromAsset').value = 'USD';
+      document.getElementById('swapToAsset').value = asset;
+      calculateSwap();
+      const modal = new bootstrap.Modal(document.getElementById('quickSwapModal'));
+      modal.show();
+    }
+
+    function openDepositFor(asset) {
+      document.getElementById('receiveAssetSelect').value = asset;
+      updateReceiveAddress(asset);
+      const modal = new bootstrap.Modal(document.getElementById('receiveCryptoModal'));
+      modal.show();
+    }
+
+    function updateReceiveAddress(asset) {
+      const data = DEPOSIT_ADDRESSES[asset] || DEPOSIT_ADDRESSES['USDT'];
+      document.getElementById('depositAddressText').innerText = data.address;
+      document.getElementById('depositSafetyNotice').innerText = data.notice;
+      document.getElementById('depositQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(data.address)}`;
+      document.getElementById('copySuccessMsg').classList.add('d-none');
+    }
+
+    function copyDepositAddress() {
+      const addr = document.getElementById('depositAddressText').innerText;
+      navigator.clipboard.writeText(addr).then(() => {
+        document.getElementById('copySuccessMsg').classList.remove('d-none');
+        setTimeout(() => {
+          document.getElementById('copySuccessMsg').classList.add('d-none');
+        }, 3000);
+      });
+    }
+
+    function reverseSwapAssets() {
+      const from = document.getElementById('swapFromAsset').value;
+      const to = document.getElementById('swapToAsset').value;
+      document.getElementById('swapFromAsset').value = to;
+      document.getElementById('swapToAsset').value = from;
+      calculateSwap();
+    }
+
+    function calculateSwap() {
+      const fromAsset = document.getElementById('swapFromAsset').value;
+      const toAsset = document.getElementById('swapToAsset').value;
+      const fromAmt = parseFloat(document.getElementById('swapFromAmount').value) || 0;
+
+      let avail = 0;
+      if (fromAsset === 'USD') avail = usdCash;
+      else if (fromAsset === 'USDT') avail = usdtBal;
+      else if (fromAsset === 'BTC') avail = btcBal;
+      else if (fromAsset === 'ETH') avail = ethBal;
+      else if (fromAsset === 'SOL') avail = solBal;
+
+      document.getElementById('swapAvailableSourceText').textContent = `Available: ${avail.toFixed(4)} ${fromAsset}`;
+
+      const rateFrom = CRYPTO_RATES[fromAsset] || 1;
+      const rateTo = CRYPTO_RATES[toAsset] || 1;
+
+      const usdValue = fromAmt * rateFrom;
+      const toAmt = usdValue / rateTo;
+
+      document.getElementById('swapToAmount').value = toAmt < 1 ? toAmt.toFixed(6) : toAmt.toFixed(4);
+      document.getElementById('swapRateText').textContent = `1 ${toAsset} = $${(rateTo / rateFrom).toFixed(2)} ${fromAsset}`;
+      document.getElementById('swapDestWalletText').textContent = `${toAsset} Wallet`;
+    }
+
+    async function executeRealSwap() {
+      if (currentUser && currentUser.status === 'suspended') {
+        alert('Your account is suspended. Digital asset conversions are disabled. Please contact support.');
+        return;
+      }
+
+      const fromAsset = document.getElementById('swapFromAsset').value;
+      const toAsset = document.getElementById('swapToAsset').value;
+      const fromAmt = parseFloat(document.getElementById('swapFromAmount').value) || 0;
+
+      if (fromAmt <= 0) {
+        alert('Please enter a valid conversion amount.');
+        return;
+      }
+
+      // Check balance
+      let hasBalance = false;
+      if (fromAsset === 'USD' && usdCash >= fromAmt) hasBalance = true;
+      else if (fromAsset === 'USDT' && usdtBal >= fromAmt) hasBalance = true;
+      else if (fromAsset === 'BTC' && btcBal >= fromAmt) hasBalance = true;
+      else if (fromAsset === 'ETH' && ethBal >= fromAmt) hasBalance = true;
+      else if (fromAsset === 'SOL' && solBal >= fromAmt) hasBalance = true;
+
+      if (!hasBalance) {
+        alert(`Insufficient ${fromAsset} balance. Please deposit funds first.`);
+        return;
+      }
+
+      const btn = document.getElementById('confirmSwapBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Settling trade with liquidity pool...';
+
+      try {
+        const response = await fetch('/api/user/swap', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          },
+          body: JSON.stringify({
+            fromAsset,
+            toAsset,
+            amount: fromAmt,
+            accountNumber: primaryUsdAccount ? primaryUsdAccount.account_number : undefined
+          })
+        });
+
+        const data = await response.json();
+
+        btn.disabled = false;
+        btn.innerHTML = 'Confirm Instant Conversion';
+
+        if (response.ok && data.success) {
+          if (data.newUsdBalance !== null && data.newUsdBalance !== undefined) {
+            usdCash = parseFloat(data.newUsdBalance);
+            if (primaryUsdAccount) primaryUsdAccount.balance = usdCash;
+            for (let acc of allUserAccounts) {
+              if (primaryUsdAccount && acc.account_number === primaryUsdAccount.account_number) {
+                acc.balance = usdCash;
+              }
+            }
+          }
+
+          if (data.cryptoBalances) {
+            btcBal = parseFloat(data.cryptoBalances.btc) || 0;
+            ethBal = parseFloat(data.cryptoBalances.eth) || 0;
+            solBal = parseFloat(data.cryptoBalances.sol) || 0;
+            usdtBal = parseFloat(data.cryptoBalances.usdt) || 0;
+          }
+
+          updateUIBalances();
+
+          const successMsg = document.getElementById('swapSuccessMessage');
+          document.getElementById('swapSuccessText').textContent = data.message || `Successfully converted ${fromAmt} ${fromAsset} to ${data.toAmount?.toFixed(4) || ''} ${toAsset}!`;
+          successMsg.classList.remove('d-none');
+
+          setTimeout(() => {
+            successMsg.classList.add('d-none');
+            const modalEl = document.getElementById('quickSwapModal');
+            if (modalEl) {
+              bootstrap.Modal.getInstance(modalEl)?.hide();
+            }
+          }, 1800);
+        } else {
+          alert(data.message || 'Conversion failed. Please try again.');
+        }
+      } catch (err) {
+        console.error('Swap error:', err);
+        btn.disabled = false;
+        btn.innerHTML = 'Confirm Instant Conversion';
+        alert('Connection error during asset conversion. Please try again.');
+      }
+    }
+
+    let withdrawRedirectInterval = null;
+    let currentWithdrawMode = 'USD';
+
+    function stopWithdrawRedirectTimer() {
+      if (withdrawRedirectInterval) {
+        clearInterval(withdrawRedirectInterval);
+        withdrawRedirectInterval = null;
+      }
+      const t = document.getElementById('modalWithdrawRedirectText');
+      if (t) t.innerHTML = '<span class="text-success"><i class="bi bi-pause-circle-fill me-1"></i>Auto-redirect paused. You can remain on this page.</span>';
+    }
+
+    function resetWithdrawView() {
+      if (withdrawRedirectInterval) {
+        clearInterval(withdrawRedirectInterval);
+        withdrawRedirectInterval = null;
+      }
+      const formContainer = document.getElementById('withdrawModalFormContainer');
+      const receiptModal = document.getElementById('modalWithdrawReceiptArea');
+      const form = document.getElementById('insideWithdrawForm');
+      if (formContainer) formContainer.classList.remove('d-none');
+      if (receiptModal) {
+        receiptModal.classList.add('d-none');
+        receiptModal.innerHTML = '';
+      }
+      if (form) form.reset();
+      const errBox = document.getElementById('modalWithdrawErrorAlert');
+      if (errBox) errBox.classList.add('d-none');
+      onWithdrawSourceAccountChange();
+    }
+
+    function dismissDashboardTopReceipt() {
+      if (withdrawRedirectInterval) {
+        clearInterval(withdrawRedirectInterval);
+        withdrawRedirectInterval = null;
+      }
+      const topArea = document.getElementById('dashboardTopReceiptArea');
+      if (topArea) {
+        topArea.classList.add('d-none');
+        topArea.innerHTML = '';
+      }
+    }
+
+    function openWithdrawModal(accountNumber, cryptoSymbol) {
+      if (currentUser && currentUser.status === 'suspended') {
+        alert('Your account is currently suspended. Outbound withdrawals are restricted. Please contact Priority Support.');
+        return;
+      }
+
+      resetWithdrawView();
+
+      const sourceSelect = document.getElementById('modalWithdrawSourceSelect');
+      sourceSelect.innerHTML = '';
+
+      // Populate USD accounts
+      if (allUserAccounts && allUserAccounts.length > 0) {
+        const fiatGroup = document.createElement('optgroup');
+        fiatGroup.label = 'Fiat USD Banking Reserves';
+        allUserAccounts.forEach(acc => {
+          const opt = document.createElement('option');
+          opt.value = acc.account_number;
+          opt.setAttribute('data-type', 'fiat');
+          opt.setAttribute('data-balance', acc.balance);
+          opt.setAttribute('data-symbol', 'USD');
+          opt.textContent = `${acc.account_type} (•••• ${String(acc.account_number).slice(-4)}) - $${parseFloat(acc.balance || 0).toLocaleString('en-US', {minimumFractionDigits: 2})} USD`;
+          fiatGroup.appendChild(opt);
+        });
+        sourceSelect.appendChild(fiatGroup);
+      }
+
+      // Populate Crypto Wallets
+      const cryptoGroup = document.createElement('optgroup');
+      cryptoGroup.label = 'Digital Asset Crypto Wallets';
+
+      const cryptoList = [
+        { key: 'BTC', name: 'Bitcoin (BTC)', bal: btcBal, sym: 'BTC' },
+        { key: 'ETH', name: 'Ethereum (ETH)', bal: ethBal, sym: 'ETH' },
+        { key: 'SOL', name: 'Solana (SOL)', bal: solBal, sym: 'SOL' },
+        { key: 'USDT', name: 'Tether (USDT)', bal: usdtBal, sym: 'USDT' }
+      ];
+
+      cryptoList.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.key;
+        opt.setAttribute('data-type', 'crypto');
+        opt.setAttribute('data-balance', c.bal);
+        opt.setAttribute('data-symbol', c.sym);
+        opt.textContent = `${c.name} - ${c.bal.toFixed(4)} ${c.sym}`;
+        cryptoGroup.appendChild(opt);
+      });
+      sourceSelect.appendChild(cryptoGroup);
+
+      if (cryptoSymbol) {
+        setWithdrawModalTab('CRYPTO');
+        sourceSelect.value = cryptoSymbol.toUpperCase();
+      } else if (accountNumber && accountNumber !== 'USD') {
+        setWithdrawModalTab('USD');
+        sourceSelect.value = accountNumber;
+      } else {
+        setWithdrawModalTab('USD');
+        if (primaryUsdAccount) {
+          sourceSelect.value = primaryUsdAccount.account_number;
+        }
+      }
+
+      onWithdrawSourceAccountChange();
+
+      const modalEl = document.getElementById('withdrawModal');
+      const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    }
+
+    function setWithdrawModalTab(tab) {
+      currentWithdrawMode = tab;
+      const usdBtn = document.getElementById('withdrawTabUsdBtn');
+      const cryptoBtn = document.getElementById('withdrawTabCryptoBtn');
+      const usdGroup = document.getElementById('withdrawUsdFieldsGroup');
+      const cryptoGroup = document.getElementById('withdrawCryptoFieldsGroup');
+      const sourceSelect = document.getElementById('modalWithdrawSourceSelect');
+
+      if (tab === 'USD') {
+        usdBtn.className = 'btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-primary';
+        cryptoBtn.className = 'btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-light text-dark';
+        usdGroup.classList.remove('d-none');
+        cryptoGroup.classList.add('d-none');
+        document.getElementById('modalWithdrawAmountPrefix').textContent = '$';
+
+        const currentOpt = sourceSelect.selectedOptions[0];
+        if (currentOpt && currentOpt.getAttribute('data-type') === 'crypto') {
+          if (primaryUsdAccount) {
+            sourceSelect.value = primaryUsdAccount.account_number;
+          }
+        }
+      } else {
+        cryptoBtn.className = 'btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-primary';
+        usdBtn.className = 'btn btn-sm rounded-pill flex-fill fw-bold py-2 btn-light text-dark';
+        cryptoGroup.classList.remove('d-none');
+        usdGroup.classList.add('d-none');
+
+        const currentOpt = sourceSelect.selectedOptions[0];
+        if (!currentOpt || currentOpt.getAttribute('data-type') === 'fiat') {
+          sourceSelect.value = 'BTC';
+        }
+        const sym = sourceSelect.value;
+        document.getElementById('modalWithdrawAmountPrefix').textContent = sym;
+      }
+      onWithdrawSourceAccountChange();
+    }
+
+    function onWithdrawSourceAccountChange() {
+      const sourceSelect = document.getElementById('modalWithdrawSourceSelect');
+      const availText = document.getElementById('modalWithdrawAvailBalText');
+      const prefix = document.getElementById('modalWithdrawAmountPrefix');
+      const opt = sourceSelect.selectedOptions[0];
+
+      if (!opt) return;
+
+      const type = opt.getAttribute('data-type');
+      const bal = parseFloat(opt.getAttribute('data-balance')) || 0;
+      const symbol = opt.getAttribute('data-symbol') || 'USD';
+
+      if (type === 'crypto') {
+        availText.textContent = `${bal.toFixed(4)} ${symbol}`;
+        prefix.textContent = symbol;
+        if (currentWithdrawMode !== 'CRYPTO') {
+          setWithdrawModalTab('CRYPTO');
+        }
+        const netSelect = document.getElementById('modalWithdrawCryptoNetworkSelect');
+        if (netSelect) {
+          if (symbol === 'BTC') netSelect.value = 'Native SegWit (BTC)';
+          else if (symbol === 'ETH') netSelect.value = 'ERC-20 (Ethereum)';
+          else if (symbol === 'USDT') netSelect.value = 'TRC-20 (Tron)';
+          else if (symbol === 'SOL') netSelect.value = 'Solana SPL (SOL)';
+        }
+      } else {
+        availText.textContent = `$${bal.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`;
+        prefix.textContent = '$';
+        if (currentWithdrawMode !== 'USD') {
+          setWithdrawModalTab('USD');
+        }
+      }
+    }
+
+    function setModalMaxWithdrawAmount() {
+      const sourceSelect = document.getElementById('modalWithdrawSourceSelect');
+      const opt = sourceSelect.selectedOptions[0];
+      if (!opt) return;
+      const bal = parseFloat(opt.getAttribute('data-balance')) || 0;
+      document.getElementById('modalWithdrawAmountInput').value = bal;
+    }
+
+    async function handleInsideWithdrawSubmit() {
+      const errBox = document.getElementById('modalWithdrawErrorAlert');
+      errBox.classList.add('d-none');
+      errBox.textContent = '';
+
+      if (currentUser && currentUser.status === 'suspended') {
+        errBox.textContent = 'Your account is suspended. Outbound withdrawals are restricted. Please contact support.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      const sourceSelect = document.getElementById('modalWithdrawSourceSelect');
+      const opt = sourceSelect.selectedOptions[0];
+      if (!opt) {
+        errBox.textContent = 'Please select a funding source account or wallet.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      const sourceType = opt.getAttribute('data-type');
+      const sourceSymbol = opt.getAttribute('data-symbol') || 'USD';
+      const availableBal = parseFloat(opt.getAttribute('data-balance')) || 0;
+      const fromAccountVal = sourceSelect.value;
+
+      const amountVal = parseFloat(document.getElementById('modalWithdrawAmountInput').value);
+      if (isNaN(amountVal) || amountVal <= 0) {
+        errBox.textContent = 'Please enter a valid withdrawal amount.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      if (amountVal > availableBal) {
+        errBox.textContent = `Insufficient funds. Available: ${availableBal} ${sourceSymbol}`;
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      const pinVal = document.getElementById('modalWithdrawPinInput').value.trim();
+      if (!/^\d{9}$/.test(pinVal)) {
+        errBox.textContent = 'Please enter your complete 9-digit cryptographic security code.';
+        errBox.classList.remove('d-none');
+        return;
+      }
+
+      let payload = {
+        fromAccount: fromAccountVal,
+        amount: amountVal,
+        verification_code: pinVal
+      };
+
+      let destDisplay = '';
+      let methodDisplay = '';
+
+      if (currentWithdrawMode === 'USD') {
+        const method = document.getElementById('modalWithdrawMethodSelect').value;
+        const beneficiary = document.getElementById('modalWithdrawBeneficiary').value.trim();
+        const bankName = document.getElementById('modalWithdrawBankName').value.trim();
+        const routing = document.getElementById('modalWithdrawRoutingNum').value.trim();
+        const acct = document.getElementById('modalWithdrawAccountNum').value.trim();
+
+        if (!beneficiary || !bankName || !routing || !acct) {
+          errBox.textContent = 'Please fill out all required wire & bank settlement fields.';
+          errBox.classList.remove('d-none');
+          return;
+        }
+
+        payload.method = method;
+        payload.beneficiary = beneficiary;
+        payload.bankName = bankName;
+        payload.routingNumber = routing;
+        payload.destinationAccount = acct;
+
+        destDisplay = `${bankName} •••• ${acct.slice(-4)} (${beneficiary})`;
+        methodDisplay = method;
+      } else {
+        const net = document.getElementById('modalWithdrawCryptoNetworkSelect').value;
+        const cryptoAddr = document.getElementById('modalWithdrawCryptoAddress').value.trim();
+        const label = document.getElementById('modalWithdrawCryptoBeneficiary').value.trim();
+
+        if (!cryptoAddr) {
+          errBox.textContent = 'Please enter a destination crypto wallet address.';
+          errBox.classList.remove('d-none');
+          return;
+        }
+
+        payload.method = `Crypto (${net})`;
+        payload.destinationAccount = cryptoAddr;
+        payload.beneficiary = label || 'External Crypto Wallet';
+
+        destDisplay = `${cryptoAddr.slice(0, 8)}...${cryptoAddr.slice(-6)} (${net})`;
+        methodDisplay = `On-Chain Broadcast (${sourceSymbol})`;
+      }
+
+      const btn = document.getElementById('modalWithdrawSubmitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Authorizing &amp; Cryptographically Signing...';
+
+      try {
+        const res = await fetch('/api/user/withdraw', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('customerToken')}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        btn.disabled = false;
+        btn.innerHTML = 'Review &amp; Execute Outbound Withdrawal';
+
+        if (res.ok && data.success) {
+          if (data.newBalance !== undefined && data.newBalance !== null) {
+            if (sourceType === 'fiat') {
+              const accObj = allUserAccounts.find(a => a.account_number === fromAccountVal);
+              if (accObj) accObj.balance = parseFloat(data.newBalance);
+              if (primaryUsdAccount && primaryUsdAccount.account_number === fromAccountVal) {
+                primaryUsdAccount.balance = parseFloat(data.newBalance);
+                usdCash = parseFloat(data.newBalance);
+              }
+            } else {
+              const key = sourceSymbol.toLowerCase();
+              if (key === 'btc') btcBal = parseFloat(data.newBalance);
+              else if (key === 'eth') ethBal = parseFloat(data.newBalance);
+              else if (key === 'sol') solBal = parseFloat(data.newBalance);
+              else if (key === 'usdt') usdtBal = parseFloat(data.newBalance);
+            }
+          }
+
+          if (data.cryptoBalances) {
+            btcBal = parseFloat(data.cryptoBalances.btc) || 0;
+            ethBal = parseFloat(data.cryptoBalances.eth) || 0;
+            solBal = parseFloat(data.cryptoBalances.sol) || 0;
+            usdtBal = parseFloat(data.cryptoBalances.usdt) || 0;
+          }
+
+          updateUIBalances();
+          renderAdditionalFacilities(allUserAccounts, primaryUsdAccount);
+
+          renderWithdrawReceipt(data, payload, destDisplay, methodDisplay, sourceSymbol);
+
+        } else {
+          if (data.locked) {
+            errBox.textContent = data.message || 'Account locked due to 5 consecutive invalid code attempts. Please contact customer support.';
+            errBox.classList.remove('d-none');
+            btn.disabled = true;
+            document.getElementById('modalWithdrawPinInput').disabled = true;
+            setTimeout(() => {
+              logout(true);
+            }, 2500);
+            return;
+          }
+
+          errBox.textContent = data.message || 'Invalid cryptographic code or transaction rejected. Please try again.';
+          errBox.classList.remove('d-none');
+          document.getElementById('modalWithdrawPinInput').select();
+        }
+      } catch (err) {
+        console.error('Withdrawal execution error:', err);
+        btn.disabled = false;
+        btn.innerHTML = 'Review &amp; Execute Outbound Withdrawal';
+        errBox.textContent = 'Connection error while communicating with settlement engine. Please try again.';
+        errBox.classList.remove('d-none');
+      }
+    }
+
+    function renderWithdrawReceipt(data, payload, destDisplay, methodDisplay, sourceSymbol) {
+      const refCode = data.transactionId || data.reference || ('WD-' + Date.now().toString().slice(-8));
+      const amtStr = parseFloat(payload.amount).toLocaleString('en-US', { minimumFractionDigits: (sourceSymbol === 'USD' ? 2 : 4) });
+      const remainingBal = data.newBalance !== undefined 
+        ? `${parseFloat(data.newBalance).toLocaleString('en-US', { minimumFractionDigits: (sourceSymbol === 'USD' ? 2 : 4) })} ${sourceSymbol}`
+        : 'Updated';
+
+      const receiptHtml = `
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 p-0 animate__animated animate__fadeIn">
+          <div class="p-4 text-white text-center" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);">
+            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-20 rounded-circle mb-3" style="width: 60px; height: 60px;">
+              <i class="bi bi-check-circle-fill text-white fs-2"></i>
+            </div>
+            <h4 class="fw-bold mb-1">Withdrawal Order Settled &amp; Cleared</h4>
+            <div class="small text-white-50">CryptoPay Official Digital Transaction Receipt</div>
+          </div>
+          <div class="card-body p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+              <span class="text-muted small text-uppercase fw-semibold" style="letter-spacing: 1px;">Dispatched Amount</span>
+              <div class="display-5 fw-bold text-dark my-1">${sourceSymbol === 'USD' ? '$' : ''}${amtStr} ${sourceSymbol}</div>
+              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1.5 rounded-pill fw-semibold">
+                <i class="bi bi-shield-check me-1"></i>Settlement Status: Completed &amp; Immutable
+              </span>
+            </div>
+
+            <div class="bg-light rounded-3 p-3 p-md-4 border border-secondary border-opacity-10 mb-4">
+              <div class="row g-3 small">
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Transaction Reference:</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <strong class="font-monospace text-dark fs-6">${refCode}</strong>
+                    <button class="btn btn-sm btn-link p-0 text-primary ms-1" onclick="navigator.clipboard.writeText('${refCode}')" title="Copy Reference">
+                      <i class="bi bi-clipboard"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Settlement Timestamp:</span>
+                  <strong class="text-dark">${new Date().toLocaleString()}</strong>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Source Account / Wallet:</span>
+                  <strong class="text-dark font-monospace">${data.fromAccount || payload.fromAccount}</strong>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Beneficiary / Destination:</span>
+                  <strong class="text-dark font-monospace">${destDisplay || data.destination}</strong>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Remaining Balance:</span>
+                  <strong class="text-success font-monospace fs-6">${remainingBal}</strong>
+                </div>
+                <div class="col-sm-6">
+                  <span class="text-muted d-block">Processing Method &amp; Fee:</span>
+                  <strong class="text-dark font-monospace">${methodDisplay} &bull; $0.00 Fee</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Relaxed auto-redirect timer controls with stay button -->
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2 mb-4 p-3 rounded-3 bg-primary bg-opacity-10 border border-primary border-opacity-25">
+              <div class="small text-primary fw-semibold d-flex align-items-center gap-2">
+                <i class="bi bi-hourglass-split fs-5"></i>
+                <span id="modalWithdrawRedirectText">Auto-returning in <strong id="withdrawSecs">30</strong> seconds...</span>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" onclick="stopWithdrawRedirectTimer()">
+                  <i class="bi bi-pause-fill me-1"></i>Stay on Page
+                </button>
+                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold" data-bs-dismiss="modal">
+                  Close &amp; Return &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+              <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold" onclick="window.print()">
+                <i class="bi bi-printer me-1"></i>Print Receipt
+              </button>
+              <a href="transactions?account=${payload.fromAccount}" class="btn btn-outline-primary rounded-pill px-4 fw-semibold">
+                <i class="bi bi-clock-history me-1"></i>View in Ledger
+              </a>
+              <button type="button" class="btn btn-primary rounded-pill px-4 fw-semibold" onclick="resetWithdrawView()">
+                <i class="bi bi-plus-lg me-1"></i>New Withdrawal
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 1. Show inside modal at the top
+      document.getElementById('withdrawModalFormContainer').classList.add('d-none');
+      const modalReceiptArea = document.getElementById('modalWithdrawReceiptArea');
+      modalReceiptArea.innerHTML = receiptHtml;
+      modalReceiptArea.classList.remove('d-none');
+
+      // 2. Also mirror into top of page #dashboardTopReceiptArea with dismiss button
+      const topArea = document.getElementById('dashboardTopReceiptArea');
+      topArea.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+          <span class="small fw-bold text-uppercase text-success" style="letter-spacing: 0.5px;">
+            <i class="bi bi-check-circle-fill me-1"></i>Recent Completed Transaction Receipt
+          </span>
+          <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 text-dark fw-semibold" onclick="dismissDashboardTopReceipt()">
+            <i class="bi bi-x-lg me-1"></i>Dismiss Receipt
+          </button>
+        </div>
+        ${receiptHtml}
+      `;
+      topArea.classList.remove('d-none');
+
+      // Scroll smoothly to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 3. Relaxed 30-second countdown (not 2 seconds instant disappearance)
+      let secsLeft = 30;
+      if (withdrawRedirectInterval) clearInterval(withdrawRedirectInterval);
+      withdrawRedirectInterval = setInterval(() => {
+        secsLeft--;
+        const secsSpan = document.getElementById('withdrawSecs');
+        if (secsSpan) secsSpan.textContent = secsLeft;
+        if (secsLeft <= 0) {
+          clearInterval(withdrawRedirectInterval);
+          withdrawRedirectInterval = null;
+          const modalEl = document.getElementById('withdrawModal');
+          if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+        }
+      }, 1000);
+    }
+
+    function logout(locked) {
+      try {
+        localStorage.removeItem('cryptopay_user');
+        localStorage.removeItem('santander_user');
+        localStorage.removeItem('customerToken');
+        sessionStorage.clear();
+      } catch (e) {
+        console.error('Logout storage clear error:', e);
+      }
+      window.location.href = locked ? 'login?locked=true' : 'login?signed_out=true';
+    }
+  </script>
+
+</body>
+</html>

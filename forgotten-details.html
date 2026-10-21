@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Password Recovery</title>
+  <meta name="description" content="Reset your CryptoPay account password.">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main {
+      flex: 1 0 auto;
+    }
+    .recovery-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+    .form-control {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .form-control:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15) !important;
+    }
+    .form-floating label { color: #64748b; }
+  </style>
+</head>
+
+<body>
+  <!-- Top Live Ticker -->
+  <div class="cryptopay-topbar py-2" style="background: #0b1120; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div class="container-fluid container-xl">
+      <div class="crypto-ticker d-flex align-items-center justify-content-between gap-4 overflow-auto py-1">
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">BTC</span>
+          <span class="text-white fw-bold">$68,420.00</span>
+          <span class="text-success small fw-semibold">+3.42%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">ETH</span>
+          <span class="text-white fw-bold">$3,514.80</span>
+          <span class="text-success small fw-semibold">+4.85%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">SOL</span>
+          <span class="text-white fw-bold">$184.20</span>
+          <span class="text-success small fw-semibold">+8.12%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #2dd4bf;">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+          <span class="text-secondary small fw-semibold">0.00%</span>
+        </div>
+        <div class="crypto-ticker-item d-flex align-items-center gap-2">
+          <span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">BNB</span>
+          <span class="text-white fw-bold">$592.50</span>
+          <span class="text-success small fw-semibold">+2.15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="header cryptopay-header sticky-top py-2" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+    <div class="container-fluid container-xl">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="index" class="cryptopay-brand d-flex align-items-center gap-2 text-decoration-none">
+          <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 30px; height: 30px;">
+          <span class="cryptopay-brand-title fs-5">Crypto<span class="text-primary">Pay</span></span>
+        </a>
+
+        <nav id="navmenu" class="navmenu d-none d-lg-block">
+          <ul class="d-flex align-items-center mb-0 list-unstyled gap-2">
+            <li><a href="index" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Home</a></li>
+            <li><a href="services" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Services</a></li>
+            <li><a href="markets" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Markets</a></li>
+            <li><a href="pricing" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Pricing &amp; Fees</a></li>
+            <li><a href="about" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">About Us</a></li>
+            <li><a href="customer-support" class="btn btn-sm btn-link text-dark text-decoration-none fw-semibold">Support</a></li>
+          </ul>
+        </nav>
+
+        <div class="d-flex align-items-center gap-2">
+          <a class="cryptopay-btn-outline btn-sm text-decoration-none py-1.5 px-3" href="login" style="font-size: 0.85rem;">Log In</a>
+          <a class="cryptopay-btn-primary btn-sm text-decoration-none py-1.5 px-3 d-none d-sm-inline-flex" href="register" style="font-size: 0.85rem;">Register</a>
+
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="btn btn-light btn-sm border d-lg-none rounded-3 p-1.5 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavMenuPublic" aria-controls="mobileNavMenuPublic" aria-expanded="false" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Collapsible Navigation Menu -->
+      <div class="collapse d-lg-none w-100 border-top mt-2 pt-2" id="mobileNavMenuPublic">
+        <div class="d-flex flex-column gap-1 pb-2">
+          <a href="index" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-house-door-fill text-primary me-2"></i>Home</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="services" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-layers-fill text-primary me-2"></i>Services</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="markets" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-graph-up text-primary me-2"></i>Markets</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="pricing" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-tags-fill text-primary me-2"></i>Pricing &amp; Fees</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="about" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-info-circle-fill text-primary me-2"></i>About Us</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <a href="customer-support" class="btn btn-sm text-start py-2 px-3 fw-semibold text-dark rounded-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-headset text-primary me-2"></i>Customer Support</span>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </a>
+          <div class="border-top pt-2 mt-1 d-flex gap-2">
+            <a href="login" class="btn btn-outline-primary btn-sm w-50 py-2 fw-semibold rounded-3">Log In</a>
+            <a href="register" class="btn btn-primary btn-sm w-50 py-2 fw-semibold rounded-3">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main py-5">
+    <div class="container py-lg-4">
+      <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-md-7 col-lg-5">
+          <div class="recovery-card p-4 p-md-5">
+            <div class="text-center mb-4">
+              <h3 class="fw-bold text-dark mb-1">Account Recovery</h3>
+              <p class="text-muted small">Enter your registered email address to receive password reset authorization</p>
+            </div>
+
+            <form onsubmit="event.preventDefault(); sendResetLink();">
+              <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                <label for="email">Registered Email Address</label>
+              </div>
+
+              <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary py-3 fs-6 rounded-pill fw-semibold shadow-sm" id="resetBtn">
+                  <i class="bi bi-send me-1"></i> Send Password Reset Link
+                </button>
+              </div>
+
+              <div id="resetStatus" class="alert d-none small text-center mb-3"></div>
+
+              <div class="text-center">
+                <p class="small text-muted mb-0">Remembered your password? <a href="login" class="text-primary text-decoration-none fw-bold">Log in here</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer with Pure White Text -->
+  <footer class="text-center py-4 mt-auto cryptopay-footer-pure-white" style="border-top: 1px solid rgba(255, 255, 255, 0.1); background-color: #080d1a;">
+    <div class="container">
+      <p class="small mb-0 text-white" style="color: #ffffff !important;">&copy; 2026 CryptoPay Technologies Inc. All rights reserved. Global Digital Banking and Asset Custody Platform &bull; Priority Support: <a href="tel:+18129651537" class="text-white text-decoration-none fw-semibold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-warning me-1.5 align-middle" style="display: inline-block; vertical-align: -0.15em;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+1 812-965-1537</a></p>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script>
+    if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });
+
+    async function sendResetLink() {
+      const email = document.getElementById('email').value.trim();
+      const status = document.getElementById('resetStatus');
+      const btn = document.getElementById('resetBtn');
+
+      if (!email) {
+        status.className = 'alert alert-danger small';
+        status.textContent = 'Please enter your email address.';
+        status.classList.remove('d-none');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Dispatching...';
+
+      try {
+        const response = await fetch('/api/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        
+        status.classList.remove('d-none');
+        if (data.success) {
+          status.className = 'alert alert-success small';
+          status.textContent = 'If the email exists in our records, a reset link has been dispatched.';
+        } else {
+          status.className = 'alert alert-danger small';
+          status.textContent = data.message || 'Error sending password reset request.';
+        }
+      } catch (err) {
+        status.className = 'alert alert-danger small';
+        status.textContent = 'Network communication error. Please try again.';
+        status.classList.remove('d-none');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-send me-1"></i> Send Password Reset Link';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CryptoPay | Institutional Operations Gateway</title>
+  <meta name="description" content="CryptoPay Institutional Operations & Clearance Desk - Administrative Gateway">
+  <link href="img/cryptopay_icon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --terminal-bg: #070a10;
+      --terminal-surface: #0d121d;
+      --terminal-surface-light: #131b2b;
+      --terminal-border: rgba(255, 255, 255, 0.08);
+      --terminal-border-focus: #3b82f6;
+      --terminal-text: #f1f5f9;
+      --terminal-muted: #8b9bb4;
+      --terminal-accent: #2563eb;
+      --terminal-accent-hover: #1d4ed8;
+      --terminal-emerald: #10b981;
+      --terminal-amber: #f59e0b;
+      --terminal-crimson: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--terminal-bg);
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 32px 32px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--terminal-text);
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    /* Top Ticker & Status Bar */
+    .top-system-bar {
+      background: rgba(10, 15, 26, 0.95);
+      border-bottom: 1px solid var(--terminal-border);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      font-size: 12px;
+    }
+
+    .ticker-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--terminal-emerald);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+      animation: pulse-beacon 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-beacon {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Main Container */
+    .gateway-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 16px;
+      position: relative;
+    }
+
+    .gateway-card {
+      width: 100%;
+      max-width: 450px;
+      background: var(--terminal-surface);
+      border: 1px solid var(--terminal-border);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(255, 255, 255, 0.05) inset;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gateway-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #1e40af, #3b82f6, #60a5fa, #1e40af);
+    }
+
+    /* Header */
+    .gateway-header {
+      padding: 28px 28px 20px 28px;
+      border-bottom: 1px solid var(--terminal-border);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .gateway-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .gateway-brand-icon {
+      width: 40px;
+      height: 40px;
+      background: #111a2e;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+
+    .gateway-brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .gateway-brand-title span {
+      color: #3b82f6;
+    }
+
+    .gateway-brand-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--terminal-muted);
+      margin-top: 3px;
+    }
+
+    .security-enclave-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #93c5fd;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Body */
+    .gateway-body {
+      padding: 28px;
+    }
+
+    .terminal-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--terminal-muted);
+      margin-bottom: 8px;
+    }
+
+    .terminal-label span.req {
+      color: #60a5fa;
+      font-size: 10px;
+    }
+
+    .terminal-input-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .terminal-input {
+      width: 100%;
+      background: #090e18 !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #ffffff !important;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .terminal-input:focus {
+      border-color: var(--terminal-border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+      outline: none;
+      background: #0b111e !important;
+    }
+
+    .terminal-input::placeholder {
+      color: #4b5563;
+      font-size: 13px;
+    }
+
+    .toggle-password-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--terminal-muted);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 15px;
+      transition: color 0.15s;
+    }
+
+    .toggle-password-btn:hover {
+      color: #ffffff;
+    }
+
+    .caps-warning {
+      display: none;
+      color: #fbbf24;
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: -12px;
+      margin-bottom: 16px;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .caps-warning.active {
+      display: flex;
+    }
+
+    .gateway-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--terminal-accent);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .gateway-btn:hover {
+      background: var(--terminal-accent-hover);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .gateway-btn:active {
+      transform: translateY(1px);
+    }
+
+    .gateway-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Alerts */
+    .terminal-alert {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
+    }
+
+    .terminal-alert.show {
+      display: flex;
+    }
+
+    .terminal-alert-danger {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .terminal-alert-success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+
+    /* Footer link */
+    .gateway-footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--terminal-border);
+      font-size: 12px;
+      color: var(--terminal-muted);
+    }
+
+    .gateway-footer-links a {
+      color: #93c5fd;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .gateway-footer-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Bottom compliance bar */
+    .compliance-footer {
+      background: #05080e;
+      border-top: 1px solid var(--terminal-border);
+      padding: 14px 20px;
+      font-size: 11px;
+      color: #64748b;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Real-Time System Strip -->
+  <header class="top-system-bar">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <span class="d-inline-flex align-items-center gap-2 font-mono text-white fw-bold">
+          <span class="live-dot"></span>
+          SYS.CLEARANCE.GATEWAY
+        </span>
+        <span class="text-secondary d-none d-md-inline">|</span>
+        <span class="text-muted d-none d-md-inline font-mono" style="font-size: 11px;">
+          TLS_AES_256_GCM_SHA384 · STRICT RESTRICTED ACCESS
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 overflow-auto">
+        <div class="ticker-chip">
+          <span class="text-warning">BTC</span>
+          <span class="text-white fw-bold">$68,420</span>
+        </div>
+        <div class="ticker-chip">
+          <span class="text-primary" style="color: #818cf8 !important;">ETH</span>
+          <span class="text-white fw-bold">$3,514</span>
+        </div>
+        <div class="ticker-chip">
+          <span class="text-success">USDT</span>
+          <span class="text-white fw-bold">$1.00</span>
+        </div>
+        <div class="ticker-chip d-none d-lg-flex">
+          <span class="text-info">UTC TIME</span>
+          <span class="text-white" id="liveUtcClock">--:--:-- UTC</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Centered Clearance Box -->
+  <main class="gateway-wrapper">
+    <div class="gateway-card">
+      <!-- Header -->
+      <div class="gateway-header">
+        <div class="gateway-brand">
+          <div class="gateway-brand-icon">
+            <img src="img/cryptopay_icon.svg" alt="CryptoPay Icon" style="width: 24px; height: 24px;">
+          </div>
+          <div>
+            <h1 class="gateway-brand-title">Crypto<span>Pay</span></h1>
+            <div class="gateway-brand-sub">Treasury &amp; Custody Operations</div>
+          </div>
+        </div>
+        <div class="security-enclave-pill">
+          <i class="bi bi-shield-lock-fill text-primary"></i>
+          <span>ADMINISTRATIVE ENCLAVE // OPERATOR AUTH</span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="gateway-body">
+        <form id="loginForm" autocomplete="off">
+          <!-- Alert Notice -->
+          <div class="terminal-alert terminal-alert-danger" id="errorMessage">
+            <i class="bi bi-exclamation-octagon-fill fs-6 mt-0.5"></i>
+            <span id="errorMessageText">Invalid credentials provided.</span>
+          </div>
+
+          <!-- Username Input -->
+          <div class="terminal-input-wrapper">
+            <label for="username" class="terminal-label">
+              <span>Admin Username</span>
+              <span class="req">OP_ID</span>
+            </label>
+            <input 
+              type="text" 
+              id="username" 
+              class="terminal-input font-mono" 
+              placeholder="e.g. admin" 
+              required
+              autofocus
+              autocomplete="username"
+              spellcheck="false"
+            >
+          </div>
+
+          <!-- Password Input -->
+          <div class="terminal-input-wrapper">
+            <label for="password" class="terminal-label">
+              <span>Master Security Password</span>
+              <span class="req">CLEARANCE_KEY</span>
+            </label>
+            <div class="position-relative">
+              <input 
+                type="password" 
+                id="password" 
+                class="terminal-input" 
+                placeholder="••••••••••••" 
+                required
+                autocomplete="current-password"
+                style="padding-right: 42px;"
+              >
+              <button 
+                type="button" 
+                id="toggleAdminPasswordBtn" 
+                onclick="toggleAdminPasswordVisibility()" 
+                class="toggle-password-btn"
+                title="Toggle clearance key visibility"
+                aria-label="Toggle password visibility"
+              >
+                <i class="bi bi-eye" id="adminPasswordEyeIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Caps Lock Alert -->
+          <div class="caps-warning" id="capsLockWarning">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>Warning: Caps Lock is active</span>
+          </div>
+
+          <!-- Submit Action -->
+          <button type="submit" class="gateway-btn" id="submitBtn">
+            <span id="submitBtnText"><i class="bi bi-key-fill me-1"></i> Authenticate &amp; Open Console</span>
+            <div class="spinner-border spinner-border-sm text-light ms-1" role="status" id="loadingSpinner" style="display: none;">
+              <span class="visually-hidden">Authenticating...</span>
+            </div>
+          </button>
+        </form>
+
+        <!-- Auxiliary Links -->
+        <div class="gateway-footer-links">
+          <a href="index">
+            <i class="bi bi-arrow-left"></i> Client Banking Portal
+          </a>
+          <span class="font-mono text-muted" style="font-size: 11px;">AUTH_DESK_v2.6</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Institutional Compliance Footer -->
+  <footer class="compliance-footer text-center">
+    <div class="container-fluid">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <div>
+          &copy; 2026 CryptoPay Technologies Inc. Global Asset Custody &amp; Commercial Banking.
+        </div>
+        <div>
+          SECURED OPERATOR PROTOCOL &bull; UNAUTHORIZED ACCESS ATTEMPTS ARE RECORDED AND REPORTED
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Live UTC Clock
+      function updateUtcClock() {
+        const now = new Date();
+        const utcStr = now.toUTCString().split(' ')[4] + ' UTC';
+        const clockEl = document.getElementById('liveUtcClock');
+        if (clockEl) clockEl.textContent = utcStr;
+      }
+      updateUtcClock();
+      setInterval(updateUtcClock, 1000);
+
+      // Check if already authenticated
+      if (localStorage.getItem('adminToken')) {
+        window.location.href = 'admin-messages';
+        return;
+      }
+
+      const loginForm = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorMessageText = document.getElementById('errorMessageText');
+
+      // Check URL parameters for sign out notification
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('signed_out') === 'true' || urlParams.get('logout') === 'true') {
+        if (errorMessage) {
+          errorMessage.className = 'terminal-alert terminal-alert-success show';
+          errorMessage.innerHTML = '<i class="bi bi-shield-check fs-6 mt-0.5"></i> <span>Operator session terminated safely. Console locked.</span>';
+        }
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const capsLockWarning = document.getElementById('capsLockWarning');
+
+      // Caps Lock detection
+      passwordInput.addEventListener('keyup', function(e) {
+        if (e.getModifierState && e.getModifierState('CapsLock')) {
+          capsLockWarning.classList.add('active');
+        } else {
+          capsLockWarning.classList.remove('active');
+        }
+      });
+
+      loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!username || !password) {
+          showError('Please supply both operator ID and clearance key.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        if (loadingSpinner) loadingSpinner.style.display = 'inline-block';
+        if (submitBtnText) submitBtnText.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Verifying Credentials...';
+        errorMessage.classList.remove('show');
+
+        try {
+          const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            localStorage.setItem('adminToken', data.token);
+            window.location.href = 'admin-messages';
+          } else {
+            showError(data.message || 'Access Denied: Invalid credentials.');
+          }
+        } catch (error) {
+          console.error('Login error:', error);
+          showError('Gateway communication error. Please check server status.');
+        } finally {
+          submitBtn.disabled = false;
+          if (loadingSpinner) loadingSpinner.style.display = 'none';
+          if (submitBtnText) submitBtnText.innerHTML = '<i class="bi bi-key-fill me-1"></i> Authenticate &amp; Open Console';
+        }
+      });
+
+      function showError(message) {
+        if (errorMessageText) {
+          errorMessageText.textContent = message;
+        } else {
+          errorMessage.textContent = message;
+        }
+        errorMessage.className = 'terminal-alert terminal-alert-danger show';
+      }
+    });
+
+    function toggleAdminPasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('adminPasswordEyeIcon');
+      if (!passwordInput || !eyeIcon) return;
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('bi-eye');
+        eyeIcon.classList.add('bi-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('bi-eye-slash');
+        eyeIcon.classList.add('bi-eye');
+      }
+    }
+  </script>
+</body>
+
+</html>

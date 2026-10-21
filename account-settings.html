@@ -150,6 +150,13 @@
                 </div>
               </div>
 
+              <!-- Residential Address -->
+              <div class="mb-3">
+                <label for="address" class="form-label"><i class="bi bi-geo-alt-fill text-primary me-1"></i>Residential Address</label>
+                <input type="text" class="form-control py-2" id="address" placeholder="Street Address, City, State/Province, Postal Code, Country" required>
+                <div class="form-text small text-muted">Primary residential address on file for regulatory KYC compliance and card issuance.</div>
+              </div>
+
               <!-- Password updates -->
               <h5 class="text-dark fw-bold mt-4 mb-3"><i class="bi bi-key text-warning me-2"></i>Change Password</h5>
               <div class="row g-3 mb-3">
@@ -244,6 +251,7 @@
       document.getElementById('nameDisplay').textContent = cachedFullName;
       if (user.email) document.getElementById('email').value = user.email;
       if (user.phone) document.getElementById('phone').value = user.phone;
+      if (user.address) document.getElementById('address').value = user.address;
 
       try {
         const res = await fetch(`/api/user/${user.username}/profile`, {
@@ -256,6 +264,7 @@
           document.getElementById('nameDisplay').textContent = fullName;
           document.getElementById('email').value = u.email || user.email || '';
           document.getElementById('phone').value = u.phone || user.phone || '';
+          document.getElementById('address').value = u.address || user.address || '';
           if (typeof u.email_notifications !== 'undefined') {
             document.getElementById('emailNotifications').checked = !!u.email_notifications;
           }
@@ -270,9 +279,15 @@
         out.innerHTML = '';
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
         const oldPassword = document.getElementById('oldPassword').value;
         const password = document.getElementById('password').value;
         const emailNotifications = document.getElementById('emailNotifications').checked;
+
+        if (!address) {
+          out.innerHTML = '<div class="alert alert-danger">Please enter your residential address.</div>';
+          return;
+        }
 
         if (password && !oldPassword) {
           out.innerHTML = '<div class="alert alert-danger">Please provide current password to set a new password.</div>';
@@ -289,6 +304,7 @@
             body: JSON.stringify({
               email,
               phone,
+              address,
               oldPassword,
               newPassword: password,
               emailNotifications
@@ -299,6 +315,11 @@
             out.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle me-1"></i> Settings saved successfully.</div>';
             document.getElementById('password').value = '';
             document.getElementById('oldPassword').value = '';
+            // Sync with local storage
+            user.email = email;
+            user.phone = phone;
+            user.address = address;
+            localStorage.setItem('cryptopay_user', JSON.stringify(user));
           } else {
             out.innerHTML = `<div class="alert alert-danger">${d.message || 'Update failed'}</div>`;
           }

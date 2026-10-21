@@ -396,6 +396,7 @@ app.post('/api/login', loginLimiter, async (req, res) => {
                 firstname: user.firstname, 
                 middlename: user.middlename,
                 surname: user.surname,
+                address: user.address,
                 email: user.email,
                 phone: user.phone,
                 status: user.status,
@@ -421,7 +422,7 @@ app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) =
     
     try {
         // Get user details
-        const userRes = await db.query('SELECT id, firstname, middlename, surname, email, phone, status, crypto_balances FROM registrations WHERE username = $1', [username]);
+        const userRes = await db.query('SELECT id, firstname, middlename, surname, address, email, phone, status, crypto_balances FROM registrations WHERE username = $1', [username]);
         const user = userRes.rows[0];
 
         if (!user) {
@@ -443,6 +444,7 @@ app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) =
                 firstname: user.firstname,
                 middlename: user.middlename,
                 surname: user.surname,
+                address: user.address,
                 email: user.email,
                 phone: user.phone,
                 status: user.status
@@ -479,10 +481,10 @@ app.get('/api/user/:username/profile', requireCustomerAuth, async (req, res) => 
     }
 });
 
-// Update user profile (email, phone, password optional)
+// Update user profile (email, phone, address, password optional)
 app.put('/api/user/:username/profile', requireCustomerAuth, async (req, res) => {
     const { username } = req.params;
-    const { email, phone, oldPassword, newPassword, emailNotifications } = req.body;
+    const { email, phone, address, oldPassword, newPassword, emailNotifications } = req.body;
 
     if (req.user.username !== username) {
         return res.status(403).json({ success: false, message: 'Forbidden' });
@@ -503,6 +505,10 @@ app.put('/api/user/:username/profile', requireCustomerAuth, async (req, res) => 
         if (phone && phone !== user.phone) {
             updates.push(`phone = $${idx++}`);
             params.push(phone);
+        }
+        if (address !== undefined && address !== user.address) {
+            updates.push(`address = $${idx++}`);
+            params.push(address);
         }
         if (emailNotifications !== undefined && emailNotifications !== user.email_notifications) {
             updates.push(`email_notifications = $${idx++}`);

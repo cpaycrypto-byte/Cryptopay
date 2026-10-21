@@ -286,7 +286,7 @@
       <!-- User Greeting & Date Bar -->
       <div class="row align-items-center mb-3">
         <div class="col-12">
-          <h2 class="fw-bold text-dark mb-1" id="welcomeMessage">Welcome to CryptoPay</h2>
+          <h2 class="fw-bold text-dark mb-1" id="welcomeMessage">Welcome</h2>
           <p class="text-secondary small mb-0">Multi-Asset Cryptocurrency Wallets &amp; Primary USD Cash Gateway</p>
         </div>
       </div>
@@ -296,7 +296,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6">
             <div class="text-uppercase small fw-bold text-info mb-1" style="letter-spacing: 1px;">Combined Net Valuation (USD &amp; Crypto)</div>
-            <div class="display-5 fw-bold text-white mb-2" id="totalPortfolioValue">$0.00 USD</div>
+            <div class="display-5 fw-bold text-white mb-2" id="totalPortfolioValue">---</div>
             <div class="d-flex align-items-center gap-3 text-light opacity-75 small">
               <span class="text-success fw-bold"><i class="bi bi-arrow-up-right me-1"></i>+4.2% (24h)</span>
               <span>&bull;</span>
@@ -340,7 +340,7 @@
               <div class="row align-items-center">
                 <div class="col-md-7">
                   <div class="text-secondary small fw-semibold">Available Cash Reserve</div>
-                  <div class="display-6 fw-bold text-dark my-1" id="usdCashBalance">$0.00 USD</div>
+                  <div class="display-6 fw-bold text-dark my-1" id="usdCashBalance">---</div>
                   <div class="small text-muted mb-3">Instant ACH / Wire Deposit Ready &bull; Settle in USD or swap to crypto</div>
                   
                   <div class="p-3 bg-light rounded-3 border border-secondary border-opacity-10 mb-3 small">
@@ -351,7 +351,7 @@
                       </div>
                       <div class="col-sm-4">
                         <span class="text-muted d-block">Virtual Account:</span>
-                        <strong class="text-dark font-monospace" id="usdAccountNumber">Loading...</strong>
+                        <strong class="text-dark font-monospace" id="usdAccountNumber">••••••••</strong>
                       </div>
                       <div class="col-sm-4">
                         <span class="text-muted d-block">Linked Card:</span>
@@ -611,7 +611,7 @@
             
             <div class="mb-4">
               <div class="small mb-1" style="color: rgba(255, 255, 255, 0.75); font-size: 0.75rem; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;">Cardholder Name</div>
-              <div class="fw-bold text-white fs-5" id="cardholderName">VALUED CLIENT</div>
+              <div class="fw-bold text-white fs-5" id="cardholderName">••••••••••••</div>
             </div>
 
             <div class="d-flex justify-content-between align-items-end">
@@ -698,7 +698,7 @@
             </div>
             <div class="d-flex justify-content-between py-1 border-bottom small">
               <span class="text-muted">Virtual Account Number:</span>
-              <strong class="text-primary font-monospace" id="modalUsdAccNum">923847192</strong>
+              <strong class="text-primary font-monospace" id="modalUsdAccNum">••••••••</strong>
             </div>
             <div class="d-flex justify-content-between py-1 border-bottom small d-none" id="depositInstAddressRow">
               <span class="text-muted">Bank Address:</span>
@@ -980,7 +980,7 @@
             </div>
             <div class="mb-3">
               <div class="small mb-1" style="color: rgba(255, 255, 255, 0.75); font-size: 0.75rem; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;">Cardholder Name</div>
-              <div class="fw-bold text-white fs-5" id="modalCardholderName">VALUED CLIENT</div>
+              <div class="fw-bold text-white fs-5" id="modalCardholderName">••••••••••••</div>
             </div>
             <div class="d-flex justify-content-between align-items-end">
               <div>
@@ -1334,7 +1334,8 @@
         if (quickSend) quickSend.classList.add('disabled');
       }
 
-      const initialFullName = ((currentUser.firstname || '') + ' ' + (currentUser.surname || '')).trim().toUpperCase();
+      // 1. Immediately render user greeting & full cardholder name from cached session
+      const initialFullName = ((currentUser.firstname || '') + ' ' + (currentUser.middlename || '') + ' ' + (currentUser.surname || '')).replace(/\s+/g, ' ').trim().toUpperCase();
       if (initialFullName) {
         const ch = document.getElementById('cardholderName');
         if (ch) ch.innerText = initialFullName;
@@ -1342,7 +1343,14 @@
         if (mch) mch.innerText = initialFullName;
       }
 
-      // Sync card frozen state on dashboard
+      if (currentUser.firstname) {
+        const hour = new Date().getHours();
+        const greeting = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+        const welcomeEl = document.getElementById('welcomeMessage');
+        if (welcomeEl) welcomeEl.textContent = `${greeting}, ${currentUser.firstname}`;
+      }
+
+      // 2. Sync card frozen state on dashboard
       try {
         const savedFrozen = localStorage.getItem('cryptopay_card_frozen_' + currentUser.username);
         if (typeof setCardFrozenState === 'function') {
@@ -1352,21 +1360,29 @@
         console.warn('Card frozen sync warning:', e);
       }
 
-      // Load persistent crypto balances if available (and purge old mock demo values)
-      const savedBalances = localStorage.getItem('cryptopay_balances_' + currentUser.username);
-      if (savedBalances) {
-        try {
-          const parsed = JSON.parse(savedBalances);
-          // If cached balances were from legacy hardcoded demo numbers (2.15 ETH, 3200 USDT, 14.8 SOL), clear them
-          if ((parsed.eth === 2.15 || parsed.eth === 2.1500) && parsed.usdt === 3200 && parsed.sol === 14.8) {
-            localStorage.removeItem('cryptopay_balances_' + currentUser.username);
-          } else {
-            btcBal = parsed.btc ?? btcBal;
-            ethBal = parsed.eth ?? ethBal;
-            solBal = parsed.sol ?? solBal;
-            usdtBal = parsed.usdt ?? usdtBal;
-          }
-        } catch(e) {}
+      // 3. Load persistent crypto balances if available
+      if (currentUser.crypto_balances) {
+        btcBal = parseFloat(currentUser.crypto_balances.btc) || 0;
+        ethBal = parseFloat(currentUser.crypto_balances.eth) || 0;
+        solBal = parseFloat(currentUser.crypto_balances.sol) || 0;
+        usdtBal = parseFloat(currentUser.crypto_balances.usdt) || 0;
+      }
+
+      // 4. Pre-render account balances and cards immediately from cached session to completely eliminate flashing
+      if (currentUser.accounts && Array.isArray(currentUser.accounts) && currentUser.accounts.length > 0) {
+        allUserAccounts = currentUser.accounts;
+        primaryUsdAccount = allUserAccounts.find(a => a.account_type === 'Fiat & Crypto Wallet' || a.account_type === 'Current') || allUserAccounts[0];
+        if (primaryUsdAccount) {
+          const accNumEl = document.getElementById('usdAccountNumber');
+          if (accNumEl) accNumEl.textContent = primaryUsdAccount.account_number;
+          const modalAccEl = document.getElementById('modalUsdAccNum');
+          if (modalAccEl) modalAccEl.textContent = primaryUsdAccount.account_number;
+          usdCash = parseFloat(primaryUsdAccount.balance) || 0;
+        }
+        renderAdditionalFacilities(allUserAccounts, primaryUsdAccount);
+        setupDepositModalAccounts(allUserAccounts, primaryUsdAccount);
+        setupCardDisplay(allUserAccounts);
+        updateUIBalances();
       }
 
       loadDashboard(currentUser.username);
@@ -1402,7 +1418,7 @@
           document.getElementById('welcomeMessage').textContent = `${greeting}, ${data.user.firstname}`;
           
           if (data.user) {
-            const liveFullName = ((data.user.firstname || '') + ' ' + (data.user.surname || '')).trim().toUpperCase();
+            const liveFullName = ((data.user.firstname || '') + ' ' + (data.user.middlename || '') + ' ' + (data.user.surname || '')).replace(/\s+/g, ' ').trim().toUpperCase();
             if (liveFullName) {
               const ch = document.getElementById('cardholderName');
               if (ch) ch.innerText = liveFullName;
@@ -1411,11 +1427,10 @@
             }
             if (currentUser) {
               currentUser.firstname = data.user.firstname;
+              currentUser.middlename = data.user.middlename;
               currentUser.surname = data.user.surname;
-              try {
-                localStorage.setItem('cryptopay_user', JSON.stringify(currentUser));
-                localStorage.setItem('santander_user', JSON.stringify(currentUser));
-              } catch(e) {}
+              currentUser.email = data.user.email;
+              currentUser.phone = data.user.phone;
             }
           }
           
@@ -1430,7 +1445,7 @@
             setupDepositModalAccounts(allUserAccounts, primaryUsdAccount);
             setupCardDisplay(allUserAccounts);
           } else {
-            document.getElementById('usdAccountNumber').textContent = '923847192';
+            document.getElementById('usdAccountNumber').textContent = '••••••••';
           }
 
           if (data.crypto_balances) {
@@ -1438,6 +1453,15 @@
             ethBal = parseFloat(data.crypto_balances.eth) || 0;
             solBal = parseFloat(data.crypto_balances.sol) || 0;
             usdtBal = parseFloat(data.crypto_balances.usdt) || 0;
+          }
+
+          if (currentUser) {
+            currentUser.accounts = allUserAccounts;
+            currentUser.crypto_balances = data.crypto_balances || { btc: 0, eth: 0, sol: 0, usdt: 0 };
+            try {
+              localStorage.setItem('cryptopay_user', JSON.stringify(currentUser));
+              localStorage.setItem('santander_user', JSON.stringify(currentUser));
+            } catch(e) {}
           }
 
           updateUIBalances();

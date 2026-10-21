@@ -229,31 +229,44 @@
       if(!userStr){ window.location.href = 'login'; return; }
       const user = JSON.parse(userStr);
 
+      function populateStatementAccounts(accounts) {
+        const accountSelect = document.getElementById('accountSelect');
+        accountSelect.innerHTML = '<option value="">Select Account</option>';
+        accounts.forEach(acc => {
+          const opt = document.createElement('option'); 
+          opt.value = acc.account_number;
+          const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+          let friendlyType = acc.account_type;
+          if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyType = 'Fiat & Crypto Wallet';
+          else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyType = 'Crypto Earn & Savings Vault';
+          else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyType = 'Business & Treasury Account';
+          else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyType = 'Crypto Debit Card';
+          opt.textContent = `${friendlyType} (${maskedAcc})`;
+          accountSelect.appendChild(opt);
+        });
+
+        if (accounts.length > 0) {
+          accountSelect.selectedIndex = 1;
+          accountSelect.dispatchEvent(new Event('change'));
+        }
+      }
+
+      if (user.accounts && Array.isArray(user.accounts) && user.accounts.length > 0) {
+        populateStatementAccounts(user.accounts);
+      }
+
       try {
         const dashRes = await fetch(`/api/user/${user.username}/dashboard`, { 
           headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
         });
         const dashData = await dashRes.json();
-        if(dashData.success){
-          const accountSelect = document.getElementById('accountSelect');
-          dashData.accounts.forEach(acc => {
-            const opt = document.createElement('option'); 
-            opt.value = acc.account_number;
-            const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
-            let friendlyType = acc.account_type;
-            if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyType = 'Fiat & Crypto Wallet';
-            else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyType = 'Crypto Earn & Savings Vault';
-            else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyType = 'Business & Treasury Account';
-            else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyType = 'Crypto Debit Card';
-            opt.textContent = `${friendlyType} (${maskedAcc})`;
-            accountSelect.appendChild(opt);
-          });
-
-          // Preselect first account if available
-          if (dashData.accounts.length > 0) {
-            accountSelect.selectedIndex = 1;
-            accountSelect.dispatchEvent(new Event('change'));
-          }
+        if(dashData.success && dashData.accounts){
+          populateStatementAccounts(dashData.accounts);
+          user.accounts = dashData.accounts;
+          try {
+            localStorage.setItem('cryptopay_user', JSON.stringify(user));
+            localStorage.setItem('santander_user', JSON.stringify(user));
+          } catch(e) {}
         }
       } catch(e) { console.error('Error loading accounts', e); }
 

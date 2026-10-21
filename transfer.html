@@ -430,6 +430,46 @@
       const initialMode = urlParams.get('mode');
       const preselectedAcc = urlParams.get('from') || urlParams.get('account');
 
+      function renderAccountOptions(accounts) {
+        userAccounts = accounts;
+        const fromSel = document.getElementById('fromAccount');
+        const toSel = document.getElementById('toAccount');
+        fromSel.innerHTML = '<option value="" disabled selected>Select Source Account</option>';
+        toSel.innerHTML = '<option value="" disabled selected>Select Destination Account</option>';
+
+        userAccounts.forEach(acc => {
+          const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
+          const formattedBal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(acc.balance);
+          let friendlyType = acc.account_type;
+          if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyType = 'Fiat & Crypto Wallet';
+          else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyType = 'Crypto Earn & Savings Vault';
+          else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyType = 'Business & Treasury Account';
+          else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyType = 'Crypto Debit Card';
+
+          const o1 = document.createElement('option');
+          o1.value = acc.account_number;
+          o1.textContent = `${friendlyType} - ${maskedAcc} (${formattedBal})`;
+          if (preselectedAcc && String(acc.account_number) === String(preselectedAcc)) {
+            o1.selected = true;
+          }
+
+          const o2 = o1.cloneNode(true);
+          fromSel.appendChild(o1);
+          toSel.appendChild(o2);
+        });
+
+        updateAvailableBalanceDisplay();
+
+        if (initialMode === 'withdraw') {
+          setOperationMode('withdraw');
+        }
+      }
+
+      // Pre-render immediately from cached session to eliminate any dropdown loading delay
+      if (user.accounts && Array.isArray(user.accounts) && user.accounts.length > 0) {
+        renderAccountOptions(user.accounts);
+      }
+
       try {
         const dash = await fetch(`/api/user/${user.username}/dashboard`, { 
           headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 
@@ -441,38 +481,12 @@
           return;
         }
         if (ddata.success && ddata.accounts) {
-          userAccounts = ddata.accounts;
-          const fromSel = document.getElementById('fromAccount');
-          const toSel = document.getElementById('toAccount');
-          fromSel.innerHTML = '<option value="" disabled selected>Select Source Account</option>';
-          toSel.innerHTML = '<option value="" disabled selected>Select Destination Account</option>';
-
-          userAccounts.forEach(acc => {
-            const maskedAcc = '•••• ' + String(acc.account_number).slice(-4);
-            const formattedBal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(acc.balance);
-            let friendlyType = acc.account_type;
-            if (acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') friendlyType = 'Fiat & Crypto Wallet';
-            else if (acc.account_type === 'Crypto Earn & Savings Vault' || acc.account_type === 'Savings') friendlyType = 'Crypto Earn & Savings Vault';
-            else if (acc.account_type === 'Business & Treasury Account' || acc.account_type === 'Business') friendlyType = 'Business & Treasury Account';
-            else if (acc.account_type === 'Crypto Debit Card' || acc.account_type === 'ISA') friendlyType = 'Crypto Debit Card';
-
-            const o1 = document.createElement('option');
-            o1.value = acc.account_number;
-            o1.textContent = `${friendlyType} - ${maskedAcc} (${formattedBal})`;
-            if (preselectedAcc && String(acc.account_number) === String(preselectedAcc)) {
-              o1.selected = true;
-            }
-
-            const o2 = o1.cloneNode(true);
-            fromSel.appendChild(o1);
-            toSel.appendChild(o2);
-          });
-
-          updateAvailableBalanceDisplay();
-
-          if (initialMode === 'withdraw') {
-            setOperationMode('withdraw');
-          }
+          renderAccountOptions(ddata.accounts);
+          user.accounts = ddata.accounts;
+          try {
+            localStorage.setItem('cryptopay_user', JSON.stringify(user));
+            localStorage.setItem('santander_user', JSON.stringify(user));
+          } catch(e) {}
         }
       } catch(e) { console.error('load accounts error', e); }
 

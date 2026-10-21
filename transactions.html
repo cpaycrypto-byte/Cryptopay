@@ -214,6 +214,10 @@
       const params = new URLSearchParams(window.location.search);
       const accountNumber = params.get('account');
 
+      if (user.accounts && Array.isArray(user.accounts) && user.accounts.length > 0) {
+        renderAccountOverview(user.accounts, accountNumber);
+      }
+
       loadTransactions(currentUsername, accountNumber);
     });
 
@@ -223,6 +227,110 @@
       if (type === 'Business & Treasury Account' || type === 'Business') return 'Business & Treasury Account';
       if (type === 'Crypto Debit Card' || type === 'ISA') return 'Crypto Debit Card';
       return type || 'CryptoPay Account';
+    }
+
+    function renderAccountOverview(accounts, accountNumber, username) {
+      allUserAccounts = accounts;
+
+      let account = null;
+      if (accountNumber) {
+        account = allUserAccounts.find(acc => acc.account_number === accountNumber);
+      }
+      if (!account) {
+        account = allUserAccounts.find(acc => acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') || allUserAccounts[0];
+        accountNumber = account.account_number;
+        try {
+          history.replaceState(null, null, `?account=${accountNumber}`);
+        } catch(e) {}
+      }
+
+      const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+      const numBal = parseFloat(account.balance) || 0;
+      const btcVal = (numBal / 68420).toFixed(4);
+
+      const dropdownItemsHtml = allUserAccounts.map(acc => {
+        const isCurrent = acc.account_number === account.account_number;
+        const bal = formatter.format(parseFloat(acc.balance) || 0);
+        const masked = '•••• ' + String(acc.account_number).slice(-4);
+        return `
+          <li>
+            <a class="dropdown-item d-flex align-items-center justify-content-between px-3 py-2.5 ${isCurrent ? 'active bg-primary' : 'text-white'}" href="javascript:void(0)" onclick="selectAccountSwitch('${username || currentUsername}', '${acc.account_number}')" style="cursor: pointer; border-radius: 8px; margin: 2px 6px;">
+              <div style="min-width: 0;">
+                <div class="fw-semibold small text-truncate ${isCurrent ? 'text-white' : 'text-light'}">${getFriendlyAccountName(acc.account_type)}</div>
+                <div class="text-white-50 font-monospace" style="font-size: 0.72rem;">Acct: ${masked}</div>
+              </div>
+              <span class="badge ${isCurrent ? 'bg-white text-primary' : 'bg-dark text-info'} font-monospace ms-2">${bal}</span>
+            </a>
+          </li>
+        `;
+      }).join('');
+
+      document.getElementById('accountOverview').innerHTML = `
+        <div class="col-12">
+          <div class="p-3 p-md-4 rounded-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%); color: #ffffff; box-shadow: 0 10px 25px rgba(15,23,42,0.12);">
+            <div class="row align-items-center g-3">
+              <div class="col-lg-7 col-md-7">
+                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                  <span class="badge bg-primary bg-opacity-50 text-white">${account.account_type}</span>
+                  <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50">Active Ledger</span>
+                </div>
+                <h3 class="fw-bold text-white mb-2 fs-4 fs-md-3">${getFriendlyAccountName(account.account_type)}</h3>
+                
+                <div class="d-flex flex-wrap align-items-center gap-2 text-white-50 small mb-3">
+                  <span class="bg-white bg-opacity-10 px-2.5 py-1 rounded-2 text-white font-monospace" style="font-size: 0.78rem;">
+                    ID: <strong class="text-white">${account.account_number}</strong>
+                  </span>
+                  <span class="bg-white bg-opacity-10 px-2.5 py-1 rounded-2 text-white font-monospace" style="font-size: 0.78rem;">
+                    ABA: 092300184
+                  </span>
+                  <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-30 py-1 px-2">
+                    <i class="bi bi-shield-check me-1"></i>Settlement Node
+                  </span>
+                </div>
+
+                <div class="dropdown custom-account-switcher position-relative d-inline-block">
+                  <button class="btn btn-sm text-white fw-semibold d-inline-flex align-items-center justify-content-between gap-2 px-3 py-2 rounded-pill border border-white border-opacity-20 dropdown-toggle shadow-none" 
+                          type="button" 
+                          id="accountSwitchDropdown" 
+                          onclick="toggleAccountSwitchMenu(event)" 
+                          aria-expanded="false" 
+                          style="background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(10px); max-width: 100%; cursor: pointer;">
+                    <span class="d-flex align-items-center gap-2 text-truncate" style="min-width: 0;">
+                      <i class="bi bi-arrow-left-right text-info"></i>
+                      <span class="text-truncate">${getFriendlyAccountName(account.account_type)}</span>
+                      <span class="text-white-50 font-monospace small">•••• ${String(account.account_number).slice(-4)}</span>
+                    </span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark shadow-lg border border-secondary border-opacity-25 py-2" 
+                      id="accountSwitchDropdownMenu" 
+                      aria-labelledby="accountSwitchDropdown" 
+                      style="background: #0f172a; min-width: 290px; border-radius: 14px; max-height: 320px; overflow-y: auto; position: absolute; margin-top: 6px; z-index: 1050;">
+                    <li class="dropdown-header text-uppercase text-secondary small fw-bold px-3 py-1" style="font-size: 0.68rem; letter-spacing: 0.8px;">
+                      <i class="bi bi-wallet2 me-1 text-primary"></i>Switch Banking Facility
+                    </li>
+                    ${dropdownItemsHtml}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-5 col-md-5 mt-3 mt-md-0 text-start text-md-end pt-3 pt-md-0 border-top border-md-top-0 border-white border-opacity-10">
+                <div class="text-white-50 small">Available Ledger Balance</div>
+                <div class="fs-1 fw-bold text-white my-1" style="line-height: 1.1;">${formatter.format(numBal)}</div>
+                <div class="text-info small fw-semibold">≈ ${btcVal} BTC</div>
+                <div class="d-flex flex-wrap gap-2 justify-content-start justify-content-md-end mt-3">
+                  <a href="inside?action=deposit" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center">
+                    <i class="bi bi-wallet2 me-1.5"></i>Deposit Funds
+                  </a>
+                  <a href="transfer" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center">
+                    <i class="bi bi-send me-1.5"></i>Transfer
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      return account;
     }
 
     async function loadTransactions(username, accountNumber) {
@@ -238,111 +346,8 @@
           return;
         }
 
-        allUserAccounts = dashboardData.accounts;
-
-        // If no account specified, default to primary or first account
-        let account = null;
-        if (accountNumber) {
-          account = allUserAccounts.find(acc => acc.account_number === accountNumber);
-        }
-        if (!account) {
-          account = allUserAccounts.find(acc => acc.account_type === 'Fiat & Crypto Wallet' || acc.account_type === 'Current') || allUserAccounts[0];
-          accountNumber = account.account_number;
-          // Update URL silently
-          try {
-            history.replaceState(null, null, `?account=${accountNumber}`);
-          } catch(e) {}
-        }
-
-        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-        const numBal = parseFloat(account.balance) || 0;
-        const btcVal = (numBal / 68420).toFixed(4);
-
-        // Account switcher custom items
-        const dropdownItemsHtml = allUserAccounts.map(acc => {
-          const isCurrent = acc.account_number === account.account_number;
-          const bal = formatter.format(parseFloat(acc.balance) || 0);
-          const masked = '•••• ' + String(acc.account_number).slice(-4);
-          return `
-            <li>
-              <a class="dropdown-item d-flex align-items-center justify-content-between px-3 py-2.5 ${isCurrent ? 'active bg-primary' : 'text-white'}" href="javascript:void(0)" onclick="selectAccountSwitch('${username}', '${acc.account_number}')" style="cursor: pointer; border-radius: 8px; margin: 2px 6px;">
-                <div style="min-width: 0;">
-                  <div class="fw-semibold small text-truncate ${isCurrent ? 'text-white' : 'text-light'}">${getFriendlyAccountName(acc.account_type)}</div>
-                  <div class="text-white-50 font-monospace" style="font-size: 0.72rem;">Acct: ${masked}</div>
-                </div>
-                <span class="badge ${isCurrent ? 'bg-white text-primary' : 'bg-dark text-info'} font-monospace ms-2">${bal}</span>
-              </a>
-            </li>
-          `;
-        }).join('');
-
-        document.getElementById('accountOverview').innerHTML = `
-          <div class="col-12">
-            <div class="p-3 p-md-4 rounded-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%); color: #ffffff; box-shadow: 0 10px 25px rgba(15,23,42,0.12);">
-              <div class="row align-items-center g-3">
-                <div class="col-lg-7 col-md-7">
-                  <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                    <span class="badge bg-primary bg-opacity-50 text-white">${account.account_type}</span>
-                    <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50">Active Ledger</span>
-                  </div>
-                  <h3 class="fw-bold text-white mb-2 fs-4 fs-md-3">${getFriendlyAccountName(account.account_type)}</h3>
-                  
-                  <!-- Mobile-Responsive Metadata Chips -->
-                  <div class="d-flex flex-wrap align-items-center gap-2 text-white-50 small mb-3">
-                    <span class="bg-white bg-opacity-10 px-2.5 py-1 rounded-2 text-white font-monospace" style="font-size: 0.78rem;">
-                      ID: <strong class="text-white">${account.account_number}</strong>
-                    </span>
-                    <span class="bg-white bg-opacity-10 px-2.5 py-1 rounded-2 text-white font-monospace" style="font-size: 0.78rem;">
-                      ABA: 092300184
-                    </span>
-                    <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-30 py-1 px-2">
-                      <i class="bi bi-shield-check me-1"></i>Settlement Node
-                    </span>
-                  </div>
-
-                  <!-- Quick Account Switcher Custom Styled Dropdown -->
-                  <div class="dropdown custom-account-switcher position-relative d-inline-block">
-                    <button class="btn btn-sm text-white fw-semibold d-inline-flex align-items-center justify-content-between gap-2 px-3 py-2 rounded-pill border border-white border-opacity-20 dropdown-toggle shadow-none" 
-                            type="button" 
-                            id="accountSwitchDropdown" 
-                            onclick="toggleAccountSwitchMenu(event)" 
-                            aria-expanded="false" 
-                            style="background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(10px); max-width: 100%; cursor: pointer;">
-                      <span class="d-flex align-items-center gap-2 text-truncate" style="min-width: 0;">
-                        <i class="bi bi-arrow-left-right text-info"></i>
-                        <span class="text-truncate">${getFriendlyAccountName(account.account_type)}</span>
-                        <span class="text-white-50 font-monospace small">•••• ${String(account.account_number).slice(-4)}</span>
-                      </span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark shadow-lg border border-secondary border-opacity-25 py-2" 
-                        id="accountSwitchDropdownMenu" 
-                        aria-labelledby="accountSwitchDropdown" 
-                        style="background: #0f172a; min-width: 290px; border-radius: 14px; max-height: 320px; overflow-y: auto; position: absolute; margin-top: 6px; z-index: 1050;">
-                      <li class="dropdown-header text-uppercase text-secondary small fw-bold px-3 py-1" style="font-size: 0.68rem; letter-spacing: 0.8px;">
-                        <i class="bi bi-wallet2 me-1 text-primary"></i>Switch Banking Facility
-                      </li>
-                      ${dropdownItemsHtml}
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="col-lg-5 col-md-5 mt-3 mt-md-0 text-start text-md-end pt-3 pt-md-0 border-top border-md-top-0 border-white border-opacity-10">
-                  <div class="text-white-50 small">Available Ledger Balance</div>
-                  <div class="fs-1 fw-bold text-white my-1" style="line-height: 1.1;">${formatter.format(numBal)}</div>
-                  <div class="text-info small fw-semibold">≈ ${btcVal} BTC</div>
-                  <div class="d-flex flex-wrap gap-2 justify-content-start justify-content-md-end mt-3">
-                    <a href="inside?action=deposit" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center">
-                      <i class="bi bi-wallet2 me-1.5"></i>Deposit Funds
-                    </a>
-                    <a href="transfer" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center">
-                      <i class="bi bi-send me-1.5"></i>Transfer
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
+        const activeAccount = renderAccountOverview(dashboardData.accounts, accountNumber, username);
+        accountNumber = activeAccount.account_number;
 
         const txnRes = await fetch(`/api/account/${accountNumber}/transactions`, { 
           headers: { 'Authorization': `Bearer ${localStorage.getItem('customerToken')}` } 

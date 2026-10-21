@@ -382,16 +382,26 @@ app.post('/api/login', loginLimiter, async (req, res) => {
         // Generate customer JWT
         const token = generateToken({ role: 'customer', username: user.username });
         await logLoginAttempt(username, req, 'success', 'Customer login successful');
+
+        // Fetch accounts for immediate pre-population on client dashboard
+        const accountsRes = await db.query('SELECT * FROM accounts WHERE registration_id = $1', [user.id]);
+
         res.json({ 
             success: true, 
             message: 'Login successful', 
             token: token,
             user: { 
+                id: user.id,
                 username: user.username,
                 firstname: user.firstname, 
+                middlename: user.middlename,
                 surname: user.surname,
                 email: user.email,
-                phone: user.phone
+                phone: user.phone,
+                status: user.status,
+                account_types: user.account_types,
+                crypto_balances: user.crypto_balances || { btc: 0, eth: 0, sol: 0, usdt: 0 },
+                accounts: accountsRes.rows
             } 
         });
     } catch (err) {
@@ -411,7 +421,7 @@ app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) =
     
     try {
         // Get user details
-        const userRes = await db.query('SELECT id, firstname, surname, email, phone, status, crypto_balances FROM registrations WHERE username = $1', [username]);
+        const userRes = await db.query('SELECT id, firstname, middlename, surname, email, phone, status, crypto_balances FROM registrations WHERE username = $1', [username]);
         const user = userRes.rows[0];
 
         if (!user) {
@@ -428,8 +438,13 @@ app.get('/api/user/:username/dashboard', requireCustomerAuth, async (req, res) =
         res.json({
             success: true,
             user: {
+                id: user.id,
+                username: user.username,
                 firstname: user.firstname,
+                middlename: user.middlename,
                 surname: user.surname,
+                email: user.email,
+                phone: user.phone,
                 status: user.status
             },
             accounts: accountsRes.rows,

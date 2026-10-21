@@ -1,28 +1,10 @@
 const app = require('../server');
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'Server is running' });
-});
-
-// 404 handler
-app.use((req, res) => {
-  console.log(`404 - ${req.method} ${req.path}`);
-  res.status(404).json({ 
-    success: false, 
-    message: 'Not found',
-    path: req.path
-  });
-});
-
-// Error handler
-app.use((err, req, res, next) => {
-  console.error('Server error:', err);
-  res.status(500).json({ 
-    success: false, 
-    message: 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err.message : undefined
-  });
-});
-
-module.exports = app;
+// Export serverless handler for Vercel
+module.exports = (req, res) => {
+  // Ensure req.url retains /api prefix so Express routes (/api/login, /api/user, etc.) always match
+  if (req.url && !req.url.startsWith('/api/') && req.url !== '/api') {
+    req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+  }
+  return app(req, res);
+};

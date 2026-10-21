@@ -3282,7 +3282,7 @@ app.post('/api/admin/send-test-alert', requireAuth, async (req, res) => {
 });
 
 // Start the server (for local development)
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log(`View Business Accounts at http://localhost:${PORT}/business-accounts.html`);
